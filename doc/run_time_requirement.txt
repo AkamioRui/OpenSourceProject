@@ -1,0 +1,5 @@
+the environtment that will be used for the project:
+database : mariaDB
+server: raspberry pi Zero 2 W
+server side programming languange: PHP
+client side programming languange: js
