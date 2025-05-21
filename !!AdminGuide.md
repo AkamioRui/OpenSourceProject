@@ -1,0 +1,2 @@
+??? how smart is the people using the app
+??? 
