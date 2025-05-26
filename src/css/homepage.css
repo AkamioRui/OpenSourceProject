@@ -11,7 +11,6 @@ body {
   background: #fff5e9;
 }
 
-/* -------------- NAV ---------------------------------------------------- */
 nav {
   display: flex;
   justify-content: space-around;
@@ -32,7 +31,6 @@ nav img {
   height: 5rem;
 }
 
-/* -------------- MAIN WRAPPER ------------------------------------------ */
 main {
   width: 90%;
   margin: auto;
@@ -41,11 +39,11 @@ main {
 .top-card {
   --photo-size: 13rem;
   background: #efd3b0;
-  border-radius: 2rem;
+  border-radius: 1.5rem 1.5rem 0 0;
   padding: 2.5rem 3rem;
   width: 80%;
-  max-width: 1200px;
-  margin: 2rem auto;
+  max-width: 100%;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr var(--photo-size);
   grid-template-rows: auto auto;
@@ -75,8 +73,9 @@ main {
 .card-title {
   font-size: 3rem;
   font-weight: 700;
-  color: #1d1b68;
+  color: #000049;
 }
+
 .card-contrib {
   font-size: 1.5rem;
   color: #5f5387;
@@ -88,4 +87,32 @@ main {
   font-size: 1.35rem;
   line-height: 1.6;
   max-width: 65ch;
+}
+
+.bottom-card {
+  width: 80%;
+  max-width: 100%;
+  padding: 2rem;
+  margin: 0 auto;
+  border-radius: 0 0 1.5rem 1.5rem;
+  background-color: #f5e0c6;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+}
+
+.post-title {
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #000049;
+}
+
+.post-desc {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: #000049;
 }

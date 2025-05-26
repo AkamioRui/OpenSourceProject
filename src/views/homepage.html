@@ -17,20 +17,29 @@
 
     <main>
       <div class="top-card">
-        <img src="../assets/temp_img.jpg" alt="" class="card-photo" />
+        <img alt="{{FORUM.ICON}}" class="card-photo" />
         <div class="card-heading">
-          <h2 class="card-title">Jew Jew Jew Jew Jew</h2>
-          <span class="card-contrib">250 contributors</span>
+          <h2 class="card-title">{{FORUM.NAME}}</h2>
+          <span class="card-contrib">{{FORUM.CONTRIBUTOR}}</span>
         </div>
-        <p class="card-desc">
-          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-          enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-          ut aliquip ex ea commodo consequat.
-        </p>
+        <p class="card-desc">{{FORUM.DESCRIPTION}}</p>
       </div>
 
       <div class="bottom-card">
-        <p class="card-content"></p>
+        <div class="card-content">
+          <h3 class="post-title">{{POST.TITLE}}</h3>
+          <p class="post-desc">{{POST.DESCRIPTION}}</p>
+        </div>
+
+        <div class="card-content">
+          <h3 class="post-title">{{POST.TITLE}}</h3>
+          <p class="post-desc">{{POST.DESCRIPTION}}</p>
+        </div>
+
+        <div class="card-content">
+          <h3 class="post-title">{{POST.TITLE}}</h3>
+          <p class="post-desc">{{POST.DESCRIPTION}}</p>
+        </div>
       </div>
     </main>
   </body>
