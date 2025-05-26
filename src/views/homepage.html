@@ -5,40 +5,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../css/homepage.css" rel="stylesheet" />
+    <link href="../css/global.css" rel="stylesheet" />
+    <script src="../components/navbar.js"></script>
   </head>
   <body>
-    <nav>
-      <h1>LetMeKnow</h1>
-      <form>
-        <input class="search" type="text" placeholder="Search..." />
-      </form>
-      <img src="../assets/circle.png" alt="" />
-    </nav>
+    <app-navbar></app-navbar>
 
     <main>
-      <div class="top-card">
-        <img alt="{{FORUM.ICON}}" class="card-photo" />
-        <div class="card-heading">
-          <h2 class="card-title">{{FORUM.NAME}}</h2>
-          <span class="card-contrib">{{FORUM.CONTRIBUTOR}}</span>
-        </div>
-        <p class="card-desc">{{FORUM.DESCRIPTION}}</p>
-      </div>
-
-      <div class="bottom-card">
-        <div class="card-content">
-          <h3 class="post-title">{{POST.TITLE}}</h3>
-          <p class="post-desc">{{POST.DESCRIPTION}}</p>
+      <div class="card-container">
+        <div class="top-card">
+          <img alt="{{FORUM.ICON}}" class="card-photo" />
+          <div class="card-heading">
+            <h2 class="card-title">{{FORUM.NAME}}</h2>
+            <span class="card-contrib">{{FORUM.CONTRIBUTOR}}</span>
+          </div>
+          <p class="card-desc">{{FORUM.DESCRIPTION}}</p>
         </div>
 
-        <div class="card-content">
-          <h3 class="post-title">{{POST.TITLE}}</h3>
-          <p class="post-desc">{{POST.DESCRIPTION}}</p>
-        </div>
+        <div class="bottom-card">
+          <div class="card-content">
+            <h3 class="post-title">{{POST.TITLE}}</h3>
+            <p class="post-desc">{{POST.DESCRIPTION}}</p>
+          </div>
 
-        <div class="card-content">
-          <h3 class="post-title">{{POST.TITLE}}</h3>
-          <p class="post-desc">{{POST.DESCRIPTION}}</p>
+          <div class="card-content">
+            <h3 class="post-title">{{POST.TITLE}}</h3>
+            <p class="post-desc">{{POST.DESCRIPTION}}</p>
+          </div>
+
+          <div class="card-content">
+            <h3 class="post-title">{{POST.TITLE}}</h3>
+            <p class="post-desc">{{POST.DESCRIPTION}}</p>
+          </div>
         </div>
       </div>
     </main>
