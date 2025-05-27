@@ -26,3 +26,6 @@ form.append('myimg',theimg );
 // $dbh2 = $dbh2 ?? getPDO();//NO use
 // multiple concurrent fetch is possible
 // executing restart fetch (duh)
+
+postdebugger
+

@@ -14,10 +14,8 @@ also make sure apache2 can open this directory. For example:
         Require all granted
     </Directory>
 
-download php and mariadb
-
-fill database identity (hostIP, port, database name,...) into /databaseConfig.json
-in php.ini enable php_mysql extension. add the line:
+download php
+in php.ini enable php_mysql extension. For example by add the line:
     extension=./ext/php_pdo_mysql
 by default, the maximum size for file being sent is 8MB, but it can be adjusted in php.ini
     upload_max_filesize = 128M
@@ -25,6 +23,11 @@ by default, the maximum size for file being sent is 8MB, but it can be adjusted 
     
 client uploaded image is stored in default temp folder. for example:
     C:\Users\$user$\AppData\Local\Temp\
+
+
+download mariadb
+create a database then fill database identity (hostIP, port, database name,...) into /databaseConfig.json
+run the code in \module\sql_code\CREATE_TABLE.sql on your database
 
     
 

@@ -7,23 +7,33 @@
 
 
     $select = $dbh->prepare("
-        SELECT * FROM `user_t`
+        SELECT (
+            SELECT f.name
+            FROM forum_t f
+            WHERE f.creatorId = u.id
+        ) as titles
+        FROM `user_t` u
+        WHERE u.id = 1;
     ");
-    $select->bindColumn('profilePic',$img);
+    $select->bindColumn('titles',$name);
     $select->setFetchMode(PDO::FETCH_ASSOC);
     $select->execute();
-
-    $select->fetch();
+    // $select->fetchAll();
 
     
-?>
 
+    var_dump($select->fetch());
+    var_dump($name);
+    
+?>
 <html>
     <body>
     <h1> image </h1>    
-    <!-- <img src="data:image/png;base64,<?=$img?>" /> -->
+    <img src="data:image/png;base64," />
     </body>
 </html>
+
+
 
 
 
