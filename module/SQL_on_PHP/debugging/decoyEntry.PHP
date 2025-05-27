@@ -4,68 +4,65 @@
     include_once __DIR__.'\..\library.php';
     $dbh = getPDO();
 
-    $intoUser = $dbh->prepare('
-        INSERT INTO `user_t`(createdAt, profilePic, username, email, password, admin)
-        VALUES (:createdAt, :profilePic, :username, :email, :password, :admin)
+    $addUser = $dbh->prepare('
+        INSERT INTO `user_t`( profilePic, username, email, password, admin)
+        VALUES ( :profilePic, :username, :email, :password, :admin)
     ');
-        $intoUser->bindValue(':createdAt',date('Y-m-d H:i:s'));
-        $intoUser->bindValue(':profilePic',base64_encode(file_get_contents(__DIR__.'\user_profilePic1.jpg')));
-        $intoUser->bindValue(':username','user1');
-        $intoUser->bindValue(':email','user1@gmail.com');
-        $intoUser->bindValue(':password','pass1');
-        $intoUser->bindValue(':admin',true);
-    $intoUser->execute();
-    //     $intoUser->bindValue(':createdAt',date('Y-m-d H:i:s'));
-    //     $intoUser->bindValue(':profilePic',base64_encode(file_get_contents(__DIR__.'\user_profilePic2.jpg')));
-    //     $intoUser->bindValue(':username','user2');
-    //     $intoUser->bindValue(':email','user2@gmail.com');
-    //     $intoUser->bindValue(':password','pass2');
-    //     $intoUser->bindValue(':admin',false);
-    // $intoUser->execute();
-    //     $intoUser->bindValue(':createdAt',date('Y-m-d H:i:s'));
-    //     $intoUser->bindValue(':profilePic',base64_encode(file_get_contents(__DIR__.'\user_profilePic3.jpg')));
-    //     $intoUser->bindValue(':username','user3');
-    //     $intoUser->bindValue(':email','user3@gmail.com');
-    //     $intoUser->bindValue(':password','pass3');
-    //     $intoUser->bindValue(':admin',false);
-    // $intoUser->execute();
+        $addUser->bindValue(':profilePic',base64_encode(file_get_contents(__DIR__.'\user_profilePic1.jpg')));
+        $addUser->bindValue(':username','user1');
+        $addUser->bindValue(':email','user1@gmail.com');
+        $addUser->bindValue(':password','pass1');
+        $addUser->bindValue(':admin',true);
+    $addUser->execute();
+        $addUser->bindValue(':profilePic',base64_encode(file_get_contents(__DIR__.'\user_profilePic2.jpg')));
+        $addUser->bindValue(':username','user2');
+        $addUser->bindValue(':email','user2@gmail.com');
+        $addUser->bindValue(':password','pass2');
+        $addUser->bindValue(':admin',0);
+    $addUser->execute();
+        $addUser->bindValue(':profilePic',base64_encode(file_get_contents(__DIR__.'\user_profilePic3.jpg')));
+        $addUser->bindValue(':username','user3');
+        $addUser->bindValue(':email','user3@gmail.com');
+        $addUser->bindValue(':password','pass3');
+        $addUser->bindValue(':admin',0);
+    $addUser->execute();
 
     
 
-    // $addforum1 = $dbh1->prepare("
-    //     INSERT INTO `forum_t`(`name`, `banner`, `icon`, `createdAt`, `creatorId`, `descriptions`)
-    //     VALUES(:name, :banner, :icon, :createdAt, :creatorId, :descriptions)
-    // ");
-    // $addforum1->bindParam(':name' ,$name );
-    // $addforum1->bindParam(':banner' ,$banner );
-    // $addforum1->bindParam(':icon' ,$icon );
-    // $addforum1->bindParam(':createdAt' ,$createdAt );
-    // $addforum1->bindParam(':creatorId' ,$creatorId );
-    // $addforum1->bindParam(':descriptions' ,$descriptions );
-    // $name = 'genshin';
-    // $banner = null ;
-    // $icon = null;
-    // $createdAt = date('Y-m-d H:i:s');
-    // $creatorId = 1;
-    // $descriptions = 'genshin impact';
-    // $addforum1->execute();
+    $addforum = $dbh->prepare("
+        INSERT INTO `forum_t`(`name`, `banner`, `icon`, `creatorId`, `descriptions`)
+        VALUES(:name, :banner, :icon, :creatorId, :descriptions)
+    ");
+        $addforum->bindValue(':name' , 'apple');
+        $addforum->bindValue(':banner' , base64_encode(file_get_contents(__DIR__.'\forum_banner1.jpg')));
+        $addforum->bindValue(':icon' , base64_encode(file_get_contents(__DIR__.'\forum_icon1.jpg')));
+        $addforum->bindValue(':creatorId' , 1);
+        $addforum->bindValue(':descriptions' , 'about apple');
+    $addforum->execute();
+        $addforum->bindValue(':name' , 'oranges');
+        $addforum->bindValue(':banner' , base64_encode(file_get_contents(__DIR__.'\forum_banner2.jpg')));
+        $addforum->bindValue(':icon' , base64_encode(file_get_contents(__DIR__.'\forum_icon2.jpg')));
+        $addforum->bindValue(':creatorId' , 1);
+        $addforum->bindValue(':descriptions' , 'about oranges');
+    $addforum->execute();
+        $addforum->bindValue(':name' , 'grape');
+        $addforum->bindValue(':banner' , base64_encode(file_get_contents(__DIR__.'\forum_banner3.jpg')));
+        $addforum->bindValue(':icon' , base64_encode(file_get_contents(__DIR__.'\forum_icon3.jpg')));
+        $addforum->bindValue(':creatorId' , 1);
+        $addforum->bindValue(':descriptions' , 'about grape');
+    $addforum->execute();
 
 
-    // $adduser1 = $dbh1->prepare("
-    //     INSERT INTO `user_t`( `createdAt`, `profilePic`, `username`, `email`, `password`, `admin`)
-    //     VALUES(:createdAt, :profilePic, :username, :email, :password, :admin)
-    // ");
-    // $adduser1->bindParam(':createdAt'  ,$createdAt  );
-    // $adduser1->bindParam(':profilePic' ,$profilePic );
-    // $adduser1->bindParam(':username'   ,$username   );
-    // $adduser1->bindParam(':email'      ,$email      );
-    // $adduser1->bindParam(':password'   ,$password   );
-    // $adduser1->bindParam(':admin'      ,$admin      );
-    // $createdAt = date('Y-m-d H:i:s');
-    // $profilePic = null ;
-    // $username = 'newcomer';
-    // $email = 'newcomer@gmail.com';
-    // $password = 'pass1';
-    // $admin = true;
-    // $adduser1->execute();
+    $addpost = $dbh->prepare("
+        INSERT INTO `post_t`(`creatorId`, `createdAt`, `title`, `contents`, `forumId`, `like`)
+        VALUES(:creatorId, :createdAt, :title, :contents, :forumId, :like)
+    ");
+    // $addpost->bindValue(':creatorId' , 2);
+    // $addpost->bindValue(':createdAt' , date('Y-m-d H:i:s'));
+    // $addpost->bindValue(':title' , 'new type of apple');
+    // $addpost->bindValue(':contents' ,'the new type is ');
+    // $addpost->bindValue(':forumId' , 1);
+    // $addpost->bindValue(':like' , 'about apple');
+    // $addpost->execute();
+    
 ?>

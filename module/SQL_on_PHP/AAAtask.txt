@@ -22,3 +22,7 @@ const selection = await window.showOpenFilePicker({
 });
 let theimg = await selection[0].getFile();
 form.append('myimg',theimg );
+
+// $dbh2 = $dbh2 ?? getPDO();//NO use
+// multiple concurrent fetch is possible
+// executing restart fetch (duh)

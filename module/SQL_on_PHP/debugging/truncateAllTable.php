@@ -48,7 +48,7 @@
     
     $cleaner = $dbh->prepare(
         $RemoveAllConstraint.
-        $TruncateAllTable.
+        $DropAllTable.
         $AddAllConstraint
     );
     $cleaner->execute();

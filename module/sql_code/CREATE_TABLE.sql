@@ -1,6 +1,6 @@
 CREATE TABLE `user_t` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `createdAt` TIMESTAMP,
+    `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `profilePic` MEDIUMBLOB,
     `username` VARCHAR(1024) NOT NULL UNIQUE,
     `email` VARCHAR(1024) NOT NULL UNIQUE,
@@ -12,7 +12,7 @@ CREATE TABLE `forum_t` (
     `name` VARCHAR(1024),
     `banner` MEDIUMBLOB,
     `icon` MEDIUMBLOB,
-    `createdAt` TIMESTAMP,
+    `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `creatorId` INT,
     `descriptions` VARCHAR(1024),
     FOREIGN KEY `forum_fk_creatorId` (`creatorId`) REFERENCES `user_t` (`id`) ON DELETE SET NULL 
@@ -21,7 +21,7 @@ CREATE TABLE `forum_t` (
 CREATE TABLE `post_t` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `creatorId` INT,
-    `createdAt` TIMESTAMP,
+    `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `title` VARCHAR(1024),
     `contents` VARCHAR(1024),
     `forumId` INT NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `postPicture_t` (
 );
 CREATE TABLE `comment_t` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `createdAt` TIMESTAMP,
+    `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `creatorId` INT ,
     `postId` INT NOT NULL,
     `parentId` INT ,
@@ -57,4 +57,4 @@ CREATE TABLE `comment_t` (
 -- ADD TO `postPicture_t` id
 -- RENAME `post_t`.`date` TO `post_t`.`createdAt`
 -- CHANGE ATTRIBUTE NAMING CONVENTION FROM USING _ TO CAMEL
--- CHANGE TYPE DATETIME to TIMESTAMP
+-- CHANGE TYPE DATETIME to TIMESTAMP DEFAULT CURRENT_TIMESTAMP

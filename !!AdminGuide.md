@@ -1,6 +1,7 @@
 ??? how smart is the people using the app
 ??? 
 email and username must be unique
+maximum size of every string is 1024
 
 download apache2
 then make sure the "document root" is the directory where this app (the MESSAGEBROARDPORJECT) is saved. For example:
