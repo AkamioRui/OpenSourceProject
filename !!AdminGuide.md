@@ -1,10 +1,27 @@
 ??? how smart is the people using the app
 ??? 
+email and username must be unique
+
+download apache2
+then make sure the "document root" is the directory where this app (the MESSAGEBROARDPORJECT) is saved. For example:
+    1. open /etc/apache2/apache2.conf or /etc/apache2/sites-enabled/000-default.conf
+    2. navigate to any mention of "Document root" and change it to the directory where this app is saved
+also make sure apache2 can open this directory. For example:
+    1. open previously mentioned file again
+    2. under the Document Root line, add 
+    <Directory "/the/app/direcory">
+        Require all granted
+    </Directory>
 
 download php and mariadb
+
 fill database identity (hostIP, port, database name,...) into /databaseConfig.json
 in php.ini enable php_mysql extension. add the line:
     extension=./ext/php_pdo_mysql
+by default, the maximum size for file being sent is 8MB, but it can be adjusted in php.ini
+    upload_max_filesize = 128M
+    post_max_size = 128M
+    
 client uploaded image is stored in default temp folder. for example:
     C:\Users\$user$\AppData\Local\Temp\
 

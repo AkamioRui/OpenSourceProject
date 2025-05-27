@@ -1,50 +1,51 @@
 CREATE TABLE `user_t` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `createdAt` TIMESTAMP,
-    `profilePic` BLOB,
-    `username` VARCHAR(1024),
-    `email` VARCHAR(1024),
-    `password` VARCHAR(1024),
+    `profilePic` MEDIUMBLOB,
+    `username` VARCHAR(1024) NOT NULL UNIQUE,
+    `email` VARCHAR(1024) NOT NULL UNIQUE,
+    `password` VARCHAR(1024) NOT NULL,
     `admin` BOOL
 );
 CREATE TABLE `forum_t` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(1024),
-    `banner` BLOB,
-    `icon` BLOB,
+    `banner` MEDIUMBLOB,
+    `icon` MEDIUMBLOB,
     `createdAt` TIMESTAMP,
-    `creatorId` INT  
-        REFERENCES `user_t` (`id`) ON DELETE SET NULL ,
-    `descriptions` VARCHAR(1024)
+    `creatorId` INT,
+    `descriptions` VARCHAR(1024),
+    FOREIGN KEY `forum_fk_creatorId` (`creatorId`) REFERENCES `user_t` (`id`) ON DELETE SET NULL 
+
 );
 CREATE TABLE `post_t` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `creatorId` INT 
-        REFERENCES `user_t` (`id`) ON DELETE SET NULL,
+    `creatorId` INT,
     `createdAt` TIMESTAMP,
     `title` VARCHAR(1024),
     `contents` VARCHAR(1024),
-    `forumId` INT NOT NULL
-        REFERENCES `forum_t` (`id`) ON DELETE CASCADE ,
-    `like` INT
+    `forumId` INT NOT NULL,
+    `like` INT,
+    FOREIGN KEY `post_fk_creatorId` (`creatorId`) REFERENCES `user_t` (`id`) ON DELETE SET NULL ,
+    FOREIGN KEY `post_fk_forumId` (`forumId`) REFERENCES `forum_t` (`id`) ON DELETE CASCADE 
 );
 CREATE TABLE `postPicture_t` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `postId` INT NOT NULL
-        REFERENCES `post_t` (`id`) ON DELETE CASCADE,
-    `picture` BLOB
+    `postId` INT NOT NULL,
+    `picture` MEDIUMBLOB,
+    FOREIGN KEY `postPicture_fk_postId` (`postId`) REFERENCES `post_t` (`id`) ON DELETE CASCADE
 );
 CREATE TABLE `comment_t` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `createdAt` TIMESTAMP,
-    `creatorId` INT 
-        REFERENCES `user_t` (`id`) ON DELETE SET NULL ,
-    `postId` INT NOT NULL
-        REFERENCES `post_t` (`id`) ON DELETE CASCADE ,
-    `parentId` INT NOT NULL
-        REFERENCES `comment_t` (`id`) ON DELETE CASCADE ,
+    `creatorId` INT ,
+    `postId` INT NOT NULL,
+    `parentId` INT ,
     `comment` VARCHAR(1024),
-    `like` INT
+    `like` INT,
+    FOREIGN KEY `comment_fk_creatorId` (`creatorId`) REFERENCES `user_t` (`id`) ON DELETE SET NULL ,
+    FOREIGN KEY `comment_fk_postId` (`postId`) REFERENCES `post_t` (`id`) ON DELETE CASCADE ,
+    FOREIGN KEY `comment_fk_parentId` (`parentId`) REFERENCES `comment_t` (`id`) ON DELETE CASCADE
 );
 
 

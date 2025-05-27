@@ -1,12 +1,25 @@
 <html>
+    
     <body>
+        <script src="library.js"></script>
         <form enctype="multipart/form-data" method="post" action="test.php">
-            <input type="file" accept="image/*" name="myimg">
+            <input class="textbox" name="data" type="text" value="apple">
+            <input class="filebox" name="myimg[]" type="file" accept="image/*" onchange="showsize()" multiple>
             <input type="submit">
         </form>
+        <p class="counter">size:</p>
 
-        <p>here is the image</p>
 
-        <img src="">
+        <button onclick="postData()"> submit </button>
+        <button onclick="redirect2php()"> click here</button>
+    
+        
     </body>
+
+    <script>
+        function redirect2php(){
+            window.location.href = 'http://localhost:3000/module/SQL_on_PHP/test.php';
+        }
+    </script>
+
 </html>

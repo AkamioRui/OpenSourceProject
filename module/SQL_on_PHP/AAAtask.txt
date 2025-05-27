@@ -1,0 +1,24 @@
+1. for submitting post, user info, anything should be done dynamically using js fetch
+
+2. changing form css  based on input. 
+    input:invalid{}
+    input:invalid:required{}
+3. <input required pattern="[Bb]anana"/>
+4. <input type="file" id="input" multiple />
+
+5. manually request file
+//const pickerOpts = ;
+const selection = await window.showOpenFilePicker({
+  types: [
+    {
+      description: "Images",
+      accept: {
+        "image/*": [".png", ".gif", ".jpeg", ".  jpg"],
+      },
+    },
+  ],
+  excludeAcceptAllOption: true,
+  multiple: false,
+});
+let theimg = await selection[0].getFile();
+form.append('myimg',theimg );
