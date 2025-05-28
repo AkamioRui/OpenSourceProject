@@ -7,7 +7,7 @@ class Navbar extends HTMLElement {
         <input class="search" type="text" placeholder="Search..." />
       </form>
       <img src="../assets/circle.png" alt="" />
-    </nav>;
+    </nav>
     `;
   }
 }
