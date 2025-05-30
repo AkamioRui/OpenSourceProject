@@ -1,8 +1,18 @@
 {
-    "host":"127.0.0.1",
-    "port":"13306",
-    "dbname":"myadmin_db",
-    "username":"root",
-    "password":"ruidb"
+    "database":{
+        "host":"127.0.0.1",
+        "port":"13306",
+        "dbname":"myadmin_db",
+        "username":"root",
+        "password":"ruidb"
+    },
+    "defaultUser":{
+        "createdAt":"mm/dd/yyyy",
+        "profilePic":"user_defaultProfile.jpg",
+        "username":"Your username",
+        "email":"youremail@gmail.com"
+    }
+
+    
 }
 

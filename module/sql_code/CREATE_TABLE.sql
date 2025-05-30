@@ -5,7 +5,7 @@ CREATE TABLE `user_t` (
     `username` VARCHAR(1024) NOT NULL UNIQUE,
     `email` VARCHAR(1024) NOT NULL UNIQUE,
     `password` VARCHAR(1024) NOT NULL,
-    `admin` BOOL
+    `admin` BOOL DEFAULT 0
 );
 CREATE TABLE `forum_t` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -25,7 +25,7 @@ CREATE TABLE `post_t` (
     `title` VARCHAR(1024),
     `contents` VARCHAR(1024),
     `forumId` INT NOT NULL,
-    `like` INT,
+    `like` INT DEFAULT 0,
     FOREIGN KEY `post_fk_creatorId` (`creatorId`) REFERENCES `user_t` (`id`) ON DELETE SET NULL ,
     FOREIGN KEY `post_fk_forumId` (`forumId`) REFERENCES `forum_t` (`id`) ON DELETE CASCADE 
 );
@@ -42,11 +42,12 @@ CREATE TABLE `comment_t` (
     `postId` INT NOT NULL,
     `parentId` INT ,
     `comment` VARCHAR(1024),
-    `like` INT,
+    `like` INT DEFAULT 0,
     FOREIGN KEY `comment_fk_creatorId` (`creatorId`) REFERENCES `user_t` (`id`) ON DELETE SET NULL ,
     FOREIGN KEY `comment_fk_postId` (`postId`) REFERENCES `post_t` (`id`) ON DELETE CASCADE ,
     FOREIGN KEY `comment_fk_parentId` (`parentId`) REFERENCES `comment_t` (`id`) ON DELETE CASCADE
 );
+
 
 
 

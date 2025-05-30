@@ -1,7 +1,5 @@
-
-
 <?php
-    include_once __DIR__.'\..\library.php';
+    include_once __DIR__."/../HEADER.php";
     $dbh = getPDO();
 
     $addUser = $dbh->prepare('
@@ -80,16 +78,27 @@
         INSERT INTO `postPicture_t`(`postId`, `picture`)
         VALUES(:postId, :picture)
     ");
-    $addpostPicture->bindValue(':postId' , 2);
-    $addpostPicture->bindValue(':picture' , base64_encode(file_get_contents(__DIR__.'\post1img1.jpg')));
-    $addpostPicture->execute();
-    $addpostPicture->bindValue(':postId' , 2);
-    $addpostPicture->bindValue(':picture' , base64_encode(file_get_contents(__DIR__.'\post1img2.jpg')));
-    $addpostPicture->execute();
+    // $addpostPicture->bindValue(':postId' , 2);
+    // $addpostPicture->bindValue(':picture' , base64_encode(file_get_contents(__DIR__.'\post1img1.jpg')));
+    // $addpostPicture->execute();
+    // $addpostPicture->bindValue(':postId' , 2);
+    // $addpostPicture->bindValue(':picture' , base64_encode(file_get_contents(__DIR__.'\post1img2.jpg')));
+    // $addpostPicture->execute();
     // $addpostPicture->bindValue(':postId' , 3);
     // $addpostPicture->bindValue(':picture' , base64_encode(file_get_contents(__DIR__.'\post1img3.webp')));
-    $addpostPicture->execute();
+    // $addpostPicture->execute();
     
+    $addReqpost = $dbh->prepare("
+        SELECT max(id) from post_t;
+        INSERT INTO `post_t`(`creatorId`, `title`, `contents`, `forumId` )
+        VALUES(:creatorId, :title, :contents, :forumId);
+    ");
+    $addReqpost->bindValue(':creatorId' , 2);
+    $addReqpost->bindValue(':title' , 'my new red apple');
+    $addReqpost->bindValue(':contents' ,'a sour apple ');
+    $addReqpost->bindValue(':forumId' , 1);
+    $addReqpost->execute();
+    var_dump($addReqpost->fetch());
     
 ?>
 

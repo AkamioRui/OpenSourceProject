@@ -1,5 +1,5 @@
 <?php
-    include_once "library.php";
+    include_once __DIR__."/HEADER.php";
     // header('Location:/module/SQL_on_PHP/POST.php');
 //!!!!!!!!  if forum id = invalid , do what? 
 
