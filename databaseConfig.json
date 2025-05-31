@@ -11,6 +11,13 @@
         "profilePic":"user_defaultProfile.jpg",
         "username":"Your username",
         "email":"youremail@gmail.com"
+    },
+    "homepage":{
+        "forum_max_description":"2048",
+        "post_max_description":"256"
+    },
+    "forumpage":{
+        "post_max_description":"2048"
     }
 
     

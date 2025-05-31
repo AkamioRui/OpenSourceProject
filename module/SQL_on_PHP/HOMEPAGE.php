@@ -97,23 +97,6 @@
 
 <!-- profile picture -->
 
-<p>user_profilePic = </p>
-<?php
-    $_SESSION['uid'] = -1;
-?>
-    <img style="width:200px" src="<?=getProfilePic()?>">
-<?php
-    $_SESSION['uid'] = 2;
-?>
-    <img style="width:200px" src="<?=getProfilePic()?>">
-<?php
-    $_SESSION['uid'] = 3;
-?>
-    <img style="width:200px" src="<?=getProfilePic()?>">
-<br>
-<hr>
-
-
 <?php
     HOMEPAGE_TEST($homepage);
     function HOMEPAGE_TEST($homepage){

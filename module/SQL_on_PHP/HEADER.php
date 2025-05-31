@@ -2,11 +2,7 @@
     //this is executed by all php file
     session_start();
     $_SESSION['uid'] = $_SESSION['uid']??-1;
-    
-    
-    
-    
-    
+
 
     //library
     /* 

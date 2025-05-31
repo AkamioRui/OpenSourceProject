@@ -15,7 +15,7 @@
 //description use: LEFT(`profilePic`, 256)
 
 
-//please define all function
+//HOMEPAGE, FORUMPAGE put cap on how long the content 
 
 
 //homepage
@@ -91,7 +91,7 @@
     //function
         // redirect_Back();//must know the previous fullpage
         // fetch_accountPopup();
-        // fetch_CreatePost();
+        // fetch_CreateComment();
         
 
 //accountPopup
