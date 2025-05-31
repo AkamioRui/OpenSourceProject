@@ -1,92 +1,90 @@
 <?php
     include_once __DIR__."/HEADER.php";
 
-    class FORUM{
+    
+    /* test */$_SESSION['uid'] = 1;
+    $homepage = new HOMEPAGE();
+    
+
+
+    class HOMEPAGE{
 
         //variable for populating the page
-        public $user_profilePic;
-
         public $forum_name;
-        public $forum_banner;
+        public $forum_postCount; //custom
         public $forum_icon;
-        public $forum_createdAt;
         public $forum_descriptions;
-        public $forum_creator_name;//from user_t
 
-        private $post_id;//for post_images
-        public $post_createdAt;
-        public $post_title;
-        public $post_contents;
-        public $post_like;
+        public $post_title; 
+        public $post_contents;    
         
 
-        public $postPicture_pictures;//return false when empty//need to be encoded to base64
+        //redirect fetch requirement
+        //accountPopup
+            // public $_SESSION['uid'];
+        //forumpage
+            public $forum_id; 
+        //postpage
+            public $post_id;
+        //createforum
         
         //frequently used variable
+        private $selectForum;
         private $selectPost;
-        private $selectPostPicture;
         private $dbh;
-        public $post_empty;
+        public $post_valid;
+        public $forum_valid;
 
-        function __construct($forum_id){
+        function __construct(){
             
             $this->dbh = getPDO();
             // LEFT(`profilePic`, 256)
 
             
             //get forum info
-            $selectForum = $this->dbh->prepare('
+            $this->selectForum = $this->dbh->prepare('
                 SELECT *,(
-                    SELECT username FROM `user_t` WHERE `user_t`.`id` = `forum_t`.`creatorId`
-                    ) as creator_name 
+                    SELECT COUNT(forumId) 
+                    FROM post_t
+                    WHERE post_t.forumId = forum_t.id
+                ) as postCount
                 FROM `forum_t`
-                WHERE id = :forum_id
+                ORDER BY id DESC
             ');
-            $selectForum->bindValue(':forum_id', $forum_id);
-            $selectForum->bindColumn('name', $this->forum_name);
-            $selectForum->bindColumn('banner', $this->forum_banner);
-            $selectForum->bindColumn('icon', $this->forum_icon);
-            $selectForum->bindColumn('createdAt', $this->forum_createdAt);
-            $selectForum->bindColumn('descriptions', $this->forum_descriptions);
-            $selectForum->bindColumn('creator_name', $this->forum_creator_name);
-            $selectForum->execute();
-            $selectForum->fetch();
+            $this->selectForum->bindColumn('name', $this->forum_name);
+            $this->selectForum->bindColumn('postCount', $this->forum_postCount);
+            $this->selectForum->bindColumn('icon', $this->forum_icon);
+            $this->selectForum->bindColumn('descriptions', $this->forum_descriptions);
+            $this->selectForum->bindColumn('id', $this->forum_id);
+            $this->selectForum->execute();
+            $this->forum_valid = $this->selectForum->fetch()?true:false;
             
             
 
             //select Post
             $this->selectPost = $this->dbh->prepare('
-                SELECT * FROM `post_t`
+                SELECT * 
+                FROM `post_t`
                 WHERE forumId = :forum_id
                 ORDER BY `id` DESC
             ');
-            $this->selectPost->bindValue(':forum_id', $forum_id);
-            $this->selectPost->bindColumn('id', $this->post_id);
-            $this->selectPost->bindColumn('createdAt', $this->post_createdAt);
+            $this->selectPost->bindParam(':forum_id', $this->forum_id);
             $this->selectPost->bindColumn('title', $this->post_title);
             $this->selectPost->bindColumn('contents', $this->post_contents);
-            $this->selectPost->bindColumn('like', $this->post_like);
+            $this->selectPost->bindColumn('id', $this->post_id);
             $this->selectPost->execute();
-            $this->post_empty = empty($this->selectPost->fetch());
-            
+            $this->post_valid = $this->selectPost->fetch()?true:false;
 
-            //get post images
-            $this->selectPostPicture = $this->dbh->prepare('
-                SELECT picture FROM `postPicture_t`
-                WHERE postId = :postId
-            ');
-            $this->selectPostPicture->setFetchMode(PDO::FETCH_COLUMN,0);
-            $this->selectPostPicture->bindParam(':postId',$this->post_id);
-            $this->selectPostPicture->execute();
-            $this->postPicture_pictures = $this->selectPostPicture->fetchAll();
 
         }
 
         function nextPost(){
-            $this->post_empty = empty($this->selectPost->fetch());
-            $this->selectPostPicture->execute();
-            $this->postPicture_pictures = $this->selectPostPicture->fetchAll();
-
+            $this->post_valid = $this->selectPost->fetch()?true:false;
+        }
+        function nextForum(){
+            $this->forum_valid = $this->selectForum->fetch()?true:false;
+            $this->selectPost->execute();
+            $this->post_valid = $this->selectPost->fetch()?true:false;
         }
         
 
@@ -95,107 +93,64 @@
 
 ?>
 
-<?php
-    //start of code, mostlikely in the actuall php file
-    session_start();
-    $_SESSION['uid'] = 1;
-    $forum_id = '1';
-    $forum = new FORUM($forum_id);
-    $header= new HEADER($_SESSION['uid']);
+<!-- ----------------------testing-------------------------------- -->
 
-?>
+<!-- profile picture -->
 
-<!-- <img style="width:100px" src="Forumpage.png" > -->
 <p>user_profilePic = </p>
-    <img style="width:200px" src="data:image/*;base64,<?=$header->user_profilePic?>">
+<?php
+    $_SESSION['uid'] = -1;
+?>
+    <img style="width:200px" src="<?=getProfilePic()?>">
 <?php
     $_SESSION['uid'] = 2;
-    $header->updateProfile();
 ?>
-    <img style="width:200px" src="data:image/*;base64,<?=$header->user_profilePic?>">
+    <img style="width:200px" src="<?=getProfilePic()?>">
 <?php
     $_SESSION['uid'] = 3;
-    $header->updateProfile();
 ?>
-    <img style="width:200px" src="data:image/*;base64,<?=$header->user_profilePic?>">
+    <img style="width:200px" src="<?=getProfilePic()?>">
 <br>
+<hr>
 
-<p>forum_name = <?=$forum->forum_name?></p>
-<p>forum_banner = </p>
-    <img style="width:200px" src="data:image/*;base64,<?=$forum->forum_banner?>">
-<p>forum_icon =</p>
-    <img style="width:200px"src="data:image/*;base64,<?=$forum->forum_icon?>" src="">
-<p>forum_createdAt = <?=$forum->forum_createdAt?></p>
-<p>forum_descriptions = <?=$forum->forum_descriptions?></p>
-<p>forum_creator_name = <?=$forum->forum_creator_name?></p>
-
-
-<p>post_createdAt = <?=$forum->post_createdAt?></p>
-<p>post_contents = <?=$forum->post_contents?></p>
-<p>post_title = <?=$forum->post_title?></p>
-<p>post_like = <?=$forum->post_like?></p>
-<br>
 
 <?php
-
-    if(!$forum->postPicture_pictures ) echo 'no image';
-    else {
-        foreach($forum->postPicture_pictures as $image){
+    HOMEPAGE_TEST($homepage);
+    function HOMEPAGE_TEST($homepage){
+        while($homepage->forum_valid){
             ?>
-            <img style="width:200" src="data:image/*;base64,<?=$image?>">
+                <div style="background-color: greenyellow;--forumId='<?=$homepage->forum_id?>'">
+                    <p>name = <?=$homepage->forum_name?></p>
+                    <p>postCount = <?=$homepage->forum_postCount?></p>
+                    <p>icon =</p>
+                        <img style="width:200px" src="data:image/*;base64,<?=base64_encode($homepage->forum_icon)?>">    
+                    <p>descriptions = <?=$homepage->forum_descriptions?></p>
+                    
+                    
+                    
+                    
+                    <?php
+                        while($homepage->post_valid){
+                            ?>
+                                <div style="background-color: aqua;--postId='<?=$homepage->post_id?>'">
+                                    <p>title = <?=$homepage->post_title?></p>
+                                    <p>contents = <?=$homepage->post_contents?></p>
+                                </div>
+                                <hr>
+                            <?php
+                            $homepage->nextPost();
+                        }
+                    ?>
+                    
+                </div>
+                <hr>
+    
             <?php
-
+            $homepage->nextForum();
         }
     }
+    
 ?>
-<h1>NEXT POST</h1>
-<?php
-    $forum->nextPost();
-?>
-<p>post_createdAt = <?=$forum->post_createdAt?></p>
-<p>post_contents = <?=$forum->post_contents?></p>
-<p>post_title = <?=$forum->post_title?></p>
-<p>post_like = <?=$forum->post_like?></p>
-<br>
-
-<?php
-
-    if(!$forum->postPicture_pictures ) echo 'no image';
-    else {
-        foreach($forum->postPicture_pictures as $image){
-            ?>
-            <img style="width:200" src="data:image/*;base64,<?=$image?>">
-            <?php
-
-        }
-    }
-?>
-<br>
-
-<?php
-    $forum->nextPost();
-?>
-<p>post_empty = <?=empty($forum->post_empty)?'yes':'no'?></p>
-<p>post_title = <?=$forum->post_title?></p>
-<?php
-    $forum->nextPost();
-?>
-    <p>post_empty = <?=empty($forum->post_empty)?'yes':'no'?></p>
-    <p>post_title = <?=$forum->post_title?></p>
-<?php
-    $forum->nextPost();
-?>
-    <p>post_empty = <?=empty($forum->post_empty)?'yes':'no'?></p>
-    <p>post_title = <?=$forum->post_title?></p>
-<?php
-    $forum->nextPost();
-?>
-    <p>post_empty = <?=empty($forum->post_empty)?'yes':'no'?></p>
-    <p>post_title = <?=$forum->post_title?></p>
-
-<p></p>
-<br>
 
 
-<p></p>
-<br> 
+

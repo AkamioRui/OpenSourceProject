@@ -1,10 +1,20 @@
 <?php
     include_once __DIR__."/HEADER.php";
 
+    
+    /* test */$_SESSION['uid'] = 1;
+    /* test */$_GET['forum_id'] = 1;
+    if(!isset($_GET['forum_id'])) {
+        /* temp */echo 'invalid forum';
+        return;
+    }
+    $forum = new FORUM($_GET['forum_id']);
+    
+
+
     class FORUM{
 
         //variable for populating the page
-        public $user_profilePic;
 
         public $forum_name;
         public $forum_banner;
@@ -26,7 +36,8 @@
         private $selectPost;
         private $selectPostPicture;
         private $dbh;
-        public $post_empty;
+        public $post_valid;
+        public $forum_valid;
 
         function __construct($forum_id){
             
@@ -50,7 +61,7 @@
             $selectForum->bindColumn('descriptions', $this->forum_descriptions);
             $selectForum->bindColumn('creator_name', $this->forum_creator_name);
             $selectForum->execute();
-            $selectForum->fetch();
+            $this->forum_valid = $selectForum->fetch()?true:false;
             
             
 
@@ -67,7 +78,7 @@
             $this->selectPost->bindColumn('contents', $this->post_contents);
             $this->selectPost->bindColumn('like', $this->post_like);
             $this->selectPost->execute();
-            $this->post_empty = empty($this->selectPost->fetch());
+            $this->post_valid = $this->selectPost->fetch()?true:false;
             
 
             //get post images
@@ -83,7 +94,7 @@
         }
 
         function nextPost(){
-            $this->post_empty = empty($this->selectPost->fetch());
+            $this->post_valid = $this->selectPost->fetch()?true:false;
             $this->selectPostPicture->execute();
             $this->postPicture_pictures = $this->selectPostPicture->fetchAll();
 
@@ -95,107 +106,64 @@
 
 ?>
 
-<?php
-    //start of code, mostlikely in the actuall php file
-    session_start();
-    $_SESSION['uid'] = 1;
-    $forum_id = '1';
-    $forum = new FORUM($forum_id);
-    $header= new HEADER($_SESSION['uid']);
+<!-- ----------------------testing-------------------------------- -->
 
-?>
+<!-- profile picture -->
 
-<!-- <img style="width:100px" src="Forumpage.png" > -->
 <p>user_profilePic = </p>
-    <img style="width:200px" src="data:image/*;base64,<?=$header->user_profilePic?>">
+<?php
+    $_SESSION['uid'] = -1;
+?>
+    <img style="width:200px" src="<?=getProfilePic()?>">
 <?php
     $_SESSION['uid'] = 2;
-    $header->updateProfile();
 ?>
-    <img style="width:200px" src="data:image/*;base64,<?=$header->user_profilePic?>">
+    <img style="width:200px" src="<?=getProfilePic()?>">
 <?php
     $_SESSION['uid'] = 3;
-    $header->updateProfile();
 ?>
-    <img style="width:200px" src="data:image/*;base64,<?=$header->user_profilePic?>">
+    <img style="width:200px" src="<?=getProfilePic()?>">
 <br>
+<hr>
 
+<!-- forum  -->
 <p>forum_name = <?=$forum->forum_name?></p>
 <p>forum_banner = </p>
-    <img style="width:200px" src="data:image/*;base64,<?=$forum->forum_banner?>">
+    <img style="width:200px" src="data:image/*;base64,<?=base64_encode($forum->forum_banner)?>">
 <p>forum_icon =</p>
-    <img style="width:200px"src="data:image/*;base64,<?=$forum->forum_icon?>" src="">
+    <img style="width:200px"src="data:image/*;base64,<?=base64_encode($forum->forum_icon)?>" src="">
 <p>forum_createdAt = <?=$forum->forum_createdAt?></p>
 <p>forum_descriptions = <?=$forum->forum_descriptions?></p>
 <p>forum_creator_name = <?=$forum->forum_creator_name?></p>
 
+<hr>
 
-<p>post_createdAt = <?=$forum->post_createdAt?></p>
-<p>post_contents = <?=$forum->post_contents?></p>
-<p>post_title = <?=$forum->post_title?></p>
-<p>post_like = <?=$forum->post_like?></p>
-<br>
-
+<!-- posts -->
 <?php
+    while($forum->post_valid){
+        ?>
+        <p>post_createdAt = <?=$forum->post_createdAt?></p>
+        <p>post_contents = <?=$forum->post_contents?></p>
+        <p>post_title = <?=$forum->post_title?></p>
+        <p>post_like = <?=$forum->post_like?></p>
+        <?php
 
-    if(!$forum->postPicture_pictures ) echo 'no image';
-    else {
-        foreach($forum->postPicture_pictures as $image){
-            ?>
-            <img style="width:200" src="data:image/*;base64,<?=$image?>">
-            <?php
 
+
+        if(!$forum->postPicture_pictures ) echo 'no image';
+        else {
+            foreach($forum->postPicture_pictures as $image){
+                ?>
+                <img style="width:200" src="data:image/*;base64,<?=base64_encode($image)?>">
+                <?php
+
+            }
         }
+        $forum->nextPost();
+
+        echo '<br> <br>';
+        
+
     }
+    echo '<hr>';
 ?>
-<h1>NEXT POST</h1>
-<?php
-    $forum->nextPost();
-?>
-<p>post_createdAt = <?=$forum->post_createdAt?></p>
-<p>post_contents = <?=$forum->post_contents?></p>
-<p>post_title = <?=$forum->post_title?></p>
-<p>post_like = <?=$forum->post_like?></p>
-<br>
-
-<?php
-
-    if(!$forum->postPicture_pictures ) echo 'no image';
-    else {
-        foreach($forum->postPicture_pictures as $image){
-            ?>
-            <img style="width:200" src="data:image/*;base64,<?=$image?>">
-            <?php
-
-        }
-    }
-?>
-<br>
-
-<?php
-    $forum->nextPost();
-?>
-<p>post_empty = <?=empty($forum->post_empty)?'yes':'no'?></p>
-<p>post_title = <?=$forum->post_title?></p>
-<?php
-    $forum->nextPost();
-?>
-    <p>post_empty = <?=empty($forum->post_empty)?'yes':'no'?></p>
-    <p>post_title = <?=$forum->post_title?></p>
-<?php
-    $forum->nextPost();
-?>
-    <p>post_empty = <?=empty($forum->post_empty)?'yes':'no'?></p>
-    <p>post_title = <?=$forum->post_title?></p>
-<?php
-    $forum->nextPost();
-?>
-    <p>post_empty = <?=empty($forum->post_empty)?'yes':'no'?></p>
-    <p>post_title = <?=$forum->post_title?></p>
-
-<p></p>
-<br>
-
-
-<p></p>
-<br> 

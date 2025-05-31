@@ -1,7 +1,5 @@
-
-
 <?php
-    include_once __DIR__."/HEADER.php";
+    include_once __DIR__."/../HEADER.php";
     $dbh = getPDO();
 
     $RemoveAllConstraint = '
@@ -48,7 +46,7 @@
     
     $cleaner = $dbh->prepare(
         $RemoveAllConstraint.
-        $DropAllTable.
+        $TruncateAllTable.
         $AddAllConstraint
     );
     $cleaner->execute();

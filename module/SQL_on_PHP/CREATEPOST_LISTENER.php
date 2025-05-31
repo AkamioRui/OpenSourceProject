@@ -9,7 +9,6 @@
     include_once __DIR__."/HEADER.php";
     
     //control
-
     if($_SESSION['uid'] == -1){
         /* 
         ob_start();
@@ -31,42 +30,34 @@
     submitPostData();
 
     
-    /* temp */submitPostData_print();
+    /* temp *///submitPostData_print();
 
     //library
     function submitPostData(){
-        // $_POST['forum_id'];
-
-        // $_POST['post_title'];
-        // $_POST['post_contents'];
-        // $_FILES['postPicture_picture'];
-
         $dbh = getPDO();
-        $insertPost = $dbh->prepare('
-            INSERT INTO `post_t`(`creatorId`, `title`, `contents`, `forumId`)
-            VALUES(:creatorId, :title, :contents, :forumId)
-        ');
         
+        $insertPost = $dbh->prepare('
+            SELECT max(id) FROM post_t;
+            INSERT INTO `post_t`(`creatorId`, `title`, `contents`, `forumId`)
+            VALUES(:creatorId, :title, :contents, :forumId);
+        ');
+        $insertPost->setFetchMode(PDO::FETCH_COLUMN,0);
         $insertPost->bindValue(':creatorId',$_SESSION['uid']);
         $insertPost->bindValue(':title',$_POST['post_title']??'');
         $insertPost->bindValue(':contents',$_POST['post_contents']??'');
-        
         $insertPost->bindValue(':forumId',$_POST['forum_id']);
-        // $insertPost->execute();
+        $insertPost->execute();
         
         
         if(isset($_FILES['postPicture_picture']['tmp_name'])){
-            $getid = $dbh->prepare('
-                SELECT max(id) FROM post_t
-            ');
-            $getid->setFetchMode(PDO::FETCH_COLUMN,0);
-            $getid->execute();
+            $getid = $insertPost->fetch() + 1;
+            $insertPost->closeCursor();
             $image = null;
             $insertPostPicture = $dbh->prepare('
                 INSERT INTO `postPicture_t`(`postId`, `picture`)
                 VALUES(:postId, :picture)
             ');
-            $insertPostPicture->bindValue(':postId',$getid->fetch());
+            $insertPostPicture->bindValue(':postId',$getid);
             $insertPostPicture->bindParam(':picture',$image);
             foreach($_FILES['postPicture_picture']['tmp_name'] as $file){
                 $image= file_get_contents($file);
@@ -77,7 +68,7 @@
         
         
         
-        echo '<p>success</p>';
+        echo '<body style="--code:\'success\';"> </body>';
     }
 
     function submitPostData_print(){

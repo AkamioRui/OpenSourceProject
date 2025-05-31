@@ -3,7 +3,8 @@
     session_start();
     $_SESSION['uid'] = $_SESSION['uid']??-1;
     
-    $defaulProfilePicPath = __DIR__.'\\'.json_decode(file_get_contents(__DIR__.'/../../databaseConfig.json'))->defaultUser->profilePic;
+    
+    
     
     
 
@@ -29,10 +30,8 @@
     }
 
     function getProfilePic(){
+        $defaulProfilePicPath = __DIR__.'\\'.json_decode(file_get_contents(__DIR__.'/../../databaseConfig.json'))->defaultUser->profilePic;
         $prefix = 'data:image/*;base64,';
-        if($_SESSION['uid'] == -1){
-            return $prefix.base64_encode(file_get_contents($defaulProfilePicPath));
-        }
         
         $dbh = getPDO();
         
@@ -45,8 +44,10 @@
         $selectUser->bindValue(':user_id',$_SESSION['uid']);
         $selectUser->execute();
         
-
-        return $prefix.base64_encode($selectUser->fetch());
+        
+        $result = $selectUser->fetch()?:file_get_contents($defaulProfilePicPath);
+        
+        return $prefix.base64_encode($result);
     }
 
 
