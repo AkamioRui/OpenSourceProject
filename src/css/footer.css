@@ -1,0 +1,40 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #dc9750;
+  z-index: 60;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  translate: -50% 0;
+  width: 6vw;
+  height: 12vh;
+  border-radius: 50%;
+  background: #dc9750;
+}
+
+.footer-button {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  translate: -50% 0;
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.footer-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
