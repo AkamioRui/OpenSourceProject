@@ -18,8 +18,9 @@ nav {
   justify-content: space-around;
   align-items: center;
 }
-nav h1 {
+h1 {
   font-size: 5rem;
+  color: #120754;
 }
 .search {
   width: 40rem;

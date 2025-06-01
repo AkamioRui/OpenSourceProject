@@ -8,13 +8,14 @@ main {
 }
 
 .forum-detail-card {
+  width: 80vw;
   display: flex;
   flex-direction: row-reverse;
   position: relative;
   background: #f6e8d6;
   margin: auto;
   color: #070053;
-  padding: 3rem 3rem 1.5rem 3rem;
+  padding: 1.5rem 3rem 3rem 3rem;
 }
 
 .forum-date {
@@ -44,6 +45,7 @@ main {
 
 .title-container {
   display: flex;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -81,7 +83,6 @@ main {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
   padding: 1.25rem 2.25rem;
 }
 
@@ -112,6 +113,7 @@ main {
 
 .post-img {
   margin: auto;
+  margin-bottom: 1rem;
   width: 90%;
   height: 25vh;
 }

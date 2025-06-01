@@ -6,7 +6,7 @@
   --photo-size: 13rem;
   background: #efcea8;
   padding: 2.5rem 3rem;
-  width: 80%;
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
   display: grid;
@@ -55,7 +55,7 @@
 }
 
 .bottom-card {
-  width: 80%;
+  width: 100%;
   max-width: 100%;
   padding: 2rem;
   margin: 0 auto;
