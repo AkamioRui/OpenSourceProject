@@ -1,0 +1,21 @@
+nav {
+  background-color: #ffb66d;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+h1 {
+  font-size: 5rem;
+  color: #120754;
+}
+.search {
+  width: 40rem;
+  height: 3rem;
+  border-radius: 2rem;
+  border: 1px solid #000;
+  padding-left: 2rem;
+}
+nav img {
+  width: 5rem;
+  height: 5rem;
+}
