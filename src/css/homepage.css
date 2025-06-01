@@ -1,7 +1,10 @@
+.card-container {
+  margin-top: 2rem;
+}
+
 .top-card {
   --photo-size: 13rem;
-  background: #efd3b0;
-  border-radius: 1.5rem 1.5rem 0 0;
+  background: #efcea8;
   padding: 2.5rem 3rem;
   width: 80%;
   max-width: 100%;
@@ -35,12 +38,12 @@
 .card-title {
   font-size: 3rem;
   font-weight: 700;
-  color: #000049;
+  color: #000045;
 }
 
-.card-contrib {
+.card-contribution {
   font-size: 1.5rem;
-  color: #5f5387;
+  color: #120754;
 }
 
 .card-desc {
@@ -56,7 +59,6 @@
   max-width: 100%;
   padding: 2rem;
   margin: 0 auto;
-  border-radius: 0 0 1.5rem 1.5rem;
   background-color: #f5e0c6;
 }
 
@@ -70,11 +72,11 @@
 .post-title {
   font-size: 2.25rem;
   font-weight: 600;
-  color: #000049;
+  color: #070053;
 }
 
 .post-desc {
   font-size: 1.5rem;
   line-height: 1.5;
-  color: #000049;
+  color: #000000;
 }
