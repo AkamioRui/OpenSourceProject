@@ -36,7 +36,7 @@ main {
   object-fit: cover;
   border: 2px solid #3e215d;
   background: #f6e8d6;
-  z-index: 10;
+  z-index: 100;
 }
 
 .forum-detail-card-header {

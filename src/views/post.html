@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post</title>
+    <link href="/src/css/global.css" rel="stylesheet" />
+    <link href="/src/css/nav.css" rel="stylesheet" />
+    <link href="/src/css/footer.css" rel="stylesheet" />
+    <link href="/src/css/post.css" rel="stylesheet" />
+
+    <script src="/src/components/navbar.js"></script>
+    <script src="/src/components/footer.js"></script>
+  </head>
+  <body>
+    <app-navbar></app-navbar>
+
+    <main>
+      <section class="post-card">
+        <div class="top-card">
+          <div class="left-section">
+            <h2 class="post-title">Building a wall</h2>
+            <img
+              class="post-like-img"
+              src="/src/assets/heart.png"
+              alt=""
+              srcset=""
+            />
+          </div>
+          <div class="right-section">
+            <h2 class="post-username">Username here</h2>
+            <p class="post-like">Liked by ! <span class="like">3456 </span></p>
+          </div>
+        </div>
+
+        <div class="content">
+          <p class="post-date">05/22/2025</p>
+          <p class="post-desc">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam,
+            exercitationem. Ex hic reiciendis magnam porro. Veniam ab iusto ut
+            sapiente omnis amet exercitationem possimus et assumenda earum
+            itaque, provident explicabo, corrupti sint mollitia incidunt dolor
+            neque aperiam doloremque maxime sunt qui corporis. Dolore maxime
+            explicabo quas vel! Eveniet, illo consequatur.
+          </p>
+        </div>
+        <!-- <div class="img-container"> -->
+        <img src="/src/assets/temp_banner2.jpg" alt="" class="post-img" />
+        <!-- </div> -->
+      </section>
+
+      <section class="comment-section">
+        <div class="container-comment">
+          <div class="comment-header">
+            <h2 class="comment-title">Comments</h2>
+            <p class="comment-motto">
+              “Comments are the footprints of thinking minds.”<br />
+              <span>- ChatGPT</span>
+            </p>
+          </div>
+
+          <ul class="comment-list">
+            <li class="comment">
+              <img
+                src="/src/assets/profile.png"
+                alt=""
+                class="comment-avatar"
+              />
+              <div class="comment-content">
+                <h3 class="comment-author">Distinguished peasant</h3>
+                <div class="text-container">
+                  <p class="comment-text">
+                    Walls are walls are walls, I like walls icecream. Paddle pop
+                    wooooooo. Susu murni nasional wawawawawawawawawawawa akan
+                    kami genjot.
+                  </p>
+
+                  <div class="comment-like">
+                    <img src="/src/assets/heart.png" alt="like" />
+                    <span>20 Likes</span>
+                  </div>
+                </div>
+                <button class="comment-reply">Reply</button>
+
+                <ul class="comment-replies">
+                  <li class="comment reply">
+                    <img
+                      src="/src/assets/profile.png"
+                      alt=""
+                      class="comment-avatar"
+                    />
+                    <div class="comment-content">
+                      <h3 class="comment-author">Lirili Larila</h3>
+                      <div class="text-container">
+                        <p class="comment-text">
+                          Walls are walls are walls, I like walls icecream.
+                          Paddle pop wooooooo. Susu murni nasional
+                          wawawawawawawawawawawa akan kami genjot.
+                        </p>
+
+                        <div class="comment-like">
+                          <img src="/src/assets/heart.png" alt="like" />
+                          <span>20 Likes</span>
+                        </div>
+                      </div>
+                      <button class="comment-reply">Reply</button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <app-footer></app-footer>
+  </body>
+</html>
