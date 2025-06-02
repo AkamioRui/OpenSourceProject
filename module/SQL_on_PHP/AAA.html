@@ -3,13 +3,20 @@
 <html>
 <head>
     <script src='/module/SQL_on_PHP/library.js'></script>
+    <script src='/module/SQL_on_PHP/SIGNUPPOPUP_js.js'></script>
 </head>
 <body>
     
     <img id="header" style="width:200px;"><br>
-    <input id="arg" type="text" ><br>
-    <input id="password" type="text" ><br>
-    <button onclick="query_Login()">login</button><br>
+    
+    <label>user_username</label>
+    <input id="user_username" type="text" ><br>
+    <label>user_email</label>
+    <input id="user_email" type="text" ><br>
+    <label>user_password</label>
+    <input id="user_password" type="text" ><br>
+    
+    <button onclick="insert_signup()">login</button><br>
     
 
  

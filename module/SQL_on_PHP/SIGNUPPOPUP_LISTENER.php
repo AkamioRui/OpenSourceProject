@@ -1,28 +1,35 @@
 <?php
     include_once __DIR__."/HEADER.php";
 
-    if(isset($_POST['query_Login']))query_Login($_POST['user_arg'],$_POST['user_password']);
+    if(isset($_POST['insert_signup'])) insert_signup(
+        $_POST['user_username'],
+        $_POST['user_email'],
+        $_POST['user_password']
+    );
 
-    function query_Login($user_arg, $user_password){
-        $dbh = getPDO();
-        $selectLogin = $dbh->prepare('
-            SELECT id FROM user_t 
-            WHERE (username = :user_arg OR email = :user_arg) AND password = :user_password
-        ');
-        $selectLogin->setFetchMode(PDO::FETCH_COLUMN,0);
-        $selectLogin->bindValue(':user_arg',$user_arg);
-        $selectLogin->bindValue(':user_password',$user_password);
-        $selectLogin->execute();
-        $_SESSION['uid'] = $selectLogin->fetch()?:-1;
 
-        if($_SESSION['uid'] == -1){
-            echo '<body style="--code:fail"></body>';
-        } else {
-            echo '<body style="--code:success"></body>';
-        }
+function insert_signup($user_username,$user_email,$user_password){
+    $user_profilePicPath = __DIR__.'\\'.json_decode(file_get_contents(__DIR__.'/../../databaseConfig.json'))->defaultUser->profilePic; 
+    $insertUser = getPDO()->prepare('
+        INSERT INTO user_t(`profilePic`, `username`, `email`, `password`) 
+        VALUES (:profilePic, :username, :email, :password)
+    ');
+    // $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $insertUser->bindParam(':profilePic',file_get_contents($user_profilePicPath));
+    $insertUser->bindParam(':username',$user_username);
+    $insertUser->bindParam(':email',$user_email);
+    $insertUser->bindParam(':password',$user_password);
 
-    };
 
+    
+    try{
+        $insertUser->execute();
+        echo '<body style="--code:success"></body>';
+    } catch(PDOException $e){
+        echo '<body style="--code:\'name/gmail has been taken\'"></body>';
+    }
+
+    //return 
+
+ }
 ?>
-
-

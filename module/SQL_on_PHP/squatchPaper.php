@@ -123,7 +123,7 @@
     //function 
         // redirect_Back();//must know the previous fullpage
         // fetch_SignupPopup();
-        insert_Login();//on success give the image data
+        query_Login();//on success give the image data
             /* custom */$_POST['user_arg'];
             $_POST['user_password'];
             // SELECT id FROM user_t 
