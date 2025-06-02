@@ -19,5 +19,6 @@ async function insert_signup(){
     })).text();
     let code = new DOMParser().parseFromString(response,'text/html').body.style.getPropertyValue('--code');
     console.log(code);
+    
 
 }  

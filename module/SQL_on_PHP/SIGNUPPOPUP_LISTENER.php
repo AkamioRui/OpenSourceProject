@@ -26,7 +26,9 @@ function insert_signup($user_username,$user_email,$user_password){
         $insertUser->execute();
         echo '<body style="--code:success"></body>';
     } catch(PDOException $e){
-        echo '<body style="--code:\'name/gmail has been taken\'"></body>';
+        preg_match('/(key \')(.*)(\')/',$e->getMessage(),$match);
+        echo '<body style="--code:duplicate '.$match[2].'"></body>';
+        
     }
 
     //return 

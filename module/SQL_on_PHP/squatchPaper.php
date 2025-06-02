@@ -163,7 +163,7 @@
             icon = file_get_contents($_FILES['icon']['tmp_name']);
             descriptions = $_POST['descriptions']; 
             creatorId = $_SESSION['uid'];
-            // to see the result, refresh the web
+            
 
 //createPostPopup
     //src

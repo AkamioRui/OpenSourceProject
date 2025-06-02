@@ -1,6 +1,6 @@
 <?php
     include_once __DIR__."/HEADER.php";
-
+    $_SESSION['uid'] = 2;
     
 
     /* 
