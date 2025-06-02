@@ -1,15 +1,3 @@
-/* reset */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Playfair Display', serif;
-  background: #fbfbfb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-}
-
 .login-card {
   position: relative;
   width: 320px;
@@ -17,13 +5,13 @@ body {
   border-radius: 12px;
   overflow: hidden;
   padding: 80px 30px 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* header bar */
 .login-header {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   background: #ffc777;
   padding: 12px 20px;
@@ -37,21 +25,19 @@ body {
 }
 .login-header .brand {
   margin-left: auto;
-  font-family: 'Shrikhand', cursive;
+  font-family: "Shrikhand", cursive;
   font-size: 18px;
   color: #2a1a5e;
 }
 
-/* title */
 .login-card h2 {
-  font-family: 'Shrikhand', cursive;
+  font-family: "Shrikhand", cursive;
   text-align: center;
   color: #2a1a5e;
   margin-bottom: 24px;
   font-size: 28px;
 }
 
-/* labels & inputs */
 .login-card label {
   display: block;
   font-size: 14px;
@@ -68,7 +54,6 @@ body {
   font-size: 14px;
 }
 
-/* alternate link */
 .login-card .alt-link {
   display: block;
   text-align: right;
@@ -81,7 +66,6 @@ body {
   text-decoration: none;
 }
 
-/* submit button */
 .login-card button {
   display: block;
   margin: 0 auto;
@@ -90,11 +74,11 @@ body {
   background: #ffb35c;
   border: none;
   border-radius: 20px;
-  font-family: 'Shrikhand', cursive;
+  font-family: "Shrikhand", cursive;
   color: #2a1a5e;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 .login-card button:hover {
   background: #e0a049;

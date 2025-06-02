@@ -1,0 +1,78 @@
+.main-container {
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-card {
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 18rem;
+  height: 18rem;
+  object-fit: cover;
+}
+
+.profile-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-icon {
+  margin: 1rem 0;
+  width: 85%;
+  font-size: 1.15rem;
+  padding: 0.75rem;
+  background-color: #ffb56b;
+  border: none;
+  border-radius: 20px;
+  font-family: "Shrikhand", cursive;
+}
+
+.right-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+#sign-up {
+  background-color: #ffb56b;
+  width: 10rem;
+  padding: 1rem 1.75rem;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.15rem;
+  font-family: "Shrikhand", cursive;
+}
+
+p {
+  font-size: 2rem;
+  margin: 0.5rem 0 0 0;
+  color: #070053;
+}
+
+h2 {
+  font-size: 4rem;
+  background: #f5e0c6;
+  border-radius: 15px;
+  padding: 0 1.25rem;
+  color: #070053;
+}
+
+button {
+  color: #070053;
+  cursor: pointer;
+}
