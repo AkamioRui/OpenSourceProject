@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sign Up – LetMeKnow</title>
+
+    <link rel="stylesheet" href="/src/css/signup.css" />
+    <link rel="stylesheet" href="/src/css/global.css" />
+  </head>
+  <body>
+    <div class="login-card">
+      <div class="login-header">
+        <a href="login.html" class="back">&lt;&lt;&lt;</a>
+        <span class="brand">LetMeKnow</span>
+      </div>
+
+      <h2>Hi there!</h2>
+
+      <form action="/signup" method="POST">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required />
+
+        <label for="uname">Username</label>
+        <input id="uname" name="uname" type="text" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required />
+
+        <span class="alt-link">
+          <a href="login.html">Already have an account?</a>
+        </span>
+
+        <button type="submit">Sign up</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+/* page reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* body & centering */
+body {
+  font-family: "Playfair Display", serif;
+  background: #fbfbfb; /* or whatever page‐bg you prefer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* the card */
+.login-card {
+  position: relative;
+  width: 320px;
+  background: #fff6ea;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 80px 30px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* header bar */
+.login-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ffc777;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+}
+.login-header .back {
+  color: #2a1a5e;
+  font-size: 18px;
+  text-decoration: none;
+}
+.login-header .brand {
+  margin-left: auto;
+  font-family: "Shrikhand", cursive;
+  font-size: 18px;
+  color: #2a1a5e;
+}
+
+/* title */
+.login-card h2 {
+  font-family: "Shrikhand", cursive;
+  text-align: center;
+  color: #2a1a5e;
+  margin-bottom: 24px;
+  font-size: 28px;
+}
+
+/* form labels & inputs */
+.login-card label {
+  display: block;
+  font-size: 14px;
+  color: #2a1a5e;
+  margin-bottom: 6px;
+}
+.login-card input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #c3a77b;
+  border-radius: 20px;
+  background: #f5e1c7;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+/* “Already have an account?” */
+.login-card .alt-link {
+  display: block;
+  text-align: right;
+  font-size: 12px;
+  margin-top: -12px;
+  margin-bottom: 18px;
+}
+.login-card .alt-link a {
+  color: #2a1a5e;
+  text-decoration: none;
+}
+
+/* submit button */
+.login-card button {
+  display: block;
+  margin: 0 auto;
+  width: 115px;
+  padding: 10px;
+  background: #ffb35c;
+  border: none;
+  border-radius: 20px;
+  font-family: "Shrikhand", cursive;
+  color: #2a1a5e;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.login-card button:hover {
+  background: #e0a049;
+}

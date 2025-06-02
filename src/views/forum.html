@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Forum page - LetMeKnow</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/src/css/global.css" rel="stylesheet" />
+    <link href="/src/css/forum.css" rel="stylesheet" />
+    <link href="/src/css/footer.css" rel="stylesheet" />
+    <link href="/src/css/nav.css" rel="stylesheet" />
+
+    <script src="/src/components/footer.js"></script>
+    <script src="/src/components/navbar.js"></script>
+  </head>
+  <body>
+    <app-navbar></app-navbar>
+
+    <main>
+      <img class="banner" src="../assets/temp_banner2.jpg" alt="" srcset="" />
+      <div class="forum-detail-card">
+        <img
+          src="../assets/profile.png"
+          alt="Wong Academy Logo"
+          class="forum-avatar-floating"
+        />
+        <p class="forum-date">{{DATE}}</p>
+
+        <div class="forum-detail-card-header">
+          <div class="title-container">
+            <h2 class="forum-title">Forum Title</h2>
+            <p class="forum-id">ID: {{FORUM.ID}}</p>
+          </div>
+          <p class="forum-description">
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. ."
+          </p>
+        </div>
+      </div>
+
+      <section class="post-card">
+        <div class="top-card">
+          <h2 class="post-title">Mazel Tov</h2>
+          <div class="right-section">
+            <h2 class="post-date">05/20/2025</h2>
+            <p class="post-like">Liked by ! <span class="like">3456 </span></p>
+          </div>
+        </div>
+        <img src="/src/assets/temp_banner2.jpg" alt="" class="post-img" />
+      </section>
+
+      <!-- <section class="post-card">
+        <div class="top-card">
+          <h2 class="post-title">Mazel Tov</h2>
+          <div class="right-section">
+            <h2 class="post-date">05/20/2025</h2>
+            <p class="post-like">Liked by ! <span class="like">3456 </span></p>
+          </div>
+        </div>
+        <img src="/src/assets/temp_banner2.jpg" alt="" class="post-img" />
+      </section> -->
+
+      <app-footer></app-footer>
+    </main>
+  </body>
+</html>

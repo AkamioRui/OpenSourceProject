@@ -1,13 +1,16 @@
 class Navbar extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-    <nav>
+    <nav style="position:relative;">
       <h1>LetMeKnow</h1>
       <form>
         <input class="search" type="text" placeholder="Search..." />
       </form>
-      <img src="../assets/circle.png" alt="" />
-    </nav>
+      <button data-modal-target=""> 
+      <img id="authBtn" src="/src/assets/circle.png" alt="Login/Signup" style="cursor:pointer;" />
+      </button> 
+      </nav>
+    <div id="authModal" class="modal hidden"></div>
     `;
   }
 }
