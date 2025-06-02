@@ -26,20 +26,31 @@ h3 {
   color: #070053;
 }
 
-.title-form {
+
+.comment-container {
+  margin-top: 3rem;
 }
 
-.title-input {
-  width: 40rem;
+.post-commt {
+  width: 100%;
   font-size: 2rem;
-  height: 4rem;
+  height: 20rem;
   background-color: #f5e0c6;
   border: 1px solid #000000;
-  border-radius: 40px;
+  border-radius: 5rem;
   padding: 0.25rem 1rem;
 }
 
 .right-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #add-button {
@@ -53,37 +64,4 @@ h3 {
   cursor: pointer;
   font-family: "Shrikhand", cursive;
   border: 1px solid #000000;
-}
-
-.post-btn {
-  width: 200px;
-  margin: 1rem 1.5rem 0 0;
-  background: #ffb56b;
-  border-radius: 30px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1.75rem;
-  color: #070053;
-  cursor: pointer;
-  font-family: "Shrikhand", cursive;
-  border: 1px solid #000000;
-}
-
-.post-btn-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.description-container {
-  margin-top: 3rem;
-}
-
-.post-desc {
-  width: 100%;
-  font-size: 2rem;
-  height: 20rem;
-  background-color: #f5e0c6;
-  border: 1px solid #000000;
-  border-radius: 5rem;
-  padding: 0.25rem 1rem;
 }
