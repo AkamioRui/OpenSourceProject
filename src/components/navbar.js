@@ -7,7 +7,7 @@ class Navbar extends HTMLElement {
         <input class="search" type="text" placeholder="Search..." />
       </form>
       <button data-modal-target=""> 
-      <img id="authBtn" src="../assets/circle.png" alt="Login/Signup" style="cursor:pointer;" />
+      <img id="authBtn" src="/src/assets/circle.png" alt="Login/Signup" style="cursor:pointer;" />
       </button> 
       </nav>
     <div id="authModal" class="modal hidden"></div>
