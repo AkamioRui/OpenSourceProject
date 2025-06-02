@@ -1,6 +1,26 @@
 <?php
-    var_dump(0?true:false); 
-    var_dump(1?true:false); 
+  class myvar{
+    public $a;
+    public $b;
+    public $c;
+    function __construct(){
+      $this->a = 10;
+      $this->b = 2;
+      $this->c = 999;
+    }
+  };
+  
+  $obj = new myvar();
+  $arr =get_object_vars($obj);
+  
+  $string = 'here is a = $a, b = $b, c = $c';
+  foreach(get_object_vars($obj) as $key => $value){
+    $string = preg_replace('/\$'.$key.'/',$value,$string);
+  }
+  
+  //$string = preg_replace('/\$a/',11,$string);
+  echo $string;
+  
     
     
     // $a = [3,4,5];

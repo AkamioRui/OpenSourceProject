@@ -5,6 +5,11 @@
 
 
     //library
+    function replaceWithObj($obj,string $string){
+        foreach(get_object_vars($obj) as $key => $value){
+            $string = preg_replace('/\$'.$key.'/',$value,$string);
+          }
+    }
     
     function getPDO():PDO{
         // $dbh = new PDO('mysql:host=127.0.0.1;port=13306;dbname=myadmin_db;','root','ruidb');

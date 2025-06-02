@@ -16,15 +16,25 @@
         </div>
         
         
-    
+        <input class="in" type="text">
         
     </body>
     <script>
-        let scp = document.getElementsByTagName('SCRIPT')[0];
-        console.log(scp);
-        console.log(scp.text);
-        console.log(scp.nodeValue);
-        console.log(scp.innerHTML);
+        // let scp = document.getElementsByTagName('SCRIPT')[0];
+        // console.log(scp);
+        // console.log(scp.text);
+        // console.log(scp.nodeValue);
+        // console.log(scp.innerHTML);
+
+        console.log(document.querySelector('.in').value??12);
+        console.log(document.querySelector('.in').value === '');
+        console.log(document.querySelector('.in').value?1:0);
+        
+        // let b = 0;
+        // console.log(b?b:-1);
+        // b = 12;
+        // console.log(b??-1);
+
 
         
         

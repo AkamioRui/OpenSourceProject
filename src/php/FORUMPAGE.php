@@ -1,5 +1,5 @@
 <?php
-    include_once __DIR__."/HEADER.php";
+    include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
 
     
     ///* test */$_SESSION['uid'] = 1;
@@ -42,9 +42,7 @@
         function __construct($forum_id){
             
             $this->dbh = getPDO();
-            // LEFT(`profilePic`, 256)
 
-            
             //get forum info
             $selectForum = $this->dbh->prepare('
                 SELECT *,(
@@ -64,6 +62,7 @@
             $this->forum_valid = $selectForum->fetch()?true:false;
             
             
+            
 
             //select Post
             $this->selectPost = $this->dbh->prepare('
@@ -80,6 +79,7 @@
             $this->selectPost->execute();
             $this->post_valid = $this->selectPost->fetch()?true:false;
             
+            
 
             //get post images
             $this->selectPostPicture = $this->dbh->prepare('
@@ -90,13 +90,33 @@
             $this->selectPostPicture->bindParam(':postId',$this->post_id);
             $this->selectPostPicture->execute();
             $this->postPicture_pictures = $this->selectPostPicture->fetchAll();
+            
 
+            $this->preprocess();
+        }
+
+        private function preprocess(){
+            if($this->forum_valid){
+                $this->forum_banner = 'data:image/*;base64,'.base64_encode($this->forum_banner);
+                $this->forum_icon = 'data:image/*;base64,'.base64_encode($this->forum_icon);
+                $this->forum_createdAt = date('m/d/Y',strtotime($this->forum_createdAt));
+            }
+            if($this->post_valid){
+                $this->post_createdAt = date('m/d/Y',strtotime($this->post_createdAt));
+            }
+            if($this->postPicture_pictures){
+                foreach($this->postPicture_pictures as &$rawimg){
+                    $rawimg = 'data:image/*;base64,'.base64_encode($rawimg);
+                }
+                unset($rawimg);
+            }
         }
 
         function nextPost(){
             $this->post_valid = $this->selectPost->fetch()?true:false;
             $this->selectPostPicture->execute();
             $this->postPicture_pictures = $this->selectPostPicture->fetchAll();
+            $this->preprocess();
 
         }
         
@@ -141,9 +161,9 @@ $_SESSION['uid'] = 4;
 <!-- forum  -->
 <p>forum_name = <?=$forum->forum_name?></p>
 <p>forum_banner = </p>
-    <img style="width:200px" src="data:image/*;base64,<?=base64_encode($forum->forum_banner)?>">
+    <img style="width:200px" src="<?=($forum->forum_banner)?>">
 <p>forum_icon =</p>
-    <img style="width:200px"src="data:image/*;base64,<?=base64_encode($forum->forum_icon)?>" src="">
+    <img style="width:200px"src="<?=($forum->forum_icon)?>" >
 <p>forum_createdAt = <?=$forum->forum_createdAt?></p>
 <p>forum_descriptions = <?=$forum->forum_descriptions?></p>
 <p>forum_creator_name = <?=$forum->forum_creator_name?></p>
@@ -161,12 +181,11 @@ $_SESSION['uid'] = 4;
         <?php
 
 
-
         if(!$forum->postPicture_pictures ) echo 'no image';
         else {
             foreach($forum->postPicture_pictures as $image){
                 ?>
-                <img style="width:200" src="data:image/*;base64,<?=base64_encode($image)?>">
+                <img style="width:200" src="<?=($image)?>">
                 <?php
 
             }

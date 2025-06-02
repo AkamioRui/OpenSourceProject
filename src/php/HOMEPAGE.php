@@ -1,5 +1,5 @@
 <?php
-    include_once __DIR__."/HEADER.php";
+    include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
 
     
     ///* test */$_SESSION['uid'] = 1;
@@ -75,16 +75,24 @@
             $this->selectPost->execute();
             $this->post_valid = $this->selectPost->fetch()?true:false;
 
-
+            $this->preprocess();
+        
         }
 
+        function preprocess(){
+            if($this->forum_valid){
+                $this->forum_icon = 'data:image/*;base64,'.base64_encode($this->forum_icon);
+            }
+        }
         function nextPost(){
             $this->post_valid = $this->selectPost->fetch()?true:false;
+            $this->preprocess();
         }
         function nextForum(){
             $this->forum_valid = $this->selectForum->fetch()?true:false;
             $this->selectPost->execute();
             $this->post_valid = $this->selectPost->fetch()?true:false;
+            $this->preprocess();
         }
         
 
@@ -106,7 +114,7 @@
                     <p>name = <?=$homepage->forum_name?></p>
                     <p>postCount = <?=$homepage->forum_postCount?></p>
                     <p>icon =</p>
-                        <img style="width:200px" src="data:image/*;base64,<?=base64_encode($homepage->forum_icon)?>">    
+                        <img style="width:200px" src="<?=($homepage->forum_icon)?>">    
                     <p>descriptions = <?=$homepage->forum_descriptions?></p>
                     
                     

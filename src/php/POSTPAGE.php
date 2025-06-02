@@ -1,9 +1,9 @@
 <?php
-    include_once __DIR__."/HEADER.php";
+    include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
 
     
     ///* test */$_SESSION['uid'] = 1;
-    ///* test */$_GET['post_id'] = 1;
+    /* test */$_GET['post_id'] = 1;
     $postpage = new POSTPAGE($_GET['post_id']);
     
 
@@ -27,9 +27,6 @@
         public $UserCommentList;//rendering -> list of id and parent id
         public $comment_id;//rendering
         
-        
-        
-
         //redirect fetch requirement
         // redirect_Back();
         // fetch_accountPopup();//session uid
@@ -66,6 +63,9 @@
             $selectPost->bindColumn('contents', $this->post_contents);
             $selectPost->execute();
             $this->post_valid = $selectPost->fetch()?true:false;
+            if($this->post_valid){
+                $this->post_createdAt = date('m/d/Y',strtotime($this->post_createdAt));
+            }
             
             
 
@@ -78,7 +78,12 @@
             $selectPostPicture->bindParam(':post_id', $this->post_id);
             $selectPostPicture->execute();
             $this->postPicture_picture = $selectPostPicture->fetchAll();
-            
+            if($this->postPicture_picture){
+                foreach($this->postPicture_picture as &$rawimg){
+                    $rawimg = 'data:image/*;base64,'.base64_encode($rawimg);
+                }
+                unset($rawimg);
+            }
 
 
 
@@ -100,6 +105,9 @@
             $this->selectUserComment->bindColumn('user_username', $this->user_username);
             $this->selectUserComment->execute();
 
+                
+            
+
             $selectUserComment = $this->dbh->prepare('
                 SELECT 
                     parentId,
@@ -112,12 +120,17 @@
             $selectUserComment->execute();
             $this->UserCommentList = $selectUserComment->fetchAll();
 
+            
         }
+
+        
 
         function getComment($comment_id){
             $this->comment_id = $comment_id;
             $this->selectUserComment->execute();
             $this->selectUserComment->fetch();
+                $this->user_profilePic = 'data:image/*;base64,'.base64_encode($this->user_profilePic);
+            
         }
         
 
@@ -147,7 +160,7 @@
             <?php 
                 foreach($postpage->postPicture_picture as $image){
                     ?>
-                    <img src="data:image/*;base64,<?=base64_encode($image)?>">
+                    <img src="<?=$image?>">
                     <?php
                 }
             
@@ -213,7 +226,7 @@
                         <hr>
                         <div class="commentBody">
                             <p>user_username ='. $postpage->user_username.'</p>
-                            <img style="width:200px" src="data:image/*;base64,'.base64_encode($postpage->user_profilePic).'">
+                            <img style="width:200px" src="'.$postpage->user_profilePic.'">
                             <p>comment_comment = '.$postpage->comment_comment.'</p>
                             <p>comment_like :'.$postpage->comment_like.'</p>
                             <p>this post_id = '.$postpage->post_id.', parentId = '.$postpage->comment_id .'</p>

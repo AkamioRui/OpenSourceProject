@@ -1,36 +1,36 @@
 
-async function getCREATEPOST(forum_id){
+async function sendPost(){
+    //assign by php
+    // $forum_id; 
+
+    let post_title = document.querySelector("#title").value;
+    let post_contents = document.querySelector("#description").value;
+    let postPicture_pictures = document.querySelector("#images").files;
     
-    //form body
+    
+    //create form body
     let formbody = new FormData();
-    formbody.append('forum_id',forum_id);
-
-    //send request 
-    let response = await fetch('/module/SQL_on_PHP/CREATEPOST.php',{
-        method:'POST',
-        body: formbody
-    });
-    let msg = await response.text();
-
-    //process request
-    let parser = new DOMParser();
-    let msgdoc = parser.parseFromString(msg,'text/html');
-    
-    let element;
-    let myscript;
-    while( element = msgdoc.body.children[0] ){
-        if(element.tagName == 'SCRIPT'){
-            myscript = document.createElement('script');
-            try{
-                myscript.appendChild(document.createTextNode(element.text));
-            }catch(e){
-                myscript.text = element.text;
-            }
-            document.body.appendChild(myscript);
-            element.remove();
-        } else {
-            document.body.appendChild(element);
-        }
+    formbody.append('submit','submit');
+    formbody.append('forum_id',$forum_id);
+    /* temp */formbody.append('post_title',post_title);
+    /* temp */formbody.append('post_contents',post_contents);
+    for( let file of postPicture_pictures){
+        formbody.append('postPicture_picture[]',file);
     }
+
+    //send request
+    let response =  await (await fetch('/module/SQL_on_PHP/CREATEPOST_LISTENER.php',{
+        method:"POST",
+        body:formbody
+    })).text();
+    let msg = await response.text();
         
+    
+    //process response
+    let msgdoc = new DOMParser().parseFromString(msg,'text/html');
+    for( let element of msgdoc.children){
+        document.body.appendChild(element);
+    }
+      
+
 }

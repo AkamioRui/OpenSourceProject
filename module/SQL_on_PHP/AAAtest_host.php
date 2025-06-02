@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    $_SESSION['uid'] = -1;
+    include_once __DIR__."/HEADER.php";
+
     
 
     /* 
