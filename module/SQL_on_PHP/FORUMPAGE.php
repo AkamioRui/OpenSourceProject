@@ -2,7 +2,7 @@
     include_once __DIR__."/HEADER.php";
 
     
-    /* test */$_SESSION['uid'] = 1;
+    ///* test */$_SESSION['uid'] = 1;
     /* test */$_GET['forum_id'] = 1;
     if(!isset($_GET['forum_id'])) {
         /* temp */echo 'invalid forum';
@@ -112,7 +112,12 @@
 
 <p>user_profilePic = </p>
 <?php
+    $original = $_SESSION['uid']; 
     $_SESSION['uid'] = -1;
+?>
+    <img style="width:200px" src="<?=getProfilePic()?>">
+<?php
+    $_SESSION['uid'] = 1;
 ?>
     <img style="width:200px" src="<?=getProfilePic()?>">
 <?php
@@ -123,6 +128,13 @@
     $_SESSION['uid'] = 3;
 ?>
     <img style="width:200px" src="<?=getProfilePic()?>">
+<?php
+$_SESSION['uid'] = 4;
+?>
+    <img style="width:200px" src="<?=getProfilePic()?>">
+<?php
+    $_SESSION['uid'] = $original ;
+?>
 <br>
 <hr>
 

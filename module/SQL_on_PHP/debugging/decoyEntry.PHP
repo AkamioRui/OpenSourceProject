@@ -24,6 +24,12 @@
     //     $addUser->bindValue(':password','pass3');
     //     $addUser->bindValue(':admin',0);
     // $addUser->execute();
+        $addUser->bindValue(':profilePic',NULL);
+        $addUser->bindValue(':username','Joe');
+        $addUser->bindValue(':email','user4@gmail.com');
+        $addUser->bindValue(':password','pass4');
+        $addUser->bindValue(':admin',0);
+    $addUser->execute();
 
     
 

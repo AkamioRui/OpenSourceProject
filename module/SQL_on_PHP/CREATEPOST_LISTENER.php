@@ -17,7 +17,7 @@
         echo preg_replace('/<body.*>/','<body style="--code=\'no user_id\'">',$page);
         ob_end_flush();
         */
-        /* TEMP */echo '<body src="--code:\'wrong\'">';
+        /* TEMP */echo '<body src="--code:\'no user_id\'"> </body>';
         return;
     }
     if( !isset($_POST['forum_id']) ){ 

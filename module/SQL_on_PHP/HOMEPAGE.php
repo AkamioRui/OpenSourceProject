@@ -2,7 +2,7 @@
     include_once __DIR__."/HEADER.php";
 
     
-    /* test */$_SESSION['uid'] = 1;
+    ///* test */$_SESSION['uid'] = 1;
     $homepage = new HOMEPAGE();
     
 

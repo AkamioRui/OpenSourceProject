@@ -115,6 +115,7 @@
         logout();
             // $_SESSION['uid'] = -1; 
             //return a new page   
+            //js - change profile pic
 //loginPopup
     //src
         //$_SESSION['uid'];
@@ -129,6 +130,7 @@
             // WHERE (username = $_POST['user_arg'] OR email = $_POST['user_arg']) AND password = $_POST['user_password']
             //response profilepic
             //save to $_SESSION['uid']
+            //return profilePic
         
             
 //signupPopup
@@ -138,12 +140,13 @@
     //function 
         // redirect_Back();//must know the previous fullpage
         // fetch_LoginPopup();
-        insert_signup();        
+        insert_signup();    
             $_POST['user_username'];
             $_POST['user_email'];
             $_POST['user_password'];
             $user_profilePic; //uses user_defaultProfile
             // INSERT INTO user_t(`profilePic`, `username`, `email`, `password`) VALUES ($user_profilePic, $_POST['user_username'], $_POST['user_email'], $_POST['user_password'])
+            //return profilepic
 
 
 //createForumPopup

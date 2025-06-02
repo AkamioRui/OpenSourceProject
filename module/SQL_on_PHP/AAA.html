@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+
+<body>
+    <img id="profilePic" style="width:200px" src=""><br>
+    <input id="fileInput" type="file" accept="image/*"><br>
+    <button onclick="change_profilePic()">change_profilePic</button><br>
+    <button onclick="logout()">get page</button><br>
+
+    
+    <script type="text/javascript">
+        async function logout(){
+            if($_POST['logout']);
+
+            let form = new FormData().append('logout',1);
+            let msg = await (await fetch('/module/SQL_on_PHP/ACCOUNTPOPUP_LISTENER.php',{
+                method: "POST",
+                body: form
+            })).text();
+            
+            let doc = new DOMParser().parseFromString(msg,'text/html');
+            doc.body.innerHTML
+
+
+        }
+
+        function say(){
+            console.log('say something');
+        }
+    </script>
+
+
+ 
+    
+</body>
+
+</html>

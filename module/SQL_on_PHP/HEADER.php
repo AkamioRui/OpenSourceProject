@@ -5,10 +5,6 @@
 
 
     //library
-    /* 
-    function getDefaultUserData(){
-        $param = json_decode(file_get_contents(__DIR__.'/../../databaseConfig.json'));
-    } */
     
     function getPDO():PDO{
         // $dbh = new PDO('mysql:host=127.0.0.1;port=13306;dbname=myadmin_db;','root','ruidb');

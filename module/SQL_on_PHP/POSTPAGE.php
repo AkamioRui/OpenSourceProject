@@ -2,8 +2,8 @@
     include_once __DIR__."/HEADER.php";
 
     
-    /* test */$_SESSION['uid'] = 1;
-    /* test */$_GET['post_id'] = 1;
+    ///* test */$_SESSION['uid'] = 1;
+    ///* test */$_GET['post_id'] = 1;
     $postpage = new POSTPAGE($_GET['post_id']);
     
 
