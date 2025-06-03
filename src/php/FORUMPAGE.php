@@ -9,6 +9,7 @@
         return;
     }
     $forum = new FORUM($_GET['forum_id']);
+    $forum->generatePage(__DIR__.'/../views/forum.html');
     
 
 
@@ -120,6 +121,60 @@
 
         }
         
+         
+        function generatePage($HTMLpath){
+            $raw = file_get_contents($HTMLpath);
+            //card-container = forum
+            //card-content = post
+            list($template_beforeforum,$template_forum,$template_afterforum) = extractfrom('<[^>]*repeat[^>]*>',$raw);
+            $template_forum = preg_replace('/repeat/','',$template_forum,1);
+            list($template_beforepost,$template_post,$template_afterpost) = extractfrom('<[^>]*repeat[^>]*>',$template_forum);
+            $template_post = preg_replace('/repeat/','',$template_post,1);
+
+            foreach(get_object_vars($this) as $key => $value){
+                try{ $template_beforeforum = preg_replace('/\$'.$key.'/',$value?:'',$template_beforeforum);
+                }catch( Error $e ){}
+            }
+            echo $template_beforeforum;
+
+            while($this->forum_valid){
+                $beforepost = $template_beforepost;
+                
+                $afterpost = $template_afterpost;
+                
+                foreach(get_object_vars($this) as $key => $value){
+                    try{ $beforepost = preg_replace('/\$'.$key.'/',$value?:'',$beforepost);
+                    }catch( Error $e ){}
+                }
+                echo $beforepost;
+                
+                // //post
+                while($this->post_valid){
+                    $post = $template_post;
+                    
+                    
+                    foreach(get_object_vars($this) as $key => $value){
+                        try{ $post = preg_replace('/\$'.$key.'/',$value?:'',$post);
+                        }catch( Error $e ){}
+                    }
+                    echo $post;
+                    
+                    $this->nextPost();                
+                }
+
+                foreach(get_object_vars($this) as $key => $value){
+                    try{ $afterpost = preg_replace('/\$'.$key.'/',$value?:'',$afterpost);
+                    }catch( Error $e ){}
+                }
+                echo $afterpost;
+
+                
+                
+                $this->nextForum();                
+            }
+            
+        }
+
 
     };
  

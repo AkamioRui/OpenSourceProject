@@ -18,6 +18,7 @@
 
         public $post_title; 
         public $post_contents;    
+        public $post_creator;  /* post_username */  
         
 
         //redirect fetch requirement
@@ -71,7 +72,12 @@
 
             //select Post
             $this->selectPost = $this->dbh->prepare('
-                SELECT * 
+                SELECT *,
+                (
+                    SELECT `user_t`.`username` 
+                    FROM `user_t` 
+                    WHERE `user_t`.`id` = `post_t`.`creatorId`
+                ) AS `post_creator`
                 FROM `post_t`
                 WHERE `forumId` = :forum_id
                 ORDER BY `id` DESC
