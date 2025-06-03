@@ -1,32 +1,100 @@
 <?php
-    $myimg = isset($_FILES['myimg'])? $_FILES['myimg'] : 'nofile';
-    $mydata = isset($_POST['data'])? $_POST['data'] : 'nodata';
-    
-    //header (this file) is valid
-    // $id = isset($_POST['id'])? $_POST['id'] : -1;
-    // if($id > 0) header('Location:http://localhost:3000/module/SQL_on_PHP/POST.php');
   
-?>
-
-<p> data: <?=$_POST['data']?> </p>
-<p> file: <?=var_dump($_FILES['myimg']['tmp_name'])?> </p>
-
-
-<?php
+    /* 
+    <div class="forum-detail-card-header">
+        <div class="title-container">
+            <h2 class="forum-title">Forum Title</h2>
+            <p class="forum-id">ID: {{FORUM.ID}}</p>
+        </div>
+        <p class="forum-description">
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. ."
+        </p>
+    </div>
     
-    foreach($_FILES['myimg']['tmp_name'] as $filename){      
-?>
+    
+    */
+
+    $result = extractfrom('<div class="forum-detail-card-header">',file_get_contents(__DIR__.'\..\..\..\src\views\forum.html') );
+    var_dump($result);
+    //split the src into (before)+(tag)+(after)
+    
+    
+    
+    
+    // preg_match_all(
+    //     '/<div[^>]*>|<\/div>/',
+    //     '
+    //         <div>
+    //         </div>
+    //         <div class="aaa">
+    //             <div>
+    //             </div>
+    //         </div>
         
-        <p> from: <?=$filename?> </p>
-        <img src=data:image/png;base64,<?=base64_encode(file_get_contents($filename))?> />
-        
-<?php
+    //     ',
+    //     $matches,
+    //     PREG_OFFSET_CAPTURE
+    // );
+    // var_dump($matches);
+    
+
+    /* 
+    
+$ php "d:\tugas\2_2\OpenSource\MessageBroardProject\module\SQL_on_PHP\test\test.php"
+array(1) {
+  [0]=>
+  array(6) {
+    [0]=>
+    array(2) {
+      [0]=>
+      string(5) "<div>"
+      [1]=>
+      int(14)
     }
+    [1]=>
+    array(2) {
+      [0]=>
+      string(6) "</div>"
+      [1]=>
+      int(33)
+    }
+    [2]=>
+    array(2) {
+      [0]=>
+      string(17) "<div class="aaa">"
+      [1]=>
+      int(53)
+    }
+    [3]=>
+    array(2) {
+      [0]=>
+      string(5) "<div>"
+      [1]=>
+      int(88)
+    }
+    [4]=>
+    array(2) {
+      [0]=>
+      string(6) "</div>"
+      [1]=>
+      int(111)
+    }
+    [5]=>
+    array(2) {
+      [0]=>
+      string(6) "</div>"
+      [1]=>
+      int(131)
+    }
+  }
+}    
+    
+    
+    
+    */
 ?>
-
-
-
-
-
 
 

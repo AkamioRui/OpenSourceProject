@@ -47,6 +47,51 @@
         return $prefix.base64_encode($result);
     }
 
+    function extractfrom($tag,$src){//only the first occurance
+
+        $keyMiddle = preg_split(
+            '/('.$tag.')/',
+            $src,
+            2,
+            PREG_SPLIT_DELIM_CAPTURE
+        );
+         
+        //find the </div>
+        preg_match_all(
+            '/<div[^>]*>|<\/div>/',
+            $keyMiddle[2],
+            $candidate,
+            PREG_OFFSET_CAPTURE
+        );
+        $offset;
+        $count = 1;
+        foreach ($candidate[0] as $instance){
+            if($instance[0] == '</div>'){
+                $count--;
+            } else{
+                $count++;
+            }
+          
+            if($count == 0){
+              $offset = $instance[1] + strlen('</div>');
+              break;
+
+            }
+        }
+        // echo $keyMiddle[1].substr($keyMiddle[2],0,$offset)."\n";
+        $before = $keyMiddle[0];
+        $tag = $keyMiddle[1].substr($keyMiddle[2],0,$offset)."\n";
+        $after = substr($keyMiddle[2],$offset);
+
+
+
+
+        // var_dump($keyMiddle);
+        // echo substr($src,$keyMiddle[1][1],$keyMiddle[2][1] - $keyMiddle[1][1] );
+
+        return [$before,$tag,$after];
+    }
+
 
     
     
