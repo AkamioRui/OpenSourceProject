@@ -1,25 +1,29 @@
 <?php
-  class myvar{
-    public $a;
-    public $b;
-    public $c;
-    function __construct(){
-      $this->a = 10;
-      $this->b = 2;
-      $this->c = 999;
-    }
-  };
+
+
+  echo ($_POST['hello']?? 'no response')."\n"; 
+  echo ($_GET['hello']?? 'no response')."\n"; 
+  // class myvar{
+  //   public $a;
+  //   public $b;
+  //   public $c;
+  //   function __construct(){
+  //     $this->a = 10;
+  //     $this->b = 2;
+  //     $this->c = 999;
+  //   }
+  // };
   
-  $obj = new myvar();
-  $arr =get_object_vars($obj);
+  // $obj = new myvar();
+  // $arr =get_object_vars($obj);
   
-  $string = 'here is a = $a, b = $b, c = $c';
-  foreach(get_object_vars($obj) as $key => $value){
-    $string = preg_replace('/\$'.$key.'/',$value,$string);
-  }
+  // $string = 'here is a = $a, b = $b, c = $c';
+  // foreach(get_object_vars($obj) as $key => $value){
+  //   $string = preg_replace('/\$'.$key.'/',$value,$string);
+  // }
   
-  //$string = preg_replace('/\$a/',11,$string);
-  echo $string;
+  // //$string = preg_replace('/\$a/',11,$string);
+  // echo $string;
   
     
     

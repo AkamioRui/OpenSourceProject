@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src='/module/SQL_on_PHP/library.js'></script>
-    <script src='/module/SQL_on_PHP/CREATECOMMENT_js.js'></script>
+    <script src='/module/SQL_on_PHP/fetchingPage.js'></script>
+    
     <!-- <script src='/module/SQL_on_PHP/SIGNUPPOPUP_js.js'></script> -->
 </head>
 <body>
@@ -13,9 +13,10 @@
     <label>comment</label>
     <input id="comment" type="text" ><br>
      
-    <button onclick="insert_Comment(1,7)">insert_Forum</button><br>
+    <button onclick="gotophp('success')">post</button><br>
+    <button onclick="gotophp2('success')">get</button><br>
     
-
+   
  
  
     
@@ -23,7 +24,29 @@
 
 <script>
     HEADER_updateProfilePic(document.querySelector('#header'));
-    
+    // D:\tugas\2_2\OpenSource\MessageBroardProject\module\SQL_on_PHP\test\test1.php
+    // 'hello'
+    function gotophp(msg){
+        let form = document.createElement('form');
+        form.method = 'POST'
+        form.action = '/module/SQL_on_PHP/test/test1.php'
+        
+        let input = document.createElement('input');
+        input.value = msg;
+        input.name = 'hello';
+        input.type = 'text';
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+        form.remove();
+
+        
+
+    }
+    function gotophp2(msg){
+        window.location.href = '/module/SQL_on_PHP/test/test1.php?'+'hello='+msg;
+    }
 </script>
 
 </html>

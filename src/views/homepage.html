@@ -15,33 +15,29 @@
     <app-navbar data-page="homepage-nav"></app-navbar>
 
     <main>
-      <div class="card-container">
+      <div class="card-container" repeat>
+
         <div class="top-card">
-          <img alt="{{FORUM.ICON}}" class="card-photo" />
+          <img class="card-photo" src="$forum_icon" />
           <div class="card-heading">
-            <h2 class="card-title">{{FORUM.NAME}}</h2>
-            <span class="card-contribution">{{FORUM.CONTRIBUTOR}}</span>
+            <h2 class="card-title">$forum_name</h2>
+            <span class="card-contribution">$forum_contributor</span>
           </div>
-          <p class="card-desc">{{FORUM.DESCRIPTION}}</p>
+          <p class="card-desc">$forum_descriptions</p>
         </div>
 
         <div class="bottom-card">
-          <div class="card-content">
-            <h3 class="post-title">{{POST.TITLE}}</h3>
-            <p class="post-desc">{{POST.DESCRIPTION}}</p>
+          
+          <div class="card-content" repeat>
+            <h3 class="post-title">$post_title</h3>
+            <p class="post-desc">$post_contents</p>
           </div>
 
-          <div class="card-content">
-            <h3 class="post-title">{{POST.TITLE}}</h3>
-            <p class="post-desc">{{POST.DESCRIPTION}}</p>
-          </div>
-
-          <div class="card-content">
-            <h3 class="post-title">{{POST.TITLE}}</h3>
-            <p class="post-desc">{{POST.DESCRIPTION}}</p>
-          </div>
+          
         </div>
+
       </div>
+      
     </main>
 
     <app-footer data-page="homepage-footer"></app-footer>

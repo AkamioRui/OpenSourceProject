@@ -1,4 +1,38 @@
+//homepage
+    // fetch_accountPopup();
+    function redirect_ForumPage(forum_id){
+        window.location.href = '/src/php/FORUMPAGE.php?'+'forum_id='+forum_id;
+    }
+    // redirect_PostPage();// each post in html must have post_id
+    function fetch_CreateForum(){
+        
+    }
+//forumpage
+    // redirect_Back();
+    // fetch_accountPopup();
+    // redirect_PostPage();//in js, must know this postId
+    // fetch_CreatePost();
+//postpage
+    // redirect_Back();//must know the previous fullpage
+    // fetch_accountPopup();
+    // fetch_CreateComment();
+//accountPopup
+    // redirect_Back();//must know the previous fullpage
+    // fetch_LoginPopup(); 
+//loginPopup
+    // redirect_Back();//must know the previous fullpage
+    // fetch_SignupPopup();         
+//signupPopup
+    // redirect_Back();//must know the previous fullpage
+    // fetch_LoginPopup();
+//createForumPopup
+    // redirect_Back();//must know the previous fullpage
+//createPostPopup
+    // redirect_Back();//must know the previous fullpage
+//createCommentPopup
+    // redirect_Back();      
 
+        
 
 function HEADER_updateProfilePic(element){
     let form = new FormData();

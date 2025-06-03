@@ -57,7 +57,7 @@
             $selectUser = $this->dbh->prepare('
                 SELECT *
                 FROM `user_t`
-                WHERE id = :user_id
+                WHERE `id` = :user_id
             ');
             $selectUser->bindParam(':user_id', $_SESSION['uid']);
             $selectUser->bindColumn('createdAt', $this->user_createdAt);

@@ -1,6 +1,17 @@
 <?php
     include_once __DIR__."/HEADER.php";
 
+    if($_SESSION['uid'] == -1){
+        /* 
+        ob_start();
+        include_once __DIR__.'ACCOUNTPAGE.php';
+        $page = ob_get_clean();    
+        echo preg_replace('/<body.*>/','<body style="--code=\'no user_id\'">',$page);
+        ob_end_flush();
+        */
+        /* TEMP */echo '<body src="--code:\'no user_id\'"> </body>';
+        return;
+    }
     if(isset($_POST['insert_Forum'])) insert_Forum(
         $_POST['name'],
         $_FILES['banner']['tmp_name'],
@@ -17,7 +28,7 @@ function insert_Forum(
     $forum_descriptions
 ){  
     $insertForum = getPDO()->prepare('
-        INSERT INTO forum_t (`name`,`banner`,`icon`,`descriptions`,`creatorId`)
+        INSERT INTO `forum_t` (`name`,`banner`,`icon`,`descriptions`,`creatorId`)
         VALUES(:name,:banner,:icon,:descriptions,:creatorId)
     ');      
     $insertForum->bindValue(':name',$forum_name);
