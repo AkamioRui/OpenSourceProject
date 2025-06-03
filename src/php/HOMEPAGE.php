@@ -46,17 +46,17 @@
             $this->selectForum = $this->dbh->prepare('
                 SELECT *,
                 (
-                    SELECT COUNT(forumId) 
-                    FROM post_t
-                    WHERE post_t.forumId = forum_t.id
-                ) as postCount,
+                    SELECT COUNT(`post_t`.`forumId`) 
+                    FROM `post_t`
+                    WHERE `post_t`.`forumId` = `forum_t`.`id`
+                ) as `postCount`,
                 (
-                    SELECT username 
-                    FROM user_t 
-                    WHERE user_t.id = forum_t.creatorId 
-                ) as contributor
+                    SELECT `user_t`.`username` 
+                    FROM `user_t` 
+                    WHERE `user_t`.`id` = `forum_t`.`creatorId` 
+                ) as `contributor`
                 FROM `forum_t`
-                ORDER BY id DESC
+                ORDER BY `id` DESC
             ');
             $this->selectForum->bindColumn('name', $this->forum_name);
             $this->selectForum->bindColumn('postCount', $this->forum_postCount);
@@ -73,7 +73,7 @@
             $this->selectPost = $this->dbh->prepare('
                 SELECT * 
                 FROM `post_t`
-                WHERE forumId = :forum_id
+                WHERE `forumId` = :forum_id
                 ORDER BY `id` DESC
             ');
             $this->selectPost->bindParam(':forum_id', $this->forum_id);

@@ -6,6 +6,7 @@
         INSERT INTO `user_t`( profilePic, username, email, password, admin)
         VALUES ( :profilePic, :username, :email, :password, :admin)
     ');
+    
     //     $addUser->bindValue(':profilePic',(file_get_contents(__DIR__.'\user_profilePic1.jpg')));
     //     $addUser->bindValue(':username','testificate');
     //     $addUser->bindValue(':email','user1@gmail.com');
@@ -24,16 +25,16 @@
     //     $addUser->bindValue(':password','pass3');
     //     $addUser->bindValue(':admin',0);
     // $addUser->execute();
-        $addUser->bindValue(':profilePic',NULL);
-        $addUser->bindValue(':username','Joe');
-        $addUser->bindValue(':email','user4@gmail.com');
-        $addUser->bindValue(':password','pass4');
-        $addUser->bindValue(':admin',0);
-    $addUser->execute();
+        // $addUser->bindValue(':profilePic',NULL);
+        // $addUser->bindValue(':username','Joe');
+        // $addUser->bindValue(':email','user4@gmail.com');
+        // $addUser->bindValue(':password','pass4');
+        // $addUser->bindValue(':admin',0);
+        // $addUser->execute();
 
     
 
-    $addforum = $dbh->prepare("
+        $addforum = $dbh->prepare("
         INSERT INTO `forum_t`(`name`, `banner`, `icon`, `creatorId`, `descriptions`)
         VALUES(:name, :banner, :icon, :creatorId, :descriptions)
     ");
@@ -79,6 +80,12 @@
     // $addpost->bindValue(':forumId' , 1);
     // $addpost->bindValue(':like' , 0);
     // $addpost->execute();
+    $addpost->bindValue(':creatorId' , 3);
+    $addpost->bindValue(':title' , 'new oranges drop');
+    $addpost->bindValue(':contents' ,'suck ass');
+    $addpost->bindValue(':forumId' , 2);
+    $addpost->bindValue(':like' , 10);
+    $addpost->execute();
 
     $addpostPicture = $dbh->prepare("
         INSERT INTO `postPicture_t`(`postId`, `picture`)
@@ -94,17 +101,7 @@
     // $addpostPicture->bindValue(':picture' , (file_get_contents(__DIR__.'\post1img3.webp')));
     // $addpostPicture->execute();
     
-    $addReqpost = $dbh->prepare("
-        SELECT max(id) from post_t;
-        INSERT INTO `post_t`(`creatorId`, `title`, `contents`, `forumId` )
-        VALUES(:creatorId, :title, :contents, :forumId);
-    ");
-    // $addReqpost->bindValue(':creatorId' , 2);
-    // $addReqpost->bindValue(':title' , 'my new red apple');
-    // $addReqpost->bindValue(':contents' ,'a sour apple ');
-    // $addReqpost->bindValue(':forumId' , 1);
-    // $addReqpost->execute();
-    // var_dump($addReqpost->fetch());
+   
     
     $addComment = $dbh->prepare("
         INSERT INTO comment_t( 

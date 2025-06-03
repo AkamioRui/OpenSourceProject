@@ -46,10 +46,10 @@
             //get forum info
             $selectForum = $this->dbh->prepare('
                 SELECT *,(
-                    SELECT username FROM `user_t` WHERE `user_t`.`id` = `forum_t`.`creatorId`
-                    ) as creator_name 
+                    SELECT `username` FROM `user_t` WHERE `user_t`.`id` = `forum_t`.`creatorId`
+                    ) as `creator_name` 
                 FROM `forum_t`
-                WHERE id = :forum_id
+                WHERE `id` = :forum_id
             ');
             $selectForum->bindValue(':forum_id', $forum_id);
             $selectForum->bindColumn('name', $this->forum_name);
@@ -67,7 +67,7 @@
             //select Post
             $this->selectPost = $this->dbh->prepare('
                 SELECT * FROM `post_t`
-                WHERE forumId = :forum_id
+                WHERE `forumId` = :forum_id
                 ORDER BY `id` DESC
             ');
             $this->selectPost->bindValue(':forum_id', $forum_id);
@@ -83,8 +83,8 @@
 
             //get post images
             $this->selectPostPicture = $this->dbh->prepare('
-                SELECT picture FROM `postPicture_t`
-                WHERE postId = :postId
+                SELECT `picture` FROM `postPicture_t`
+                WHERE `postId` = :postId
             ');
             $this->selectPostPicture->setFetchMode(PDO::FETCH_COLUMN,0);
             $this->selectPostPicture->bindParam(':postId',$this->post_id);

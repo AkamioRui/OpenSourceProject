@@ -34,7 +34,7 @@
         
         //get user info
         $selectUser = $dbh->prepare('
-            SELECT profilePic FROM `user_t`
+            SELECT `profilePic` FROM `user_t`
             WHERE id = :user_id
         ');
         $selectUser->setFetchMode(PDO::FETCH_COLUMN,0);

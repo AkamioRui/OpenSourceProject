@@ -14,7 +14,7 @@ function insert_Comment(
     $comment_comment
 ){  
     $insertComment = getPDO()->prepare('
-        INSERT INTO comment_t (`creatorId`,`postId`,`parentId`,`comment`)
+        INSERT INTO `comment_t` (`creatorId`,`postId`,`parentId`,`comment`)
         VALUES(:creatorId,:postId,:parentId,:comment)
     ');      
     $insertComment->bindValue(':creatorId',$_SESSION['uid']);

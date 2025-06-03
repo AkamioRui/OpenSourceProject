@@ -17,7 +17,7 @@ function insert_Forum(
     $forum_descriptions
 ){  
     $insertForum = getPDO()->prepare('
-        INSERT INTO forum_t (`name`,`banner`,`icon`,`descriptions`,`creatorId`)
+        INSERT INTO `forum_t` (`name`,`banner`,`icon`,`descriptions`,`creatorId`)
         VALUES(:name,:banner,:icon,:descriptions,:creatorId)
     ');      
     $insertForum->bindValue(':name',$forum_name);
