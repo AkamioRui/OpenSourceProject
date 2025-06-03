@@ -16,11 +16,26 @@
     
     
     */
-
-    $result = extractfrom('<div class="forum-detail-card-header">',file_get_contents(__DIR__.'\..\..\..\src\views\forum.html') );
-    var_dump($result);
-    //split the src into (before)+(tag)+(after)
+    include_once __DIR__."/../../../module/SQL_on_PHP/HEADER.php"; 
+    $result = generatePage(__DIR__.'\..\..\..\src\views\homepage.html') ;
     
+    //split the src into (before)+(tag)+(after)
+    function generatePage($HTMLpath){
+      $raw = file_get_contents($HTMLpath);
+      //card-container = forum
+      //card-content = post
+      list($beforeforum,$forum,$afterforum) = extractfrom('<[^>]*repeat[^>]*>',$raw);
+      $forum = preg_replace('/repeat/','',$forum,1);
+      list($beforepost,$post,$afterpost) = extractfrom('<[^>]*repeat[^>]*>',$forum);
+      $post = preg_replace('/repeat/','',$post,1);
+
+      echo '--> beforeforum = '.$beforeforum."\n";
+      echo '--> beforepost = '.$beforepost."\n";
+      echo '--> post = '.$post."\n";
+      echo '--> afterpost = '.$afterpost."\n";
+      echo '--> afterforum = '.$afterforum."\n";
+      
+  }
     
     
     
