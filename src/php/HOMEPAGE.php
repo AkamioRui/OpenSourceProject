@@ -118,6 +118,7 @@
             list($template_beforepost,$template_post,$template_afterpost) = extractfrom('<[^>]*repeat[^>]*>',$template_forum);
             $template_post = preg_replace('/repeat/','',$template_post,1);
 
+            //$template_beforeforum
             foreach(get_object_vars($this) as $key => $value){
                 try{ $template_beforeforum = preg_replace('/\$'.$key.'/',$value?:'',$template_beforeforum);
                 }catch( Error $e ){}
@@ -160,6 +161,12 @@
                 $this->nextForum();                
             }
             
+            //template_afterforum
+            foreach(get_object_vars($this) as $key => $value){
+                try{ $template_afterforum = preg_replace('/\$'.$key.'/',$value?:'',$template_afterforum);
+                }catch( Error $e ){}
+            }
+            echo $template_afterforum;
         }
 
     };

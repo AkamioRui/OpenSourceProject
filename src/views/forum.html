@@ -16,50 +16,35 @@
     <app-navbar data-page="forum-nav"></app-navbar>
 
     <main>
-      <img class="banner" src="../assets/temp_banner2.jpg" alt="" srcset="" />
+      <img class="banner" src="$forum_banner" alt="" srcset="" />
       <div class="forum-detail-card">
         <img
-          src="../assets/profile.png"
-          alt="Wong Academy Logo"
+          src="$forum_icon"
+          
           class="forum-avatar-floating"
         />
-        <p class="forum-date">{{DATE}}</p>
+        <p class="forum-date">$forum_createdAt</p>
 
         <div class="forum-detail-card-header">
           <div class="title-container">
-            <h2 class="forum-title">Forum Title</h2>
-            <p class="forum-id">ID: {{FORUM.ID}}</p>
+            <h2 class="forum-title">$forum_name</h2>
           </div>
           <p class="forum-description">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. ."
+            $forum_descriptions
           </p>
         </div>
       </div>
 
-      <section class="post-card">
+      <div class="post-card"  repeat>
         <div class="top-card">
-          <h2 class="post-title">Mazel Tov</h2>
+          <h2 class="post-title">$post_title</h2>
           <div class="right-section">
-            <h2 class="post-date">05/20/2025</h2>
-            <p class="post-like">Liked by ! <span class="like">3456 </span></p>
+            <h2 class="post-date">$post_createdAt</h2>
+            <p class="post-like">Liked by ! <span class="like">$post_like</span></p>
           </div>
         </div>
-        <img src="/src/assets/temp_banner2.jpg" alt="" class="post-img" />
-      </section>
-
-      <!-- <section class="post-card">
-        <div class="top-card">
-          <h2 class="post-title">Mazel Tov</h2>
-          <div class="right-section">
-            <h2 class="post-date">05/20/2025</h2>
-            <p class="post-like">Liked by ! <span class="like">3456 </span></p>
-          </div>
-        </div>
-        <img src="/src/assets/temp_banner2.jpg" alt="" class="post-img" />
-      </section> -->
+        <img src="$postPicture_pictures" alt="" class="post-img" />
+      </div>
 
       <app-footer data-page="forum-footer"></app-footer>
     </main>

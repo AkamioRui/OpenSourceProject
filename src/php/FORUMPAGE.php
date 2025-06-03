@@ -124,54 +124,55 @@
          
         function generatePage($HTMLpath){
             $raw = file_get_contents($HTMLpath);
-            //card-container = forum
-            //card-content = post
-            list($template_beforeforum,$template_forum,$template_afterforum) = extractfrom('<[^>]*repeat[^>]*>',$raw);
-            $template_forum = preg_replace('/repeat/','',$template_forum,1);
-            list($template_beforepost,$template_post,$template_afterpost) = extractfrom('<[^>]*repeat[^>]*>',$template_forum);
-            $template_post = preg_replace('/repeat/','',$template_post,1);
 
+            list(
+                $template_beforepost,
+                $template_post,
+                $template_afterpost
+            ) = extractfrom('<[^>]*repeat[^>]*>',$raw);
+            $template_post = preg_replace('/repeat/','',$template_post,1);
+        
+            //template_beforepost
             foreach(get_object_vars($this) as $key => $value){
-                try{ $template_beforeforum = preg_replace('/\$'.$key.'/',$value?:'',$template_beforeforum);
+                
+                try{ 
+                    $template_beforepost = preg_replace('/\$'.$key.'/',$value?:'',$template_beforepost);
                 }catch( Error $e ){}
             }
-            echo $template_beforeforum;
+            echo $template_beforepost;
 
-            while($this->forum_valid){
-                $beforepost = $template_beforepost;
-                
-                $afterpost = $template_afterpost;
+            //template_post
+            while($this->post_valid){
+                $post = $template_post;
                 
                 foreach(get_object_vars($this) as $key => $value){
-                    try{ $beforepost = preg_replace('/\$'.$key.'/',$value?:'',$beforepost);
+                    try{ 
+                        if(is_array($value) ){
+                            if($value)$post = preg_replace('/\$'.$key.'/',$value[0],$post);
+                            else $post = preg_replace(
+                                '/<[^>]*class="post-img"[^>]*>/',
+                                '<div class="post-img">'.$this->post_contents.'</div>',
+                                $post
+                            );
+                        } else {
+
+                            $post = preg_replace('/\$'.$key.'/',$value,$post);
+                        }
+                        
+                        
                     }catch( Error $e ){}
                 }
-                echo $beforepost;
+                echo $post;
                 
-                // //post
-                while($this->post_valid){
-                    $post = $template_post;
-                    
-                    
-                    foreach(get_object_vars($this) as $key => $value){
-                        try{ $post = preg_replace('/\$'.$key.'/',$value?:'',$post);
-                        }catch( Error $e ){}
-                    }
-                    echo $post;
-                    
-                    $this->nextPost();                
-                }
-
-                foreach(get_object_vars($this) as $key => $value){
-                    try{ $afterpost = preg_replace('/\$'.$key.'/',$value?:'',$afterpost);
-                    }catch( Error $e ){}
-                }
-                echo $afterpost;
-
-                
-                
-                $this->nextForum();                
+                $this->nextPost();                
             }
+
+            //template_afterpost
+            foreach(get_object_vars($this) as $key => $value){
+                try{ $template_afterpost = preg_replace('/\$'.$key.'/',$value?:'',$template_afterpost);
+                }catch( Error $e ){}
+            }
+            echo $template_afterpost;
             
         }
 
@@ -179,77 +180,82 @@
     };
  
 
-?>
-
-<!-- ----------------------testing-------------------------------- -->
-
-<!-- profile picture -->
-
-<p>user_profilePic = </p>
-<?php
-    $original = $_SESSION['uid']; 
-    $_SESSION['uid'] = -1;
-?>
-    <img style="width:200px" src="<?=getProfilePic()?>">
-<?php
-    $_SESSION['uid'] = 1;
-?>
-    <img style="width:200px" src="<?=getProfilePic()?>">
-<?php
-    $_SESSION['uid'] = 2;
-?>
-    <img style="width:200px" src="<?=getProfilePic()?>">
-<?php
-    $_SESSION['uid'] = 3;
-?>
-    <img style="width:200px" src="<?=getProfilePic()?>">
-<?php
-$_SESSION['uid'] = 4;
-?>
-    <img style="width:200px" src="<?=getProfilePic()?>">
-<?php
-    $_SESSION['uid'] = $original ;
-?>
-<br>
-<hr>
-
-<!-- forum  -->
-<p>forum_name = <?=$forum->forum_name?></p>
-<p>forum_banner = </p>
-    <img style="width:200px" src="<?=($forum->forum_banner)?>">
-<p>forum_icon =</p>
-    <img style="width:200px"src="<?=($forum->forum_icon)?>" >
-<p>forum_createdAt = <?=$forum->forum_createdAt?></p>
-<p>forum_descriptions = <?=$forum->forum_descriptions?></p>
-<p>forum_creator_name = <?=$forum->forum_creator_name?></p>
-
-<hr>
-
-<!-- posts -->
-<?php
-    while($forum->post_valid){
+    function FORUMPAGE_TEST(){
         ?>
-        <p>post_createdAt = <?=$forum->post_createdAt?></p>
-        <p>post_contents = <?=$forum->post_contents?></p>
-        <p>post_title = <?=$forum->post_title?></p>
-        <p>post_like = <?=$forum->post_like?></p>
+                
+        <!-- ----------------------testing-------------------------------- -->
+
+        <!-- profile picture -->
+
+        <p>user_profilePic = </p>
         <?php
+            $original = $_SESSION['uid']; 
+            $_SESSION['uid'] = -1;
+        ?>
+            <img style="width:200px" src="<?=getProfilePic()?>">
+        <?php
+            $_SESSION['uid'] = 1;
+        ?>
+            <img style="width:200px" src="<?=getProfilePic()?>">
+        <?php
+            $_SESSION['uid'] = 2;
+        ?>
+            <img style="width:200px" src="<?=getProfilePic()?>">
+        <?php
+            $_SESSION['uid'] = 3;
+        ?>
+            <img style="width:200px" src="<?=getProfilePic()?>">
+        <?php
+        $_SESSION['uid'] = 4;
+        ?>
+            <img style="width:200px" src="<?=getProfilePic()?>">
+        <?php
+            $_SESSION['uid'] = $original ;
+        ?>
+        <br>
+        <hr>
 
+        <!-- forum  -->
+        <p>forum_name = <?=$forum->forum_name?></p>
+        <p>forum_banner = </p>
+            <img style="width:200px" src="<?=($forum->forum_banner)?>">
+        <p>forum_icon =</p>
+            <img style="width:200px"src="<?=($forum->forum_icon)?>" >
+        <p>forum_createdAt = <?=$forum->forum_createdAt?></p>
+        <p>forum_descriptions = <?=$forum->forum_descriptions?></p>
+        <p>forum_creator_name = <?=$forum->forum_creator_name?></p>
 
-        if(!$forum->postPicture_pictures ) echo 'no image';
-        else {
-            foreach($forum->postPicture_pictures as $image){
+        <hr>
+
+        <!-- posts -->
+        <?php
+            while($forum->post_valid){
                 ?>
-                <img style="width:200" src="<?=($image)?>">
+                <p>post_createdAt = <?=$forum->post_createdAt?></p>
+                <p>post_contents = <?=$forum->post_contents?></p>
+                <p>post_title = <?=$forum->post_title?></p>
+                <p>post_like = <?=$forum->post_like?></p>
                 <?php
 
+
+                if(!$forum->postPicture_pictures ) echo 'no image';
+                else {
+                    foreach($forum->postPicture_pictures as $image){
+                        ?>
+                        <img style="width:200" src="<?=($image)?>">
+                        <?php
+
+                    }
+                }
+                $forum->nextPost();
+
+                echo '<br> <br>';
+                
+
             }
-        }
-        $forum->nextPost();
+            echo '<hr>';
+        ?>
 
-        echo '<br> <br>';
-        
-
+        <?php
     }
-    echo '<hr>';
 ?>
