@@ -9,6 +9,7 @@
         return;
     }
     $forum = new FORUM($_GET['forum_id']);
+    $forum->generatePage(__DIR__.'/../views/forum.html');
     
 
 
@@ -46,10 +47,10 @@
             //get forum info
             $selectForum = $this->dbh->prepare('
                 SELECT *,(
-                    SELECT username FROM `user_t` WHERE `user_t`.`id` = `forum_t`.`creatorId`
-                    ) as creator_name 
+                    SELECT `username` FROM `user_t` WHERE `user_t`.`id` = `forum_t`.`creatorId`
+                    ) as `creator_name` 
                 FROM `forum_t`
-                WHERE id = :forum_id
+                WHERE `id` = :forum_id
             ');
             $selectForum->bindValue(':forum_id', $forum_id);
             $selectForum->bindColumn('name', $this->forum_name);
@@ -67,7 +68,7 @@
             //select Post
             $this->selectPost = $this->dbh->prepare('
                 SELECT * FROM `post_t`
-                WHERE forumId = :forum_id
+                WHERE `forumId` = :forum_id
                 ORDER BY `id` DESC
             ');
             $this->selectPost->bindValue(':forum_id', $forum_id);
@@ -83,8 +84,8 @@
 
             //get post images
             $this->selectPostPicture = $this->dbh->prepare('
-                SELECT picture FROM `postPicture_t`
-                WHERE postId = :postId
+                SELECT `picture` FROM `postPicture_t`
+                WHERE `postId` = :postId
             ');
             $this->selectPostPicture->setFetchMode(PDO::FETCH_COLUMN,0);
             $this->selectPostPicture->bindParam(':postId',$this->post_id);
@@ -120,6 +121,60 @@
 
         }
         
+         
+        function generatePage($HTMLpath){
+            $raw = file_get_contents($HTMLpath);
+            //card-container = forum
+            //card-content = post
+            list($template_beforeforum,$template_forum,$template_afterforum) = extractfrom('<[^>]*repeat[^>]*>',$raw);
+            $template_forum = preg_replace('/repeat/','',$template_forum,1);
+            list($template_beforepost,$template_post,$template_afterpost) = extractfrom('<[^>]*repeat[^>]*>',$template_forum);
+            $template_post = preg_replace('/repeat/','',$template_post,1);
+
+            foreach(get_object_vars($this) as $key => $value){
+                try{ $template_beforeforum = preg_replace('/\$'.$key.'/',$value?:'',$template_beforeforum);
+                }catch( Error $e ){}
+            }
+            echo $template_beforeforum;
+
+            while($this->forum_valid){
+                $beforepost = $template_beforepost;
+                
+                $afterpost = $template_afterpost;
+                
+                foreach(get_object_vars($this) as $key => $value){
+                    try{ $beforepost = preg_replace('/\$'.$key.'/',$value?:'',$beforepost);
+                    }catch( Error $e ){}
+                }
+                echo $beforepost;
+                
+                // //post
+                while($this->post_valid){
+                    $post = $template_post;
+                    
+                    
+                    foreach(get_object_vars($this) as $key => $value){
+                        try{ $post = preg_replace('/\$'.$key.'/',$value?:'',$post);
+                        }catch( Error $e ){}
+                    }
+                    echo $post;
+                    
+                    $this->nextPost();                
+                }
+
+                foreach(get_object_vars($this) as $key => $value){
+                    try{ $afterpost = preg_replace('/\$'.$key.'/',$value?:'',$afterpost);
+                    }catch( Error $e ){}
+                }
+                echo $afterpost;
+
+                
+                
+                $this->nextForum();                
+            }
+            
+        }
+
 
     };
  

@@ -4,8 +4,8 @@
     
     ///* test */$_SESSION['uid'] = 1;
     $homepage = new HOMEPAGE();
+    $homepage->generatePage(__DIR__.'/../views/homepage.html');
     
-
 
     class HOMEPAGE{
 
@@ -14,9 +14,11 @@
         public $forum_postCount; //custom
         public $forum_icon;
         public $forum_descriptions;
+        public $forum_contributor;
 
         public $post_title; 
         public $post_contents;    
+        public $post_creator;  /* post_username */  
         
 
         //redirect fetch requirement
@@ -43,18 +45,25 @@
             
             //get forum info
             $this->selectForum = $this->dbh->prepare('
-                SELECT *,(
-                    SELECT COUNT(forumId) 
-                    FROM post_t
-                    WHERE post_t.forumId = forum_t.id
-                ) as postCount
+                SELECT *,
+                (
+                    SELECT COUNT(`post_t`.`forumId`) 
+                    FROM `post_t`
+                    WHERE `post_t`.`forumId` = `forum_t`.`id`
+                ) as `postCount`,
+                (
+                    SELECT `user_t`.`username` 
+                    FROM `user_t` 
+                    WHERE `user_t`.`id` = `forum_t`.`creatorId` 
+                ) as `contributor`
                 FROM `forum_t`
-                ORDER BY id DESC
+                ORDER BY `id` DESC
             ');
             $this->selectForum->bindColumn('name', $this->forum_name);
             $this->selectForum->bindColumn('postCount', $this->forum_postCount);
             $this->selectForum->bindColumn('icon', $this->forum_icon);
             $this->selectForum->bindColumn('descriptions', $this->forum_descriptions);
+            $this->selectForum->bindColumn('contributor', $this->forum_contributor);
             $this->selectForum->bindColumn('id', $this->forum_id);
             $this->selectForum->execute();
             $this->forum_valid = $this->selectForum->fetch()?true:false;
@@ -63,9 +72,14 @@
 
             //select Post
             $this->selectPost = $this->dbh->prepare('
-                SELECT * 
+                SELECT *,
+                (
+                    SELECT `user_t`.`username` 
+                    FROM `user_t` 
+                    WHERE `user_t`.`id` = `post_t`.`creatorId`
+                ) AS `post_creator`
                 FROM `post_t`
-                WHERE forumId = :forum_id
+                WHERE `forumId` = :forum_id
                 ORDER BY `id` DESC
             ');
             $this->selectPost->bindParam(':forum_id', $this->forum_id);
@@ -95,6 +109,58 @@
             $this->preprocess();
         }
         
+        function generatePage($HTMLpath){
+            $raw = file_get_contents($HTMLpath);
+            //card-container = forum
+            //card-content = post
+            list($template_beforeforum,$template_forum,$template_afterforum) = extractfrom('<[^>]*repeat[^>]*>',$raw);
+            $template_forum = preg_replace('/repeat/','',$template_forum,1);
+            list($template_beforepost,$template_post,$template_afterpost) = extractfrom('<[^>]*repeat[^>]*>',$template_forum);
+            $template_post = preg_replace('/repeat/','',$template_post,1);
+
+            foreach(get_object_vars($this) as $key => $value){
+                try{ $template_beforeforum = preg_replace('/\$'.$key.'/',$value?:'',$template_beforeforum);
+                }catch( Error $e ){}
+            }
+            echo $template_beforeforum;
+
+            while($this->forum_valid){
+                $beforepost = $template_beforepost;
+                
+                $afterpost = $template_afterpost;
+                
+                foreach(get_object_vars($this) as $key => $value){
+                    try{ $beforepost = preg_replace('/\$'.$key.'/',$value?:'',$beforepost);
+                    }catch( Error $e ){}
+                }
+                echo $beforepost;
+                
+                // //post
+                while($this->post_valid){
+                    $post = $template_post;
+                    
+                    
+                    foreach(get_object_vars($this) as $key => $value){
+                        try{ $post = preg_replace('/\$'.$key.'/',$value?:'',$post);
+                        }catch( Error $e ){}
+                    }
+                    echo $post;
+                    
+                    $this->nextPost();                
+                }
+
+                foreach(get_object_vars($this) as $key => $value){
+                    try{ $afterpost = preg_replace('/\$'.$key.'/',$value?:'',$afterpost);
+                    }catch( Error $e ){}
+                }
+                echo $afterpost;
+
+                
+                
+                $this->nextForum();                
+            }
+            
+        }
 
     };
  
@@ -106,7 +172,10 @@
 <!-- profile picture -->
 
 <?php
-    HOMEPAGE_TEST($homepage);
+    
+
+
+
     function HOMEPAGE_TEST($homepage){
         while($homepage->forum_valid){
             ?>

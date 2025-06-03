@@ -51,9 +51,9 @@
             
             $selectPost = $this->dbh->prepare('
                 SELECT *,
-                (SELECT username FROM user_t WHERE user_t.id = post_t.creatorId) as creatorName
+                (SELECT `username` FROM `user_t` WHERE `user_t`.`id` = `post_t`.`creatorId`) as `creatorName`
                 FROM `post_t`
-                WHERE id = :post_id
+                WHERE `id` = :post_id
             ');
             $selectPost->bindParam(':post_id', $post_id);
             $selectPost->bindColumn('title', $this->post_title);
@@ -70,9 +70,9 @@
             
 
             $selectPostPicture = $this->dbh->prepare('
-                SELECT picture
+                SELECT `picture`
                 FROM `postPicture_t`
-                WHERE postId = :post_id
+                WHERE `postId` = :post_id
             ');
             $selectPostPicture->setFetchMode(PDO::FETCH_COLUMN,0);
             $selectPostPicture->bindParam(':post_id', $this->post_id);
@@ -89,14 +89,14 @@
 
             $this->selectUserComment = $this->dbh->prepare('
                 SELECT 
-                    C.comment as comment_comment ,
-                    C.like as comment_like ,
-                    U.profilePic as user_profilePic ,
-                    U.username as user_username 
+                    C.`comment` as `comment_comment` ,
+                    C.`like` as `comment_like` ,
+                    U.`profilePic` as `user_profilePic` ,
+                    U.`username` as `user_username` 
                 FROM `comment_t` AS C
                 INNER JOIN `user_t` AS U
-                ON C.creatorId = U.id
-                WHERE C.id = :comment_id
+                ON C.`creatorId` = U.`id`
+                WHERE C.`id` = :comment_id
             ');
             $this->selectUserComment->bindParam(':comment_id', $this->comment_id);
             $this->selectUserComment->bindColumn('comment_comment', $this->comment_comment);

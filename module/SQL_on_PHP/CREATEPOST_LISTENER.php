@@ -37,7 +37,7 @@
         $dbh = getPDO();
         
         $insertPost = $dbh->prepare('
-            SELECT max(id) FROM post_t;
+            SELECT max(`id`) FROM `post_t`;
             INSERT INTO `post_t`(`creatorId`, `title`, `contents`, `forumId`)
             VALUES(:creatorId, :title, :contents, :forumId);
         ');

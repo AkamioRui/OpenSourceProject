@@ -13,9 +13,9 @@
 
         $dbh = getPDO();
         $insertUser = $dbh->prepare('
-            UPDATE user_t
-            SET profilePic = :user_profilePic
-            WHERE id = :user_id
+            UPDATE `user_t`
+            SET `profilePic` = :user_profilePic
+            WHERE `id` = :user_id
         ');
         $insertUser->bindValue(':user_profilePic',$image);
         $insertUser->bindValue(':user_id',$_SESSION['uid']);
