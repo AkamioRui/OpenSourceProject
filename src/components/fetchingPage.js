@@ -1,38 +1,46 @@
-//homepage
-    // fetch_accountPopup();
-    function redirect_ForumPage(forum_id){
-        window.location.href = '/src/php/FORUMPAGE.php?'+'forum_id='+forum_id;
-    }
-    // redirect_PostPage();// each post in html must have post_id
-    function fetch_CreateForum(){
-        
-    }
-//forumpage
-    // redirect_Back();
-    // fetch_accountPopup();
-    // redirect_PostPage();//in js, must know this postId
-    // fetch_CreatePost();
-//postpage
-    // redirect_Back();//must know the previous fullpage
-    // fetch_accountPopup();
-    // fetch_CreateComment();
-//accountPopup
-    // redirect_Back();//must know the previous fullpage
-    // fetch_LoginPopup(); 
-//loginPopup
-    // redirect_Back();//must know the previous fullpage
-    // fetch_SignupPopup();         
-//signupPopup
-    // redirect_Back();//must know the previous fullpage
-    // fetch_LoginPopup();
-//createForumPopup
-    // redirect_Back();//must know the previous fullpage
-//createPostPopup
-    // redirect_Back();//must know the previous fullpage
-//createCommentPopup
-    // redirect_Back();      
 
-        
+function redirect_ForumPage(forum_id){
+    window.location.href = '/src/php/FORUMPAGE.php?'+'forum_id='+forum_id;
+}
+function redirect_PostPage(post_id){
+    window.location.href = '/src/php/POSTPAGE.php?'+'post_id='+post_id;
+}
+function redirect_Homepage(){
+    window.location.href = '/src/php/HOMEPAGE.php';
+}
+async function fetch_LoginPopup(){
+    return await(await fetch('/src/php/LOGINPOPUP.php')).text();
+}
+async function fetch_SignupPopup(){
+    return await(await fetch('/src/php/SIGNUPPOPUP.php')).text();
+}
+async function fetch_accountPopup(){
+    return await(await fetch('/src/php/ACCOUNTPOPUP.php')).text();
+}
+async function fetch_CreateForum(){
+    return await(await fetch('/src/php/CREATEFORUM.php')).text();
+}
+async function fetch_CreatePost(forumId){
+    let form = new FormData();
+    form.append('forumId',forumId);
+    return await(await fetch('/src/php/CREATEPOST.php',{
+        method:"POST",
+        body:form
+    })).text();
+}
+async function fetch_CreateComment(postId,parentId){
+    let form = new FormData();
+    form.append('postId',postId);
+    form.append('parentId',parentId);
+    return await(await fetch('/src/php/CREATECOMMENT.php',{
+        method:"POST",
+        body:form
+    })).text();  
+}
+
+function closePopup(){
+
+}     
 
 function HEADER_updateProfilePic(element){
     let form = new FormData();
