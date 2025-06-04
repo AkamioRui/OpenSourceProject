@@ -125,6 +125,7 @@
 
     };
 
+    // $accountpopup->generatePage(__DIR__.'/../views/account.html');
     function ACCOUNTPOPUP_TEST(ACCOUNTPOPUP $accountpopup){
 
         ?>
