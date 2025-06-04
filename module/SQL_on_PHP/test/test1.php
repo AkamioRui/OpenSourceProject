@@ -1,59 +1,70 @@
 <?php
+
+
 //D:\tugas\2_2\OpenSource\MessageBroardProject\module\SQL_on_PHP\test\test1.php
 //D:\tugas\2_2\OpenSource\MessageBroardProject\module\SQL_on_PHP\HEADER.php
 //include_once __DIR__."/../HEADER.php";
 
-extractfrom(file_get_contents(__DIR__.'\..\..\..\src\views\homepage.html'),'<[^>]*repeat[^>]*>','div');
+
+preg_match(
+  '/(<[^<>]*id="sign-up"[^<>]*>)([^<>]*)(<[^<>]*>)/',
+  file_get_contents('D:\tugas\2_2\OpenSource\MessageBroardProject\src\views\account.html'),
+  $matches
+);
+var_dump($matches);
 
 
-function extractfrom($src,$fulltag,$tag){//only the first occurance
+// extractfrom(file_get_contents(__DIR__.'\..\..\..\src\views\homepage.html'),'<[^>]*repeat[^>]*>','div');
 
-  $keyMiddle = preg_split(
-      '/('.$fulltag.')/',
-      $src,
-      2,
-      PREG_SPLIT_DELIM_CAPTURE
-  );
+
+// function extractfrom($src,$fulltag,$tag){//only the first occurance
+
+//   $keyMiddle = preg_split(
+//       '/('.$fulltag.')/',
+//       $src,
+//       2,
+//       PREG_SPLIT_DELIM_CAPTURE
+//   );
 
   
    
-  //find the </div>
-  preg_match_all(
-      '/<[^<>]*'.$tag.'[^<>]*>|<\/[^<>]*'.$tag.'[^<>]*>/',
-      $keyMiddle[2],
-      $candidate,
-      PREG_OFFSET_CAPTURE
-  );
+//   //find the </div>
+//   preg_match_all(
+//       '/<[^<>]*'.$tag.'[^<>]*>|<\/[^<>]*'.$tag.'[^<>]*>/',
+//       $keyMiddle[2],
+//       $candidate,
+//       PREG_OFFSET_CAPTURE
+//   );
   
-  $offset;
-  $count = 1;
-  foreach ($candidate[0] as $instance){
-      if(preg_match('/<\/[^<>]*'.$tag.'[^<>]*>/',$instance[0]) ){
-          $count--;
-      } else{
-          $count++;
-      }
+//   $offset;
+//   $count = 1;
+//   foreach ($candidate[0] as $instance){
+//       if(preg_match('/<\/[^<>]*'.$tag.'[^<>]*>/',$instance[0]) ){
+//           $count--;
+//       } else{
+//           $count++;
+//       }
     
-      if($count == 0){
-        $offset = $instance[1] + strlen($instance[0]);
-        break;
+//       if($count == 0){
+//         $offset = $instance[1] + strlen($instance[0]);
+//         break;
 
-      }
-  }
-  // echo $keyMiddle[1].substr($keyMiddle[2],0,$offset)."\n";
-  $before = $keyMiddle[0];
-  $fulltag = $keyMiddle[1].substr($keyMiddle[2],0,$offset)."\n";
-  $after = substr($keyMiddle[2],$offset);
+//       }
+//   }
+//   // echo $keyMiddle[1].substr($keyMiddle[2],0,$offset)."\n";
+//   $before = $keyMiddle[0];
+//   $fulltag = $keyMiddle[1].substr($keyMiddle[2],0,$offset)."\n";
+//   $after = substr($keyMiddle[2],$offset);
 
-  var_dump([$before,$fulltag,$after]);
-  return;
+//   var_dump([$before,$fulltag,$after]);
+//   return;
 
 
-  // var_dump($keyMiddle);
-  // echo substr($src,$keyMiddle[1][1],$keyMiddle[2][1] - $keyMiddle[1][1] );
+//   // var_dump($keyMiddle);
+//   // echo substr($src,$keyMiddle[1][1],$keyMiddle[2][1] - $keyMiddle[1][1] );
 
-  return [$before,$fulltag,$after];
-}
+//   return [$before,$fulltag,$after];
+// }
 
 
 

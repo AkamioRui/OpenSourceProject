@@ -16,9 +16,10 @@
       <div class="main-container">
         <div class="left-section">
           <div class="profile-card">
+            <!-- laurel if admin -->
             <img
               class="profile-img"
-              src="/src/assets/temp_img.jpg"
+              src="$user_profilePic"
               alt=""
               srcset=""
             />
@@ -26,14 +27,15 @@
           <div class="profile-button">
             <button id="add-icon">Add icon</button>
           </div>
-          <p>Email:</p>
-          <p>Joined:</p>
+          <p>Email:$user_email</p>
+          <p>Joined:$user_createdAt</p>
         </div>
         <div class="right-section">
-          <h2>Username</h2>
+          <h2>$user_username</h2>
         </div>
       </div>
       <div class="button-container">
+        <!-- sign up/ log out -->
         <button id="sign-up">Sign up</button>
       </div>
     </main>

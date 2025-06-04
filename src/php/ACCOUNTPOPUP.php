@@ -3,32 +3,16 @@
 
 
     
-    /* test */$_SESSION['uid'] = -1;
+    /* test */$_SESSION['uid'] = 2;
     $accountpopup = new ACCOUNTPOPUP();
+    $accountpopup->generatePage(__DIR__.'/../views/account.html');
     
-    ACCOUNTPOPUP_TEST($accountpopup);
+    
         
 
 //------------------------library-------------------------------------//
 
-    function ACCOUNTPOPUP_TEST(ACCOUNTPOPUP $accountpopup){
-
-        ?>
-            <p>user_createdAt =<?=$accountpopup->user_createdAt?></p>
-            <p>user_profilePic =<?=$accountpopup->user_profilePic?'yes':'no'?></p>
-            <img style="width:200px" src="<?=$accountpopup->user_profilePic?>">
-            <p>user_username =<?=$accountpopup->user_username?></p>
-            <p>user_email =<?=$accountpopup->user_email?></p>
-            <p>user_admin =<?=$accountpopup->user_admin?></p>
-            <p>uid =<?=$_SESSION['uid']?></p>
-            <button onclick="say()">say hello</button>
-            
-            <hr>
-
-        <?php
-        ;
-            // mm/dd/yyyy
-    }
+    
 
     class ACCOUNTPOPUP{
 
@@ -90,7 +74,75 @@
             
         }
 
+        
+        function generatePage($HTMLpath){
+            $page = file_get_contents($HTMLpath);
+            
+            foreach(get_object_vars($this) as $key => $value){
+                
+                try{ 
+                    if(is_array($value) ){
+                        if($value)$page = preg_replace('/\$'.$key.'/',$value[0],$page);
+                        else $page = preg_replace(
+                            '/<[^>]*class="post-img"[^>]*>/',
+                            '',
+                            $page
+                        );
+                    } else {
+
+                        $page = preg_replace('/\$'.$key.'/',$value==NULL?'':$value,$page);
+                    }
+                    
+                    
+                }catch( Error $e ){}
+
+                //for lauerl
+
+                //for login button
+                if($_SESSION['uid'] == -1){
+                    $page = preg_replace(
+                        '/(<[^<>]*id="sign-up"[^<>]*>)([^<>]*)(<[^<>]*>)/',
+                        '/\\1sign-up\\3/',
+                        $page
+                    );
+                } else {
+                    $page = preg_replace(
+                        '/(<[^<>]*id="sign-up"[^<>]*>)([^<>]*)(<[^<>]*>)/',
+                        '$1logout$3',
+                        $page
+                    );
+                }
+                
+                
+
+            }
+            echo $page;
+
+            
+        }
+
+
+
     };
+
+    function ACCOUNTPOPUP_TEST(ACCOUNTPOPUP $accountpopup){
+
+        ?>
+            <p>user_createdAt =<?=$accountpopup->user_createdAt?></p>
+            <p>user_profilePic =<?=$accountpopup->user_profilePic?'yes':'no'?></p>
+            <img style="width:200px" src="<?=$accountpopup->user_profilePic?>">
+            <p>user_username =<?=$accountpopup->user_username?></p>
+            <p>user_email =<?=$accountpopup->user_email?></p>
+            <p>user_admin =<?=$accountpopup->user_admin?></p>
+            <p>uid =<?=$_SESSION['uid']?></p>
+            <button onclick="say()">say hello</button>
+            
+            <hr>
+
+        <?php
+        ;
+            // mm/dd/yyyy
+    }
  
 
 ?>
