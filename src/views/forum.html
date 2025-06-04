@@ -24,7 +24,6 @@
           class="forum-avatar-floating"
         />
         <p class="forum-date">$forum_createdAt</p>
-
         <div class="forum-detail-card-header">
           <div class="title-container">
             <h2 class="forum-title">$forum_name</h2>
@@ -46,7 +45,11 @@
         <img src="$postPicture_pictures" alt="" class="post-img" />
       </div>
 
-      <app-footer data-page="forum-footer"></app-footer>
     </main>
+
+    <app-footer data-page="forum-footer"></app-footer>
+    <div id="modal" class="modal hidden"></div>
+
+    <script src="/src/components/modalLoader.js"></script>
   </body>
 </html>

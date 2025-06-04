@@ -3,7 +3,6 @@ class Navbar extends HTMLElement {
     const page = this.getAttribute("data-page");
     this.classList.add(`navbar-${page}`);
     let navbarContent;
-    console.log(this.classList);
 
     switch (page) {
       case "forum-nav":
@@ -20,25 +19,20 @@ class Navbar extends HTMLElement {
           <img id="" src="/src/assets/circle.png" alt="Login/Signup" />
           </button>
         </nav>
-        <div id="authModal" class="modal hidden"></div>
+ 
       `;
         break;
 
-      case "post-nav" || "login-nav" || "signup-nav":
+      case "login-nav":
+      case "signup-nav":
         navbarContent = `
         <nav >
           <button  class="back-button ">
         <img id="back-btn" src="/src/assets/back.png" alt="Back"  />
           </button>  
           <h1>LetMeKnow</h1>
-          <form>
-            <input class="search" type="text" placeholder="Search Forum..." />
-          </form>
-          <button class="profile-btn" data-modal-target=""> 
-          <img  src="/src/assets/circle.png" alt="Login/Signup" />
-          </button>
         </nav>
-        <div id="authModal" class="modal hidden"></div>
+ 
       `;
         break;
 
@@ -49,6 +43,23 @@ class Navbar extends HTMLElement {
         <img id="back-btn" src="/src/assets/back.png" alt="Back"  />
           </button>  
           <h1>LetMeKnow</h1>
+        </nav>
+      `;
+        break;
+
+      case "post-nav":
+      case "write-post-nav":
+      case "write-forum-nav":
+      case "comment-bar-nav":
+        navbarContent = `
+        <nav >
+          <button  class="back-button ">
+        <img id="back-btn" src="/src/assets/back.png" alt="Back"  />
+          </button>  
+          <h1>LetMeKnow</h1>   
+          <button class="profile-btn" data-modal-target=""> 
+          <img  src="/src/assets/circle.png" alt="Login/Signup" />
+          </button>
         </nav>
       `;
         break;

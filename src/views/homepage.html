@@ -8,6 +8,7 @@
     <link href="/src/css/global.css" rel="stylesheet" />
     <link href="/src/css/nav.css" rel="stylesheet" />
     <link href="/src/css/footer.css" rel="stylesheet" />
+
     <script src="/src/components/navbar.js"></script>
     <script src="/src/components/footer.js"></script>
   </head>
@@ -16,7 +17,6 @@
 
     <main>
       <div class="card-container" repeat>
-
         <div class="top-card">
           <img class="card-photo" src="$forum_icon" />
           <div class="card-heading">
@@ -27,19 +27,16 @@
         </div>
 
         <div class="bottom-card">
-          
           <div class="card-content" repeat>
             <h3 class="post-title">$post_title</h3>
-            <p class="post-desc">$post_contents</p>
+            <p class="post-description">$post_contents</p>
           </div>
-
-          
         </div>
-
       </div>
-      
     </main>
 
     <app-footer data-page="homepage-footer"></app-footer>
+    <div id="modal" class="modal hidden"></div>
+    <script src="/src/components/modalLoader.js"></script>
   </body>
 </html>

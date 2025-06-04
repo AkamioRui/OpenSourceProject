@@ -1,33 +1,11 @@
 .login-card {
   position: relative;
-  width: 320px;
+  width: 40%;
+  margin: 0 auto;
   background: #fff6ea;
   border-radius: 12px;
   overflow: hidden;
-  padding: 80px 30px 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.login-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #ffc777;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-}
-.login-header .back {
-  color: #2a1a5e;
-  font-size: 18px;
-  text-decoration: none;
-}
-.login-header .brand {
-  margin-left: auto;
-  font-family: "Shrikhand", cursive;
-  font-size: 18px;
-  color: #2a1a5e;
+  padding: 2rem 0;
 }
 
 .login-card h2 {
@@ -35,23 +13,24 @@
   text-align: center;
   color: #2a1a5e;
   margin-bottom: 24px;
-  font-size: 28px;
+  font-size: 2rem;
 }
 
 .login-card label {
   display: block;
-  font-size: 14px;
+  font-size: 1rem;
   color: #2a1a5e;
-  margin-bottom: 6px;
+  margin-bottom: 0.5rem;
 }
+
 .login-card input {
   width: 100%;
   padding: 10px 14px;
   border: 1px solid #c3a77b;
   border-radius: 20px;
   background: #f5e1c7;
-  margin-bottom: 16px;
-  font-size: 14px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 .login-card .alt-link {
@@ -69,14 +48,14 @@
 .login-card button {
   display: block;
   margin: 0 auto;
-  width: 115px;
+  width: 200px;
   padding: 10px;
   background: #ffb35c;
   border: none;
-  border-radius: 20px;
+  border-radius: 15px;
   font-family: "Shrikhand", cursive;
   color: #2a1a5e;
-  font-size: 16px;
+  font-size: 1.25rem;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
