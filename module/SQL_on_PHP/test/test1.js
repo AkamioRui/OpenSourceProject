@@ -1,3 +1,3 @@
-function dostuff(){
-    console.log('success');
+export function dostuff() {
+  console.log("success");
 }

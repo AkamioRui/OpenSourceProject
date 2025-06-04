@@ -1,32 +1,20 @@
 <html>
-    
-    <body>
-        <button onclick="stuff()">test</button>
-        
-        
-    </body>
-    <script>
-        
-        async function stuff(){
-            let test1Raw = await (await fetch('test1.html')).text() ;
-            let test1doc = new DOMParser().parseFromString(test1Raw,'text/html'); 
-            
-            let element;
-            while(element = test1doc.head.children[0]){
-                document.head.appendChild(element);
-            }
-            while(element = test1doc.body.children[0]){
-                document.body.appendChild(element);
-            }
-            
+  <body>
+    <script type="module" src="/module/SQL_on_PHP/test/test2.js"></script>
+    <button onclick="dostuff2()">test</button>
+  </body>
+  <script>
+    async function stuff() {
+      let test1Raw = await (await fetch("test1.html")).text();
+      let test1doc = new DOMParser().parseFromString(test1Raw, "text/html");
 
-        }
-        
-       
-           
-            
-    </script>
-
-    
+      let element;
+      while ((element = test1doc.head.children[0])) {
+        document.head.appendChild(element);
+      }
+      while ((element = test1doc.body.children[0])) {
+        document.body.appendChild(element);
+      }
+    }
+  </script>
 </html>
-

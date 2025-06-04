@@ -5,7 +5,6 @@
     if(isset($_POST['change_profilePic']))change_profilePic($_FILES['user_profilePic']['tmp_name']);
     if(isset($_POST['logout']))logout();
 
-
 //-----------------library-----------------------------------------------------------//
     function change_profilePic($imagePath){
         $image = file_get_contents($imagePath);
@@ -23,21 +22,10 @@
         
          echo '<body style="--code:success">data:image/*;base64,'.base64_encode($image).'</body>';
         
-        
- 
-            
     }
     function logout(){
         $_SESSION['uid'] = -1; 
-        ob_start();
-        include_once __DIR__.'\ACCOUNTPOPUP.php';
-        $page = ob_get_clean();
-        
     }
 
-
 ?>
-
-
-
 

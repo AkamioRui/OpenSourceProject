@@ -42,7 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const existing = document.querySelector(
       `link[data-modal-css="${modalName}"]`
     );
-    if (existing) return; // already loaded
+
+    if (existing) return;
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -60,39 +61,94 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  async function loadProfilePic() {
+    let form = new FormData();
+    form.append("user_profilePic", 1);
+    let res = await fetch("/module/SQL_on_PHP/GENERAL_LISTENER.php", {
+      method: "POST",
+      body: form,
+    });
+
+    let imgSrc = await res.text();
+    let profilePic = document.querySelector("#profilePic");
+    profilePic.src = imgSrc;
+  }
+
   async function loadModal(modalName) {
     if (!modalName) return;
 
     try {
-      const res = await fetch(`/src/views/popup/${modalName}.html`);
+      const res = await fetch(`/src/php/${modalName}.php`);
       const html = await res.text();
-      modal.innerHTML = html;
+
+      let doc = new DOMParser().parseFromString(html, "text/html");
+      modal.appendChild(doc.querySelector(".modal"));
+
       modal.classList.remove("hidden");
       previousModal = modalName;
-
       loadModalCSS(modalName);
 
       // Close button handler
-      const closeBtn = modal.querySelector("#back-button");
-      if (closeBtn) {
-        closeBtn.addEventListener("click", closeModal);
-      }
+
+      // const closeBtn = modal.querySelector(".back-button");
+      // console.log(modal, closeBtn);
+      // if (closeBtn) {
+      //   closeBtn.addEventListener("click", closeModal);
+      // }
 
       // Cross-modal transitions
       if (modalName === "account") {
         const signupBtn = modal.querySelector("#signup-from-account");
-        if (signupBtn) {
+        let code = signupBtn.innerHTML;
+        console.log(`Signup button code: ${code}`);
+
+        if (code == "sign-up") {
           signupBtn.addEventListener("click", () => {
             closeModal();
             loadModal("signup");
           });
+        } else if (code == "logout") {
+          signupBtn.addEventListener("click", async () => {
+            let signupBtn = document.querySelector("#signup-from-account");
+            let code = signupBtn.innerHTML;
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LOGOUT BUTTON HANDLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            if (code == "logout") {
+              let form = new FormData();
+              form.append("logout", 1);
+              let msg = await (
+                await fetch("/module/SQL_on_PHP/ACCOUNTPOPUP_LISTENER.php", {
+                  method: "POST",
+                  body: form,
+                })
+              ).text();
+              console.log("clicked logout", msg);
+            }
+            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE PIC UNAPPEND ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            loadProfilePic();
+            closeModal();
+            loadModal("account");
+          });
+        } else {
+          console.log("nothing");
         }
       }
 
       if (modalName === "signup") {
-        const loginBtn = modal.querySelector("#login-from-signup");
-        if (loginBtn) {
-          loginBtn.addEventListener("click", () => {
+        const signUpLink = modal.querySelector("#login-from-signup");
+        if (signUpLink) {
+          signUpLink.addEventListener("click", () => {
+            closeModal();
+            loadModal("login");
+          });
+        }
+
+        const signUpButton = modal.querySelector("#button-signUp");
+        console.log(`Sign Up button: ${signUpButton}`);
+
+        if (signUpButton) {
+          signUpButton.addEventListener("click", () => {
+            insert_signup();
             closeModal();
             loadModal("login");
           });
@@ -105,6 +161,33 @@ document.addEventListener("DOMContentLoaded", () => {
           signupLink.addEventListener("click", () => {
             closeModal();
             loadModal("signup");
+          });
+        }
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LOGIN BUTTON HANDLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        const loginButton = modal.querySelector("#sign-in-button");
+        if (loginButton) {
+          loginButton.addEventListener("click", async () => {
+            console.log("Login button:", loginButton);
+            let user_arg = document.querySelector("#email").value;
+            let user_password = document.querySelector("#password").value;
+            console.log(`User arg: ${user_arg}, Password: ${user_password}`);
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  FETCH QUERY FROM FORM ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            let form = new FormData();
+            form.append("query_Login", 1);
+            form.append("user_arg", user_arg);
+            form.append("user_password", user_password);
+
+            let response = await (
+              await fetch("/module/SQL_on_PHP/LOGINPOPUP_LISTENER.php", {
+                method: "POST",
+                body: form,
+              })
+            ).text();
+            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE PIC APPEND ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            loadProfilePic();
+            closeModal();
           });
         }
       }
@@ -133,4 +216,31 @@ document.addEventListener("DOMContentLoaded", () => {
       loadModal(modalName);
     }
   });
+
+  async function insert_signup() {
+    //$_POST['user_username'];
+    //$_POST['user_email'];
+    //$_POST['user_password'];
+
+    let user_username = document.querySelector("#uname").value;
+    let user_email = document.querySelector("#email").value;
+    let user_password = document.querySelector("#password").value;
+
+    let form = new FormData();
+    form.append("insert_signup", 1);
+    form.append("user_username", user_username);
+    form.append("user_email", user_email);
+    form.append("user_password", user_password);
+
+    let response = await (
+      await fetch("/module/SQL_on_PHP/SIGNUPPOPUP_LISTENER.php", {
+        method: "POST",
+        body: form,
+      })
+    ).text();
+    let code = new DOMParser()
+      .parseFromString(response, "text/html")
+      .body.style.getPropertyValue("--code");
+    console.log(code);
+  }
 });

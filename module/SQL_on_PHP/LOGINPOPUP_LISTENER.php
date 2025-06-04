@@ -6,7 +6,7 @@
     function query_Login($user_arg, $user_password){
         $dbh = getPDO();
         $selectLogin = $dbh->prepare('
-            SELECT `id` FROM `user_t `
+            SELECT `id` FROM `user_t`
             WHERE (username = :user_arg OR email = :user_arg) AND password = :user_password
         ');
         $selectLogin->setFetchMode(PDO::FETCH_COLUMN,0);
