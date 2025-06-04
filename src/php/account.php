@@ -5,7 +5,7 @@
     
     /* test */$_SESSION['uid'] = 2;
     $accountpopup = new ACCOUNTPOPUP();
-    $accountpopup->generatePage(__DIR__.'/../views/account.html');
+    $accountpopup->generatePage(__DIR__.'/../views/popup/account.html');
     
     
         

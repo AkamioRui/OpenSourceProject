@@ -7,7 +7,7 @@
     if(!isset($_POST['parentId'])) echo '<p>undefined parentId</p>';
     if(!isset($_POST['parentId']) && !isset($_POST['postId']))  return;;
     $createpost = new CREATECOMMENT($_POST['postId'], $_POST['parentId']);
-    $createpost->generatePage(__DIR__.'\..\views\write\commentbar.html');
+    $createpost->generatePage(__DIR__.'\..\views\popup\commentbar.html');
 
     class CREATECOMMENT{
         public $postId;

@@ -1,43 +1,28 @@
 <html>
     
     <body>
+        <button onclick="stuff()">test</button>
         
-        <div class="commentBody">ff</div>
-        <div class="commentChild" style="padding-left: 30px;">
-        </div>
-        <div class="commentBody">ff</div>
-        <div class="commentChild" style="padding-left: 30px;">
-            <div class="commentBody">ff</div>
-            <div class="commentChild" style="padding-left: 30px;">
-                <div class="commentBody">ff</div>
-                <div class="commentChild" style="padding-left: 30px;">
-                </div>
-            </div>
-        </div>
-        
-        
-        <input class="in" type="text">
         
     </body>
     <script>
-        // let scp = document.getElementsByTagName('SCRIPT')[0];
-        // console.log(scp);
-        // console.log(scp.text);
-        // console.log(scp.nodeValue);
-        // console.log(scp.innerHTML);
-
-        console.log(document.querySelector('.in').value??12);
-        console.log(document.querySelector('.in').value === '');
-        console.log(document.querySelector('.in').value?1:0);
         
-        // let b = 0;
-        // console.log(b?b:-1);
-        // b = 12;
-        // console.log(b??-1);
+        async function stuff(){
+            let test1Raw = await (await fetch('test1.html')).text() ;
+            let test1doc = new DOMParser().parseFromString(test1Raw,'text/html'); 
+            
+            let element;
+            while(element = test1doc.head.children[0]){
+                document.head.appendChild(element);
+            }
+            while(element = test1doc.body.children[0]){
+                document.body.appendChild(element);
+            }
+            
 
-
+        }
         
-        
+       
            
             
     </script>
