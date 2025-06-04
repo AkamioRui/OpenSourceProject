@@ -9,31 +9,31 @@
     
 */
     $db = new INPUT();
-    // $db->addUser(__DIR__.'\user_profilePic1.jpg','testificate','user1@gmail.com','pass1', 1);
-    // $db->addUser(__DIR__.'\user_profilePic2.jpg','Jane','user2@gmail.com','pass2', 0);
-    // $db->addUser(__DIR__.'\user_profilePic3.jpg','John','user3@gmail.com','pass3', 0);
-    // $db->addUser(__DIR__.'\user_profilePic3.jpg','jacob','user123@gmail.com','pass123', 0);
+    $db->addUser(__DIR__.'\user_profilePic1.jpg','testificate','user1@gmail.com','pass1', 1);
+    $db->addUser(__DIR__.'\user_profilePic2.jpg','Jane','user2@gmail.com','pass2', 0);
+    $db->addUser(__DIR__.'\user_profilePic3.jpg','John','user3@gmail.com','pass3', 0);
+    $db->addUser(__DIR__.'\user_profilePic3.jpg','jacob','user123@gmail.com','pass123', 0);
 
-    // $db->addForum('apple', __DIR__.'\forum_banner1.jpg', __DIR__.'\forum_icon1.jpg', 1, 'about apple');
-    // $db->addForum('oranges', __DIR__.'\forum_banner2.jpg', __DIR__.'\forum_icon2.jpg', 1, 'about oranges');
-    // $db->addForum('grape', __DIR__.'\forum_banner3.jpg', __DIR__.'\forum_icon3.jpg', 1, 'about grape');
+    $db->addForum('apple', __DIR__.'\forum_banner1.jpg', __DIR__.'\forum_icon1.jpg', 1, 'about apple');
+    $db->addForum('oranges', __DIR__.'\forum_banner2.jpg', __DIR__.'\forum_icon2.jpg', 1, 'about oranges');
+    $db->addForum('grape', __DIR__.'\forum_banner3.jpg', __DIR__.'\forum_icon3.jpg', 1, 'about grape');
 
-    // $db->addPost(2, 'my new apple', 'a big round apple ', 1, 0);
-    // $db->addPost(1, 'sencond post about apple', 'a big round apple oooh ', 1, 0);
-    // $db->addPost(3, 'apple again', 'a big round apple NOOO', 1, 0);
+    $db->addPost(2, 'my new apple', 'a big round apple ', 1, 0);
+    $db->addPost(1, 'sencond post about apple', 'a big round apple oooh ', 1, 0);
+    $db->addPost(3, 'apple again', 'a big round apple NOOO', 1, 0);
 
-    // $db->addPostPicture(2, __DIR__.'\post1img1.jpg');
-    // $db->addPostPicture(2, __DIR__.'\post1img2.jpg');
-    // $db->addPostPicture(3, __DIR__.'\post1img3.webp');
+    $db->addPostPicture(2, __DIR__.'\post1img1.jpg');
+    $db->addPostPicture(2, __DIR__.'\post1img2.jpg');
+    $db->addPostPicture(3, __DIR__.'\post1img3.webp');
     $db->addPostPicture(1, __DIR__.'\post1img3.webp');
 
-    // $db->addComment(1, 1, NULL, 'comment1', 0);
-    // $db->addComment(2, 1, NULL, 'comment2', 0);
-    // $db->addComment(3, 1, NULL, 'comment3', 0);
-    // $db->addComment(1, 1, 2, 'comment4', 0);
-    // $db->addComment(1, 1, 2, 'comment5', 0);
-    // $db->addComment(1, 1, 3, 'comment6', 0);
-    // $db->addComment(1, 1, 6, 'comment7', 0);
+    $db->addComment(1, 1, NULL, 'comment1', 0);
+    $db->addComment(2, 1, NULL, 'comment2', 0);
+    $db->addComment(3, 1, NULL, 'comment3', 0);
+    $db->addComment(1, 1, 2, 'comment4', 0);
+    $db->addComment(1, 1, 2, 'comment5', 0);
+    $db->addComment(1, 1, 3, 'comment6', 0);
+    $db->addComment(1, 1, 6, 'comment7', 0);
 
 
     

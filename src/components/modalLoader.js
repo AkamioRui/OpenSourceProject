@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loadModalCSS(modalName);
 
       // Close button handler
-      const closeBtn = modal.querySelector(".back-button");
+      const closeBtn = modal.querySelector("#back-button");
       if (closeBtn) {
         closeBtn.addEventListener("click", closeModal);
       }
@@ -118,9 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.innerHTML = "";
     unloadModalCSS(previousModal);
   }
-
-  window.loadModal = loadModal;
-  window.closeModal = closeModal;
 
   document.addEventListener("click", (e) => {
     const profileBtn = e.target.closest(".profile-btn");

@@ -1,12 +1,23 @@
 class Navbar extends HTMLElement {
-  connectedCallback() {
+  async connectedCallback() {
+    let form = new FormData();
+    form.append("user_profilePic", 1);
+
+    let res = await fetch("/module/SQL_on_PHP/GENERAL_LISTENER.php", {
+      method: "POST",
+      body: form,
+    });
+
+    let imgSrc = await res.text();
+
     const page = this.getAttribute("data-page");
     this.classList.add(`navbar-${page}`);
     let navbarContent;
 
     switch (page) {
       case "forum-nav":
-        navbarContent = `
+        navbarContent =
+          `
         <nav >
           <button  class="back-button ">
           <img id="back-btn" src="/src/assets/back.png" alt="Back"  />
@@ -16,7 +27,9 @@ class Navbar extends HTMLElement {
             <input class="search" type="text" placeholder="Search Forum..." />
           </form>
           <button class="profile-btn" data-modal-target=""> 
-          <img id="" src="/src/assets/circle.png" alt="Login/Signup" />
+          <img  src="` +
+          imgSrc +
+          `" alt="Login/Signup" />
           </button>
         </nav>
  
@@ -51,28 +64,36 @@ class Navbar extends HTMLElement {
       case "write-post-nav":
       case "write-forum-nav":
       case "comment-bar-nav":
-        navbarContent = `
+        navbarContent =
+          `
         <nav >
           <button  class="back-button ">
         <img id="back-btn" src="/src/assets/back.png" alt="Back"  />
           </button>  
           <h1>LetMeKnow</h1>   
           <button class="profile-btn" data-modal-target=""> 
-          <img  src="/src/assets/circle.png" alt="Login/Signup" />
+                    <img  src="` +
+          imgSrc +
+          `" alt="Login/Signup" />
+
           </button>
         </nav>
       `;
         break;
 
       default:
-        navbarContent = `
+        navbarContent =
+          `
           <nav >
         <h1>LetMeKnow</h1>
         <form>
           <input class="search" type="text" placeholder="Search..." />
         </form>
         <button class="profile-btn"  data-modal-target=""> 
-        <img  src="/src/assets/circle.png" alt="Login/Signup" />
+                  <img  src="` +
+          imgSrc +
+          `" alt="Login/Signup" />
+
         </button>
       </nav>
       <div id="authModal" class="modal hidden"></div>

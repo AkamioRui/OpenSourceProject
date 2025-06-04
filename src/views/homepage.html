@@ -17,14 +17,16 @@
 
     <main>
       <div class="card-container" repeat>
-        <div class="top-card">
-          <img class="card-photo" src="$forum_icon" />
-          <div class="card-heading">
-            <h2 class="card-title">$forum_name</h2>
-            <span class="card-contribution">$forum_contributor</span>
+        <a href="/src/php/forum.php?forum_id=$forum_id">
+          <div class="top-card">
+            <img class="card-photo" src="$forum_icon" />
+            <div class="card-heading">
+              <h2 class="card-title">$forum_name</h2>
+              <span class="card-contribution">$forum_contributor</span>
+            </div>
+            <p class="card-desc">$forum_descriptions</p>
           </div>
-          <p class="card-desc">$forum_descriptions</p>
-        </div>
+        </a>
 
         <div class="bottom-card">
           <div class="card-content" repeat>

@@ -3,7 +3,7 @@
 
     
     
-    ///* test */$_GET['forum_id'] = 1;
+    // /* test */$_GET['forum_id'] = 1;
     if(!isset($_GET['forum_id'])) {echo 'undefined forum_id';return;}
     $forum = new FORUM($_GET['forum_id']);
     $forum->generatePage(__DIR__.'/../views/forum.html');
