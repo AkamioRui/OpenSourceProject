@@ -113,9 +113,9 @@
             $raw = file_get_contents($HTMLpath);
             //card-container = forum
             //card-content = post
-            list($template_beforeforum,$template_forum,$template_afterforum) = extractfrom('<[^>]*repeat[^>]*>',$raw);
+            list($template_beforeforum,$template_forum,$template_afterforum) = extractfrom($raw,'<[^>]*repeat[^>]*>','div');
             $template_forum = preg_replace('/repeat/','',$template_forum,1);
-            list($template_beforepost,$template_post,$template_afterpost) = extractfrom('<[^>]*repeat[^>]*>',$template_forum);
+            list($template_beforepost,$template_post,$template_afterpost) = extractfrom($template_forum,'<[^>]*repeat[^>]*>','div');
             $template_post = preg_replace('/repeat/','',$template_post,1);
 
             //$template_beforeforum

@@ -25,14 +25,15 @@
     // $db->addPostPicture(2, __DIR__.'\post1img1.jpg');
     // $db->addPostPicture(2, __DIR__.'\post1img2.jpg');
     // $db->addPostPicture(3, __DIR__.'\post1img3.webp');
+    $db->addPostPicture(1, __DIR__.'\post1img3.webp');
 
-    $db->addComment(1, 1, NULL, 'comment1', 0);
-    $db->addComment(2, 1, NULL, 'comment2', 0);
-    $db->addComment(3, 1, NULL, 'comment3', 0);
-    $db->addComment(1, 1, 2, 'comment4', 0);
-    $db->addComment(1, 1, 2, 'comment5', 0);
-    $db->addComment(1, 1, 3, 'comment6', 0);
-    $db->addComment(1, 1, 6, 'comment7', 0);
+    // $db->addComment(1, 1, NULL, 'comment1', 0);
+    // $db->addComment(2, 1, NULL, 'comment2', 0);
+    // $db->addComment(3, 1, NULL, 'comment3', 0);
+    // $db->addComment(1, 1, 2, 'comment4', 0);
+    // $db->addComment(1, 1, 2, 'comment5', 0);
+    // $db->addComment(1, 1, 3, 'comment6', 0);
+    // $db->addComment(1, 1, 6, 'comment7', 0);
 
 
     

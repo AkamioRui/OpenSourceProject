@@ -5,6 +5,7 @@
     ///* test */$_SESSION['uid'] = 1;
     /* test */$_GET['post_id'] = 1;
     $postpage = new POSTPAGE($_GET['post_id']);
+    $postpage->generatePage(__DIR__.'/../views/post.html');
     
 
 
@@ -133,7 +134,217 @@
             
         }
         
+        function generatePage($HTMLpath){
+            $raw = file_get_contents($HTMLpath);
 
+            list(
+                $template_beforecomment,
+                $template_comment,//never used, comment is hardcoded
+                $template_aftercomment
+            ) = extractfrom($raw,'<ul class="comment-list">','ul');
+            
+        
+            //template_beforecomment
+            foreach(get_object_vars($this) as $key => $value){
+                
+                try{ 
+                    if(is_array($value) ){
+                        if($value)$template_beforecomment = preg_replace('/\$'.$key.'/',$value[0],$template_beforecomment);
+                        else $template_beforecomment = preg_replace(
+                            '/<[^>]*class="post-img"[^>]*>/',
+                            '',
+                            $template_beforecomment
+                        );
+                    } else {
+
+                        $template_beforecomment = preg_replace('/\$'.$key.'/',$value==NULL?'':$value,$template_beforecomment);
+                    }
+                    
+                    
+                }catch( Error $e ){}
+            }
+            echo $template_beforecomment;
+
+            //template_post
+            echo '<ul class="comment-list">';
+            $this->COMMENT_print();
+            echo '</ul>';
+
+            //template_aftercomment
+            foreach(get_object_vars($this) as $key => $value){
+                try{ $template_aftercomment = preg_replace('/\$'.$key.'/',$value?:'',$template_aftercomment);
+                }catch( Error $e ){}
+            }
+            echo $template_aftercomment;
+            
+        }
+
+
+        function COMMENT_print(){
+/* 
+$prefixRoot='
+          <ul class="comment-list">
+            <li class="comment">
+              <img
+                src="'.$this->user_profilePic.'"
+                alt=""
+                class="comment-avatar"
+              />
+              <div class="comment-content">
+                <h3 class="comment-author">'.$this->user_username.'</h3>
+                <div class="text-container">
+                  <p class="comment-text">'.$this->comment_comment.'
+                  </p>
+
+                  <div class="comment-like">
+                    <img src="/src/assets/heart.png" alt="like" />
+                    <span>'.$this->comment_like.'Likes</span>
+                  </div>
+                </div>
+                <button class="comment-reply">Reply</button>
+                <ul class="comment-replies">
+                ';
+$suffixRoot = '
+                
+                </ul>
+              </div>
+            </li>
+          </ul>';
+
+$prefixNormal = '
+                  <li class="comment reply">
+                    <img
+                      src="'.$this->user_profilePic.'"
+                      alt=""
+                      class="comment-avatar"
+                    />
+                    <div class="comment-content">
+                      <h3 class="comment-author">'.$this->user_username.'</h3>
+                      <div class="text-container">
+                        <p class="comment-text">'.$this->comment_comment.'
+                        </p>
+
+                        <div class="comment-like">
+                          <img src="/src/assets/heart.png" alt="like" />
+                          <span>'.$this->comment_like.'Likes</span>
+                        </div>
+                      </div>
+                      <button class="comment-reply">Reply</button>
+                        <ul class="comment-replies">';
+$suffixNormal = '
+                        </ul>
+                    </div>
+                  </li>'; 
+*/
+
+
+            $directGraph = array();
+            foreach($this->UserCommentList as $line){
+                //$line['parentId'];
+                //$line['id'];
+    
+                $directGraph[$line['id']] = array() ;
+                if($line['parentId'] != NULL){
+                    $directGraph[$line['parentId']][] = $line['id'];
+                }
+            }
+    
+            
+    
+            //create status array for depth first search taversal
+            $status = $directGraph;
+            foreach($status as &$val){
+                $val =0;
+                //0 unvisited
+                //1 checked
+                //-1 done
+            }
+    
+            //depth first search traversal
+            foreach($directGraph as $root => $var){
+                if($status[$root]==-1)continue;
+                $next = $root;
+                $stack = array();
+                do{
+                    
+                    $current = $next;
+                    if($status[$current] == 0){
+                        $this->getComment($current);
+                        if($stack){
+                            echo'
+                  <li class="comment reply">
+                    <img
+                      src="'.$this->user_profilePic.'"
+                      alt=""
+                      class="comment-avatar"
+                    />
+                    <div class="comment-content">
+                      <h3 class="comment-author">'.$this->user_username.'</h3>
+                      <div class="text-container">
+                        <p class="comment-text">'.$this->comment_comment.'
+                        </p>
+
+                        <div class="comment-like">
+                          <img src="/src/assets/heart.png" alt="like" />
+                          <span>'.$this->comment_like.'Likes</span>
+                        </div>
+                      </div>
+                      <button class="comment-reply">Reply</button>
+                      <ul class="comment-replies">';
+                        } else {
+                            echo '
+            <li class="comment">
+              <img
+                src="'.$this->user_profilePic.'"
+                alt=""
+                class="comment-avatar"
+              />
+              <div class="comment-content">
+                <h3 class="comment-author">'.$this->user_username.'</h3>
+                <div class="text-container">
+                  <p class="comment-text">'.$this->comment_comment.'
+                  </p>
+
+                  <div class="comment-like">
+                    <img src="/src/assets/heart.png" alt="like" />
+                    <span>'.$this->comment_like.'Likes</span>
+                  </div>
+                </div>
+                <button class="comment-reply">Reply</button>
+                <ul class="comment-replies">';
+                        }
+                        
+                    }
+                        
+                    
+                    if(empty($directGraph[$current])){
+                        $status[$current] = -1;
+                        $next = array_pop($stack);
+                        if($stack){
+                            echo '
+                        </ul>
+                    </div>
+                  </li>';
+                        } else {
+                            echo '
+                </ul>
+              </div>
+            </li>';
+                        }
+                        
+                    } else {
+                        $next = array_shift($directGraph[$current]);
+                        $status[$current] = 1;
+                        $stack[] = $current;
+                        
+                    }
+                }while($next != NULL);
+                
+            }
+    
+    
+            
+        }
     };
  
 
@@ -143,7 +354,7 @@
 
 
 <?php
-    POSTPAGE_TEST($postpage);
+    //POSTPAGE_TEST($postpage);
 
 
 

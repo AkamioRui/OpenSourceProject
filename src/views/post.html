@@ -19,7 +19,7 @@
       <section class="post-card">
         <div class="top-card">
           <div class="left-section">
-            <h2 class="post-title">Building a wall</h2>
+            <h2 class="post-title">$post_title</h2>
             <img
               class="post-like-img"
               src="/src/assets/heart.png"
@@ -28,24 +28,19 @@
             />
           </div>
           <div class="right-section">
-            <h2 class="post-username">Username here</h2>
-            <p class="post-like">Liked by ! <span class="like">3456 </span></p>
+            <h2 class="post-username">$post_creatorName</h2>
+            <p class="post-like">Liked by ! <span class="like">$post_like</span></p>
           </div>
         </div>
 
         <div class="content">
-          <p class="post-date">05/22/2025</p>
+          <p class="post-date">$post_createdAt</p>
           <p class="post-desc">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam,
-            exercitationem. Ex hic reiciendis magnam porro. Veniam ab iusto ut
-            sapiente omnis amet exercitationem possimus et assumenda earum
-            itaque, provident explicabo, corrupti sint mollitia incidunt dolor
-            neque aperiam doloremque maxime sunt qui corporis. Dolore maxime
-            explicabo quas vel! Eveniet, illo consequatur.
+            $post_contents
           </p>
         </div>
         <!-- <div class="img-container"> -->
-        <img src="/src/assets/temp_banner2.jpg" alt="" class="post-img" />
+        <img src="$postPicture_picture" alt="" class="post-img" />
         <!-- </div> -->
       </section>
 

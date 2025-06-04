@@ -47,51 +47,45 @@
         return $prefix.base64_encode($result);
     }
 
-    function extractfrom($tag,$src){//only the first occurance
+    function extractfrom($src,$fulltag,$tag){//only the first occurance
 
         $keyMiddle = preg_split(
-            '/('.$tag.')/',
+            '/('.$fulltag.')/',
             $src,
             2,
             PREG_SPLIT_DELIM_CAPTURE
         );
-         
+      
         //find the </div>
         preg_match_all(
-            '/<div[^>]*>|<\/div>/',
+            '/<[^<>]*'.$tag.'[^<>]*>|<\/[^<>]*'.$tag.'[^<>]*>/',
             $keyMiddle[2],
             $candidate,
             PREG_OFFSET_CAPTURE
         );
+        
         $offset;
         $count = 1;
         foreach ($candidate[0] as $instance){
-            if($instance[0] == '</div>'){
+            if(preg_match('/<\/[^<>]*'.$tag.'[^<>]*>/',$instance[0]) ){
                 $count--;
             } else{
                 $count++;
             }
           
             if($count == 0){
-              $offset = $instance[1] + strlen('</div>');
+              $offset = $instance[1] + strlen($instance[0]);
               break;
-
+      
             }
         }
-        // echo $keyMiddle[1].substr($keyMiddle[2],0,$offset)."\n";
+        
         $before = $keyMiddle[0];
-        $tag = $keyMiddle[1].substr($keyMiddle[2],0,$offset)."\n";
+        $fulltag = $keyMiddle[1].substr($keyMiddle[2],0,$offset)."\n";
         $after = substr($keyMiddle[2],$offset);
 
-
-
-
-        // var_dump($keyMiddle);
-        // echo substr($src,$keyMiddle[1][1],$keyMiddle[2][1] - $keyMiddle[1][1] );
-
-        return [$before,$tag,$after];
-    }
-
+        return [$before,$fulltag,$after];
+      }
 
     
     

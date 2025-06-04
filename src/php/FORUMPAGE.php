@@ -129,7 +129,7 @@
                 $template_beforepost,
                 $template_post,
                 $template_afterpost
-            ) = extractfrom('<[^>]*repeat[^>]*>',$raw);
+            ) = extractfrom($raw,'<[^>]*repeat[^>]*>','div');
             $template_post = preg_replace('/repeat/','',$template_post,1);
         
             //template_beforepost
