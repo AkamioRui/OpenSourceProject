@@ -1,8 +1,6 @@
 <?php
     include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
 
-    
-    ///* test */$_SESSION['uid'] = 1;
     $homepage = new HOMEPAGE();
     $homepage->generatePage(__DIR__.'/../views/homepage.html');
     

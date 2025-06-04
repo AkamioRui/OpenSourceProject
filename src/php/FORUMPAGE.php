@@ -2,12 +2,9 @@
     include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
 
     
-    ///* test */$_SESSION['uid'] = 1;
-    /* test */$_GET['forum_id'] = 1;
-    if(!isset($_GET['forum_id'])) {
-        /* temp */echo 'invalid forum';
-        return;
-    }
+    
+    ///* test */$_GET['forum_id'] = 1;
+    if(!isset($_GET['forum_id'])) {echo 'undefined forum_id';return;}
     $forum = new FORUM($_GET['forum_id']);
     $forum->generatePage(__DIR__.'/../views/forum.html');
     
@@ -123,6 +120,8 @@
         
          
         function generatePage($HTMLpath){
+            if(!$this->forum_valid){echo 'forum doesnt exist'; return;}
+            
             $raw = file_get_contents($HTMLpath);
 
             list(

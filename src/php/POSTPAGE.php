@@ -2,8 +2,9 @@
     include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
 
     
-    ///* test */$_SESSION['uid'] = 1;
-    /* test */$_GET['post_id'] = 1;
+    
+    // /* test */$_GET['post_id'] = 1;
+    if(!isset($_GET['post_id'])) {echo 'undefined post_id';return;}
     $postpage = new POSTPAGE($_GET['post_id']);
     $postpage->generatePage(__DIR__.'/../views/post.html');
     
@@ -135,6 +136,8 @@
         }
         
         function generatePage($HTMLpath){
+            if(!$this->post_valid){echo 'post doesnt exist'; return;}
+
             $raw = file_get_contents($HTMLpath);
 
             list(
