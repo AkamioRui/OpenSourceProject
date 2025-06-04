@@ -1,27 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="/src/css/global.css" rel="stylesheet" />
-    <link href="/src/css/nav.css" rel="stylesheet" />
-    <link href="/src/css/account.css" rel="stylesheet" />
-    <script src="/src/components/navbar.js"></script>
-    <script src="/src/components/modalloader.js"></script>
-  </head>
-  <body>
+<div class="modal" id="popup-account-user">
+  <div class="modal-content">
     <app-navbar data-page="account-nav"></app-navbar>
 
-    <main>
+    <div class="wrapper">
       <div class="main-container">
         <div class="left-section">
           <div class="profile-card">
             <img
               class="profile-img"
               src="/src/assets/temp_img.jpg"
-              alt=""
-              srcset=""
+              alt="Profile Picture"
             />
           </div>
           <div class="profile-button">
@@ -30,13 +18,15 @@
           <p>Email:</p>
           <p>Joined:</p>
         </div>
+
         <div class="right-section">
           <h2>Username</h2>
         </div>
       </div>
+
       <div class="button-container">
-        <button id="sign-up">Sign up</button>
+        <button id="signup-from-account">Sign up</button>
       </div>
-    </main>
-  </body>
-</html>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="modal" id="popup-login">
+  <div class="modal-content">
+    <app-navbar data-page="login-nav"></app-navbar>
+
+    <span class="close-btn">&times;</span>
+
+    <div class="login-card">
+      <h2>WELCOME BACK!</h2>
+
+      <form action="/login" method="POST">
+        <label for="email">Email / Username</label>
+        <input id="email" name="email" type="text" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required />
+
+        <span class="alt-link">
+          <a href="#" id="signup-from-login">Don't have an account?</a>
+        </span>
+
+        <button type="submit">Log in</button>
+      </form>
+    </div>
+  </div>
+</div>

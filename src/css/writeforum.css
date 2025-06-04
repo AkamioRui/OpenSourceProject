@@ -1,0 +1,86 @@
+.wrapper {
+  padding: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+}
+
+h3 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #070053;
+}
+
+.title-input {
+  width: 40rem;
+  font-size: 1.25rem;
+  height: 4rem;
+  background-color: #f5e0c6;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  padding: 0.25rem 1rem;
+}
+
+.right-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-icon-button,
+.add-banner-button {
+  width: 200px;
+  margin: 1rem 1.5rem 0 0;
+  background: #ffb56b;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  color: #070053;
+  cursor: pointer;
+  font-family: "Shrikhand", cursive;
+  border: 1px solid #000000;
+}
+
+.post-btn {
+  width: 200px;
+  margin: 1rem 1.5rem 0 0;
+  background: #ffb56b;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  color: #070053;
+  cursor: pointer;
+  font-family: "Shrikhand", cursive;
+  border: 1px solid #000000;
+}
+
+.post-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.description-container {
+  margin-top: 3rem;
+}
+
+.post-desc {
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 2rem;
+  border: 1px solid #333;
+  background-color: #f5dbbb;
+  resize: none;
+  vertical-align: top;
+}

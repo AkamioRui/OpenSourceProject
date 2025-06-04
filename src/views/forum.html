@@ -23,7 +23,7 @@
           alt="Wong Academy Logo"
           class="forum-avatar-floating"
         />
-        <p class="forum-date">{{DATE}}</p>
+        <p class="forum-date">{{forum_createdAt}}</p>
 
         <div class="forum-detail-card-header">
           <div class="title-container">
@@ -50,7 +50,7 @@
         <img src="/src/assets/temp_banner2.jpg" alt="" class="post-img" />
       </section>
 
-      <!-- <section class="post-card">
+      <section class="post-card">
         <div class="top-card">
           <h2 class="post-title">Mazel Tov</h2>
           <div class="right-section">
@@ -58,10 +58,12 @@
             <p class="post-like">Liked by ! <span class="like">3456 </span></p>
           </div>
         </div>
-        <img src="/src/assets/temp_banner2.jpg" alt="" class="post-img" />
-      </section> -->
-
-      <app-footer data-page="forum-footer"></app-footer>
+      </section>
     </main>
+
+    <app-footer data-page="forum-footer"></app-footer>
+    <div id="modal" class="modal hidden"></div>
+
+    <script src="/src/components/modalLoader.js"></script>
   </body>
 </html>
