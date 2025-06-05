@@ -102,7 +102,7 @@ class Navbar extends HTMLElement {
     }
     this.innerHTML = navbarContent;
     let modalName = page.substring(0, page.length - 4);
-    this.querySelector(".back-button").addEventListener("click", () => {
+    this.querySelector(".back-button")?.addEventListener("click", () => {
       modal.classList.add("hidden");
       modal.innerHTML = "";
       const link = document.querySelector(

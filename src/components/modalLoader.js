@@ -1,7 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("modal");
-  let previousModal = null;
+const modal = document.getElementById("modal");
+let previousModal = null;//is the current loaded modal
+function closeModal() {
+  modal.classList.add("hidden");
+  modal.innerHTML = "";
+  unloadModalCSS(previousModal);
+}
 
+function unloadModalCSS (modalName){
+  const link = document.querySelector(`link[data-modal-css="${modalName}"]`);
+  if (link) {
+    link.remove();
+    console.log(`Unloaded CSS for modal: ${modalName}`);
+  }
+};
   const getFooterModal = () => {
     const footerPage = document
       .querySelector("app-footer")
@@ -53,14 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(`Loaded CSS for modal: ${modalName}`);
   };
 
-  const unloadModalCSS = (modalName) => {
-    const link = document.querySelector(`link[data-modal-css="${modalName}"]`);
-    if (link) {
-      link.remove();
-      console.log(`Unloaded CSS for modal: ${modalName}`);
-    }
-  };
-
   async function loadProfilePic() {
     let form = new FormData();
     form.append("user_profilePic", 1);
@@ -78,11 +81,24 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!modalName) return;
 
     try {
-      const res = await fetch(`/src/php/${modalName}.php`);
-      const html = await res.text();
+      const html = await (await fetch(`/src/php/${modalName}.php`)).text();
 
+      //html
       let doc = new DOMParser().parseFromString(html, "text/html");
       modal.appendChild(doc.querySelector(".modal"));
+
+      //append popup script
+      let fetchScript = doc.querySelector('script');
+      if(fetchScript){
+        let modalScript = document.createElement('script');
+        try {
+          modalScript.appendChild(fetchScript.text);
+        } catch (e) {
+          modalScript.text = fetchScript.text;
+        }
+        modal.appendChild(modalScript);
+      }
+      
 
       modal.classList.remove("hidden");
       previousModal = modalName;
@@ -98,62 +114,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Cross-modal transitions
       if (modalName === "account") {
-        const signupBtn = modal.querySelector("#signup-from-account");
-        let code = signupBtn.innerHTML;
-        console.log(`Signup button code: ${code}`);
-
-        if (code == "sign-up") {
-          signupBtn.addEventListener("click", () => {
-            closeModal();
-            loadModal("signup");
-          });
-        } else if (code == "logout") {
-          signupBtn.addEventListener("click", async () => {
-            let signupBtn = document.querySelector("#signup-from-account");
-            let code = signupBtn.innerHTML;
-
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LOGOUT BUTTON HANDLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            if (code == "logout") {
-              let form = new FormData();
-              form.append("logout", 1);
-              let msg = await (
-                await fetch("/module/SQL_on_PHP/ACCOUNTPOPUP_LISTENER.php", {
-                  method: "POST",
-                  body: form,
-                })
-              ).text();
-              console.log("clicked logout", msg);
-            }
-            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE PIC UNAPPEND ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            loadProfilePic();
-            closeModal();
-            loadModal("account");
-          });
-        } else {
-          console.log("nothing");
-        }
+        
       }
 
       if (modalName === "signup") {
-        const signUpLink = modal.querySelector("#login-from-signup");
-        if (signUpLink) {
-          signUpLink.addEventListener("click", () => {
-            closeModal();
-            loadModal("login");
-          });
-        }
-
-        const signUpButton = modal.querySelector("#button-signUp");
-        console.log(`Sign Up button: ${signUpButton}`);
-
-        if (signUpButton) {
-          signUpButton.addEventListener("click", () => {
-            insert_signup();
-            closeModal();
-            loadModal("login");
-          });
-        }
-      }
+        fetchScript.text
 
       if (modalName === "login") {
         const signupLink = modal.querySelector("#signup-from-login");
@@ -196,11 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function closeModal() {
-    modal.classList.add("hidden");
-    modal.innerHTML = "";
-    unloadModalCSS(previousModal);
-  }
+
 
   document.addEventListener("click", (e) => {
     const profileBtn = e.target.closest(".profile-btn");
@@ -243,4 +204,4 @@ document.addEventListener("DOMContentLoaded", () => {
       .body.style.getPropertyValue("--code");
     console.log(code);
   }
-});
+
