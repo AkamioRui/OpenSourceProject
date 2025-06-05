@@ -6,6 +6,7 @@
     // /* test */$_GET['post_id'] = 1;
     if(!isset($_GET['post_id'])) {echo 'undefined post_id';return;}
     $postpage = new POSTPAGE($_GET['post_id']);
+    
     $postpage->generatePage(__DIR__.'/../views/post.html');
     
 
@@ -183,63 +184,44 @@
         }
 
 
-        function COMMENT_print(){
-/* 
-$prefixRoot='
-          <ul class="comment-list">
-            <li class="comment">
-              <img
-                src="'.$this->user_profilePic.'"
-                alt=""
-                class="comment-avatar"
-              />
-              <div class="comment-content">
-                <h3 class="comment-author">'.$this->user_username.'</h3>
-                <div class="text-container">
-                  <p class="comment-text">'.$this->comment_comment.'
-                  </p>
-
-                  <div class="comment-like">
-                    <img src="/src/assets/heart.png" alt="like" />
-                    <span>'.$this->comment_like.'Likes</span>
-                  </div>
-                </div>
-                <button class="comment-reply">Reply</button>
-                <ul class="comment-replies">
+        function COMMENT_print_head($stackNotEmpty){
+            if($stackNotEmpty){
+                echo'
+            <li class="comment reply">
                 ';
-$suffixRoot = '
-                
-                </ul>
-              </div>
-            </li>
-          </ul>';
+            } else {
+                echo '
+            <li class="comment">
+                ';
+            }
 
-$prefixNormal = '
-                  <li class="comment reply">
-                    <img
-                      src="'.$this->user_profilePic.'"
-                      alt=""
-                      class="comment-avatar"
-                    />
-                    <div class="comment-content">
-                      <h3 class="comment-author">'.$this->user_username.'</h3>
-                      <div class="text-container">
+            echo'
+                <img
+                    src="'.$this->user_profilePic.'"
+                    alt=""
+                    class="comment-avatar"
+                />
+                <div class="comment-content">
+                    <h3 class="comment-author">'.$this->user_username.'</h3>
+                    <div class="text-container">
                         <p class="comment-text">'.$this->comment_comment.'
                         </p>
 
                         <div class="comment-like">
-                          <img src="/src/assets/heart.png" alt="like" />
-                          <span>'.$this->comment_like.'Likes</span>
+                            <img src="/src/assets/heart.png" alt="like" />
+                            <span>'.$this->comment_like.'Likes</span>
                         </div>
-                      </div>
-                      <button class="comment-reply">Reply</button>
-                        <ul class="comment-replies">';
-$suffixNormal = '
-                        </ul>
                     </div>
-                  </li>'; 
-*/
-
+                    <button class="comment-reply" onclick="fetch_CreateComment('.$this->post_id.', '.$this->comment_id.')" >Reply</button>
+                    <ul class="comment-replies">';
+        }
+        function COMMENT_print_foot(){
+                    echo '
+                    </ul>
+                </div>
+            </li>';
+        }
+        function COMMENT_print(){
 
             $directGraph = array();
             foreach($this->UserCommentList as $line){
@@ -271,76 +253,29 @@ $suffixNormal = '
                 do{
                     
                     $current = $next;
-                    if($status[$current] == 0){
-                        $this->getComment($current);
-                        if($stack){
-                            echo'
-                  <li class="comment reply">
-                    <img
-                      src="'.$this->user_profilePic.'"
-                      alt=""
-                      class="comment-avatar"
-                    />
-                    <div class="comment-content">
-                      <h3 class="comment-author">'.$this->user_username.'</h3>
-                      <div class="text-container">
-                        <p class="comment-text">'.$this->comment_comment.'
-                        </p>
-
-                        <div class="comment-like">
-                          <img src="/src/assets/heart.png" alt="like" />
-                          <span>'.$this->comment_like.'Likes</span>
-                        </div>
-                      </div>
-                      <button class="comment-reply">Reply</button>
-                      <ul class="comment-replies">';
-                        } else {
-                            echo '
-            <li class="comment">
-              <img
-                src="'.$this->user_profilePic.'"
-                alt=""
-                class="comment-avatar"
-              />
-              <div class="comment-content">
-                <h3 class="comment-author">'.$this->user_username.'</h3>
-                <div class="text-container">
-                  <p class="comment-text">'.$this->comment_comment.'
-                  </p>
-
-                  <div class="comment-like">
-                    <img src="/src/assets/heart.png" alt="like" />
-                    <span>'.$this->comment_like.'Likes</span>
-                  </div>
-                </div>
-                <button class="comment-reply">Reply</button>
-                <ul class="comment-replies">';
-                        }
-                        
-                    }
-                        
+                    if($status[$current] == 0){//if current node is visited first time
+                        $this->getComment($current);                        
+                        $this->COMMENT_print_head(!empty($stack));
+                            
+                        // <button class="comment-reply" onclick="fetch_CreateComment('.$this->post_id.', '.$this->comment_id.')>Reply</button>
                     
-                    if(empty($directGraph[$current])){
+                    }    
+                    
+                    if(empty($directGraph[$current])){// no neighbor
                         $status[$current] = -1;
                         $next = array_pop($stack);
-                        if($stack){
-                            echo '
-                        </ul>
-                    </div>
-                  </li>';
-                        } else {
-                            echo '
-                </ul>
-              </div>
-            </li>';
-                        }
+                        $this->COMMENT_print_foot();
+                 
                         
-                    } else {
+                                           
+                    } else {//still have neighbor
                         $next = array_shift($directGraph[$current]);
                         $status[$current] = 1;
                         $stack[] = $current;
                         
                     }
+                    
+
                 }while($next != NULL);
                 
             }

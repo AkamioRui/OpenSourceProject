@@ -77,10 +77,19 @@ async function loadProfilePic() {
   profilePic.src = imgSrc;
 }
 
-async function loadModal(modalName) {
+async function loadModal(modalName,form=null) {
   try {
-    const html = await (await fetch(`/src/php/${modalName}.php`)).text();
 
+    let html;
+    if(form){
+      html = await (await fetch(`/src/php/${modalName}.php`,{
+        method: "POST",
+        body: form,
+      })).text();
+    } else {
+      html = await (await fetch(`/src/php/${modalName}.php`)).text();
+    }
+    
     //html
     let doc = new DOMParser().parseFromString(html, "text/html");
     modal.appendChild(doc.querySelector(".modal"));
