@@ -92,6 +92,7 @@ class Navbar extends HTMLElement {
     //------------------------------------------//
     this.querySelector('#profilePic')?.addEventListener("click",()=>{
       console.log('profile redirect to account page');
+      closeModal();
       loadModal('account');
     })
     

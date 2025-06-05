@@ -83,12 +83,9 @@ async function loadModal(modalName,form=null) {
     //------------get html-----------------//
     let html;
     if(form){
-   
-
-
       html = await (await fetch(`/src/php/${modalName}.php`,{
-        method: "POST",
-        body: form,
+        method:'POST',
+        body: form
       })).text();
     } else {
       html = await (await fetch(`/src/php/${modalName}.php`)).text();
@@ -96,6 +93,7 @@ async function loadModal(modalName,form=null) {
 
     //-------------append normal html-----------//
     let doc = new DOMParser().parseFromString(html, "text/html");
+    console.log(doc);
     modal.appendChild(doc.querySelector(".modal"));
 
     //-------------append popup script--------------//

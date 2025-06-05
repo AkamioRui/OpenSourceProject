@@ -1,8 +1,8 @@
 <?php
     include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
     
-    /* test */$_POST['forum_id'] = 1;
-    if(!isset($_POST['forum_id'])) {echo 'undefined forumId'; return;}
+    
+    if(!isset($_POST['forum_id'])) {echo '<body src="--code:undefined forumId"> </body>'; return;}
     $createpost = new CREATEPOST($_POST['forum_id']);
     $createpost->generatePage(__DIR__.'/../views/popup/writepost.html');
 
