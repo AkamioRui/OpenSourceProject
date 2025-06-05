@@ -15,7 +15,7 @@
         <input id="password" name="password" type="password" required />
 
         <span class="alt-link">
-          <a href="#" id="signup-from-login">Don't have an account?</a>
+          <a href="#" id="signup-from-login" onclick="redirect_SignUp()">Don't have an account?</a>
         </span>
       </form>
       <button id="sign-in-button">Log in</button>
@@ -63,4 +63,9 @@
       }
     }
   }
+
+  function redirect_SignUp(){
+    closeModal();
+    loadModal("signup");
+ }
 </script>

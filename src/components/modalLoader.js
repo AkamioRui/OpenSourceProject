@@ -116,13 +116,13 @@ async function loadModal(modalName) {
     }
 
     if (modalName === "signup") {
-      const signUpLink = modal.querySelector("#login-from-signup");
-      if (signUpLink) {
-        signUpLink.addEventListener("click", () => {
-          closeModal();
-          loadModal("login");
-        });
-      }
+      // const signUpLink = modal.querySelector("#login-from-signup");
+      // if (signUpLink) {
+      //   signUpLink.addEventListener("click", () => {
+      //     closeModal();
+      //     loadModal("login");
+      //   });
+      // }
     }
   } catch (error) {
     console.error(`Failed to load modal: ${modalName}`, error);

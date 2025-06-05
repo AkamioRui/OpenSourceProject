@@ -14,7 +14,7 @@
         <input id="password" name="password" type="password" required />
 
         <span class="alt-link">
-          <a href="#" id="login-from-signup">Already have an account?</a>
+          <a href="#" id="login-from-signup" onclick="redirect_Login()">Already have an account?</a>
         </span>
       </form>
       <button id="button-signUp">Sign up</button>
@@ -48,7 +48,10 @@
     .body.style.getPropertyValue("--code");
   console.log(code);
 }
-  
+ function redirect_Login(){
+    closeModal();
+    loadModal("login");
+ }
     
 
 
