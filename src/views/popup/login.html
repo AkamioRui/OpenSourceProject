@@ -24,41 +24,36 @@
 </div>
 
 <script>
-  function login() {
-    const signupLink = modal.querySelector("#signup-from-login");
-    if (signupLink) {
-      signupLink.addEventListener("click", () => {
-        console.log("Signup link clicked");
-        closeModal();
-        loadModal("signup");
-      });
-    }
+  async function login() {
+    
+    let user_arg = document.querySelector("#email").value;
+    let user_password = document.querySelector("#password").value;
+    console.log(`User arg: ${user_arg}, Password: ${user_password}`);
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LOGIN BUTTON HANDLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    const loginButton = modal.querySelector("#sign-in-button");
-    if (loginButton) {
-      loginButton.addEventListener("click", async () => {
-        console.log("Login button:", loginButton);
-        let user_arg = document.querySelector("#email").value;
-        let user_password = document.querySelector("#password").value;
-        console.log(`User arg: ${user_arg}, Password: ${user_password}`);
+    //append query data to form
+    let form = new FormData();
+    form.append("query_Login", 1);
+    form.append("user_arg", user_arg);
+    form.append("user_password", user_password);
 
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  FETCH QUERY FROM FORM ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        let form = new FormData();
-        form.append("query_Login", 1);
-        form.append("user_arg", user_arg);
-        form.append("user_password", user_password);
+    //send form and receive response
+    let response = await (
+      await fetch("/module/SQL_on_PHP/LOGINPOPUP_LISTENER.php", {
+        method: "POST",
+        body: form,
+      })
+    ).text();
 
-        let response = await (
-          await fetch("/module/SQL_on_PHP/LOGINPOPUP_LISTENER.php", {
-            method: "POST",
-            body: form,
-          })
-        ).text();
-        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE PIC APPEND ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        loadProfilePic();
-        closeModal();
-      });
+    let doc = new DOMParser().parseFromString(response,'text/html');
+    code = doc.body.style.getPropertyValue('--code');
+    /* temp */console.log('login code:'+code);
+    if(code == 'success'){
+      loadProfilePic();
+      closeModal();
+    }else if(code == 'fail'){
+      /* temp */
+    }else {
+
     }
   }
   
