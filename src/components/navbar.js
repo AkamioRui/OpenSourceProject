@@ -30,8 +30,9 @@ class Navbar extends HTMLElement {
       </button>  
     `;
 
-
-    //create nav body
+    // -------------------------//
+    //-----create nav body------//
+    //--------------------------//
     const page = this.getAttribute("data-page");
     this.classList.add(`navbar-${page}`);
     switch (page) {
@@ -59,7 +60,9 @@ class Navbar extends HTMLElement {
     }
     this.innerHTML = `<nav>`+navbarContent +`</nav>`;
 
-    //add function to back button
+    //---------------------------------//
+    //--------add back button----------//
+    //---------------------------------//
     switch (page) {
       case "forum-nav":// go to homepage
         this.querySelector('.back-button')?.addEventListener('click',()=>{
@@ -69,7 +72,7 @@ class Navbar extends HTMLElement {
 
       case "post-nav"://go to forumned
         this.querySelector('.back-button')?.addEventListener('click',()=>{
-          forum_id = 
+          let forum_id = document.querySelector('main').style.getPropertyValue('--forum_id');
           window.location.href = "/src/php/forum.php?forum_id="+forum_id;
         });
         break;
@@ -80,6 +83,8 @@ class Navbar extends HTMLElement {
         });
         break;
 
+      //make profile pic fetch login page
+      profilePic
     }
     
     

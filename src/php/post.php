@@ -32,6 +32,7 @@
         
         //redirect fetch requirement
         // redirect_Back();
+            public $forum_id;
         // fetch_accountPopup();//session uid
         // fetch_CreateComment();
             public $post_id;
@@ -64,6 +65,7 @@
             $selectPost->bindColumn('like', $this->post_like);
             $selectPost->bindColumn('createdAt', $this->post_createdAt);
             $selectPost->bindColumn('contents', $this->post_contents);
+            $selectPost->bindColumn('forumId', $this->forum_id);
             $selectPost->execute();
             $this->post_valid = $selectPost->fetch()?true:false;
             if($this->post_valid){

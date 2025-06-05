@@ -18,7 +18,7 @@
 
       <div class="right-section">
         <div class="icon-container">
-          <button id="add-button">Comment</button>
+          <button id="add-button" onclick="insert_Comment($postId, $parentId)">Comment</button>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
 
 <script>
   async function insert_Comment(postId, parentId) {
-    let comment = document.querySelector("#comment").value;
+    let comment = document.querySelector(".post-comment").value;
 
     let form = new FormData();
     form.append("insert_Comment", 1);

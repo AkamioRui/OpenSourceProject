@@ -30,7 +30,7 @@ function insert_Comment(
     ');      
     $insertComment->bindValue(':creatorId',$_SESSION['uid']);
     $insertComment->bindValue(':postId',$comment_postId);
-    $insertComment->bindValue(':parentId',$comment_parentId);
+    $insertComment->bindValue(':parentId',$comment_parentId?:NULL);
     $insertComment->bindValue(':comment',$comment_comment);
     
     try{
