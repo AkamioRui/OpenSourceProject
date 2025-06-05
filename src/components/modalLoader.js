@@ -78,8 +78,6 @@ async function loadProfilePic() {
 }
 
 async function loadModal(modalName) {
-  if (!modalName) return;
-
   try {
     const html = await (await fetch(`/src/php/${modalName}.php`)).text();
 
@@ -103,27 +101,6 @@ async function loadModal(modalName) {
     previousModal = modalName;
     loadModalCSS(modalName);
 
-    // Close button handler
-
-    // const closeBtn = modal.querySelector(".back-button");
-    // console.log(modal, closeBtn);
-    // if (closeBtn) {
-    //   closeBtn.addEventListener("click", closeModal);
-    // }
-
-    // Cross-modal transitions
-    if (modalName === "account") {
-    }
-
-    if (modalName === "signup") {
-      // const signUpLink = modal.querySelector("#login-from-signup");
-      // if (signUpLink) {
-      //   signUpLink.addEventListener("click", () => {
-      //     closeModal();
-      //     loadModal("login");
-      //   });
-      // }
-    }
   } catch (error) {
     console.error(`Failed to load modal: ${modalName}`, error);
   }
@@ -144,29 +121,3 @@ document.addEventListener("click", (e) => {
   }
 });
 
-async function insert_signup() {
-  //$_POST['user_username'];
-  //$_POST['user_email'];
-  //$_POST['user_password'];
-
-  let user_username = document.querySelector("#uname").value;
-  let user_email = document.querySelector("#email").value;
-  let user_password = document.querySelector("#password").value;
-
-  let form = new FormData();
-  form.append("insert_signup", 1);
-  form.append("user_username", user_username);
-  form.append("user_email", user_email);
-  form.append("user_password", user_password);
-
-  let response = await (
-    await fetch("/module/SQL_on_PHP/SIGNUPPOPUP_LISTENER.php", {
-      method: "POST",
-      body: form,
-    })
-  ).text();
-  let code = new DOMParser()
-    .parseFromString(response, "text/html")
-    .body.style.getPropertyValue("--code");
-  console.log(code);
-}
