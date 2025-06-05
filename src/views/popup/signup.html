@@ -47,6 +47,7 @@
     .parseFromString(response, "text/html")
     .body.style.getPropertyValue("--code");
   if(code == 'success') console.log('login success');
+  if(code == 'duplicate') console.log('duplicate');
   closeModal();
   loadModal("login");
 
