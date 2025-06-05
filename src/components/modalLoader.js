@@ -100,9 +100,9 @@ function unloadModalCSS (modalName){
       }
       
 
+      loadModalCSS(modalName);
       modal.classList.remove("hidden");
       previousModal = modalName;
-      loadModalCSS(modalName);
 
       // Close button handler
 
@@ -113,54 +113,55 @@ function unloadModalCSS (modalName){
       // }
 
       // Cross-modal transitions
-      if (modalName === "account") {
-        
-      }
+
 
       if (modalName === "signup") {
         fetchScript.text
 
-      if (modalName === "login") {
-        const signupLink = modal.querySelector("#signup-from-login");
-        if (signupLink) {
-          signupLink.addEventListener("click", () => {
-            closeModal();
-            loadModal("signup");
-          });
-        }
+        if (modalName === "login") {
+          const signupLink = modal.querySelector("#signup-from-login");
+          if (signupLink) {
+            signupLink.addEventListener("click", () => {
+              closeModal();
+              loadModal("signup");
+            });
+          }
 
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LOGIN BUTTON HANDLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        const loginButton = modal.querySelector("#sign-in-button");
-        if (loginButton) {
-          loginButton.addEventListener("click", async () => {
-            console.log("Login button:", loginButton);
-            let user_arg = document.querySelector("#email").value;
-            let user_password = document.querySelector("#password").value;
-            console.log(`User arg: ${user_arg}, Password: ${user_password}`);
+          //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LOGIN BUTTON HANDLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          const loginButton = modal.querySelector("#sign-in-button");
+          if (loginButton) {
+            loginButton.addEventListener("click", async () => {
+              console.log("Login button:", loginButton);
+              let user_arg = document.querySelector("#email").value;
+              let user_password = document.querySelector("#password").value;
+              console.log(`User arg: ${user_arg}, Password: ${user_password}`);
 
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  FETCH QUERY FROM FORM ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            let form = new FormData();
-            form.append("query_Login", 1);
-            form.append("user_arg", user_arg);
-            form.append("user_password", user_password);
+              //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  FETCH QUERY FROM FORM ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+              let form = new FormData();
+              form.append("query_Login", 1);
+              form.append("user_arg", user_arg);
+              form.append("user_password", user_password);
 
-            let response = await (
-              await fetch("/module/SQL_on_PHP/LOGINPOPUP_LISTENER.php", {
-                method: "POST",
-                body: form,
-              })
-            ).text();
-            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE PIC APPEND ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            loadProfilePic();
-            closeModal();
-          });
+              let response = await (
+                await fetch("/module/SQL_on_PHP/LOGINPOPUP_LISTENER.php", {
+                  method: "POST",
+                  body: form,
+                })
+              ).text();
+              // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE PIC APPEND ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+              loadProfilePic();
+              closeModal();
+            });
+          }
         }
       }
+
+      
     } catch (error) {
       console.error(`Failed to load modal: ${modalName}`, error);
     }
   }
-
+  
 
 
   document.addEventListener("click", (e) => {
