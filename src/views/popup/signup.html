@@ -46,7 +46,13 @@
   let code = new DOMParser()
     .parseFromString(response, "text/html")
     .body.style.getPropertyValue("--code");
-  console.log(code);
+  if(code == 'success') console.log('login success');
+  closeModal();
+  loadModal("login");
+
+
+
+
 }
  function redirect_Login(){
     closeModal();
