@@ -3,7 +3,7 @@
 
 
     
-    /* test */$_SESSION['uid'] = 2;
+    // /* test */$_SESSION['uid'] = 1;
     $accountpopup = new ACCOUNTPOPUP();
     $accountpopup->generatePage(__DIR__.'/../views/popup/account.html');
     
@@ -22,6 +22,9 @@
         public $user_username;
         public $user_email;
         public $user_admin;
+        public $user_id;
+
+
 
         //redirect fetch requirement
         // redirect_Back();
@@ -34,7 +37,7 @@
         private $user_valid;
 
         function __construct(){
-            
+            $this->user_id = $_SESSION['uid'];
 
             $this->dbh = getPDO();
             
@@ -101,14 +104,14 @@
                 //for login button
                 if($_SESSION['uid'] == -1){
                     $page = preg_replace(
-                        '/(<[^<>]*id="sign-up"[^<>]*>)([^<>]*)(<[^<>]*>)/',
-                        '/\\1sign-up\\3/',
+                        '/(<[^<>]*id="signup-from-account"[^<>]*>)([^<>]*)(<[^<>]*>)/',
+                        '$1sign-up$3' ,
                         $page
                     );
                 } else {
                     $page = preg_replace(
-                        '/(<[^<>]*id="sign-up"[^<>]*>)([^<>]*)(<[^<>]*>)/',
-                        '$1logout$3',
+                        '/(<[^<>]*id="signup-from-account"[^<>]*>)([^<>]*)(<[^<>]*>)/',
+                        '$1logout$3' ,
                         $page
                     );
                 }
@@ -117,7 +120,7 @@
 
             }
             echo $page;
-
+                
             
         }
 
