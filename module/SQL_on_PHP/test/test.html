@@ -1,50 +1,17 @@
 <html>
     
     <body style="--code:'wrong password';">
-        <script src="library.js"></script>
-
-
-        <!-- typical form -->
-        <form enctype="multipart/form-data" method="post" action="test.php">
-            <input class="textbox" name="data" type="text" value="apple">
-            <input class="filebox" name="myimg[]" type="file" accept="image/*" onchange="showsize()" multiple>
-            <input type="submit">
-        </form>
-        <p class="counter">size:</p>
-        <!-- <p id="CODE" style="visibility: hidden;">hello</p> -->
-
-
-        <button onclick="postData()"> submit </button>
-        <button onclick="redirect2php()"> click here</button>
-
-        <img class="testimg">
-        <script>
-            
-            // ()=>fetch('\\module\\SQL_on_PHP\\HEADER.php',{
-            let form = new FormData();
-            form.append('submit',1);
-            fetch("/module/SQL_on_PHP/HEADER.php",{
-                method:"POST",
-                body:form
-            }).then(Response => Response.text()).then((src)=>{
-                console.log(src);
-                /* temp */document.querySelector('.testimg').src = 'hello';
-            })
-
-        </script>
-
-        
+       
     
-        
+        <button onclick="foo(1,4)">here</button>
     </body>
 
     <script>
         
-        function redirect2php(){
-            window.location.href = 'http://localhost:3000/module/SQL_on_PHP/test.php';
+        function foo(a,b){
+            console.log(a);
+            console.log(b);
         }
-
-        console.log(document.body.style.getPropertyValue('--code'));
     </script>
 
 </html>

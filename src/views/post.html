@@ -113,11 +113,14 @@
     <app-footer data-page="post-footer"></app-footer>
     <div id="modal" class="modal hidden"></div>
     <script src="/src/components/modalLoader.js"></script>
+
     <script>
       async function fetch_CreateComment(postId, parentId) {
         let form = new FormData();
         form.append("postId", postId);
         form.append("parentId", parentId);
+
+        
         loadModal('commentbar',form);
       }
     </script>

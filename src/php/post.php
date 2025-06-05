@@ -214,7 +214,7 @@
                             <span>'.$this->comment_like.'Likes</span>
                         </div>
                     </div>
-                    <button class="comment-reply" onclick="fetch_CreateComment('.$this->post_id.', '.$this->comment_id.')" >Reply</button>
+                    <button class="comment-reply" onclick="fetch_CreateComment(\''.$this->post_id.'\', \''.$this->comment_id.'\')" >Reply</button>
                     <ul class="comment-replies">';
         }
         function COMMENT_print_foot(){
@@ -231,7 +231,7 @@
                 //$line['id'];
     
                 $directGraph[$line['id']] = array() ;
-                if($line['parentId'] != NULL){
+                if($line['parentId'] ){
                     $directGraph[$line['parentId']][] = $line['id'];
                 }
             }

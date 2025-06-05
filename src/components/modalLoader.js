@@ -80,8 +80,12 @@ async function loadProfilePic() {
 async function loadModal(modalName,form=null) {
   try {
 
+    //------------get html-----------------//
     let html;
     if(form){
+   
+
+
       html = await (await fetch(`/src/php/${modalName}.php`,{
         method: "POST",
         body: form,
@@ -89,12 +93,12 @@ async function loadModal(modalName,form=null) {
     } else {
       html = await (await fetch(`/src/php/${modalName}.php`)).text();
     }
-    
-    //html
+
+    //-------------append normal html-----------//
     let doc = new DOMParser().parseFromString(html, "text/html");
     modal.appendChild(doc.querySelector(".modal"));
 
-    //append popup script
+    //-------------append popup script--------------//
     let fetchScript = doc.querySelector("script");
     if (fetchScript) {
       let modalScript = document.createElement("script");
@@ -106,9 +110,10 @@ async function loadModal(modalName,form=null) {
       modal.appendChild(modalScript);
     }
 
-    modal.classList.remove("hidden");
+    //---------------reenable the modal div----------------//
     previousModal = modalName;
     loadModalCSS(modalName);
+    modal.classList.remove("hidden");
 
   } catch (error) {
     console.error(`Failed to load modal: ${modalName}`, error);

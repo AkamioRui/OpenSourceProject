@@ -1,11 +1,10 @@
 <?php
     include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
 
-    /* test */$_POST['postId'] = 1;
-    /* test */$_POST['parentId'] = 0;
     if(!isset($_POST['postId'])) echo '<p>undefined postId</p>';
     if(!isset($_POST['parentId'])) echo '<p>undefined parentId</p>';
-    if(!isset($_POST['parentId']) && !isset($_POST['postId']))  return;;
+    if(!isset($_POST['parentId']) && !isset($_POST['postId']))  return;
+
     $createpost = new CREATECOMMENT($_POST['postId'], $_POST['parentId']);
     $createpost->generatePage(__DIR__.'\..\views\popup\commentbar.html');
 

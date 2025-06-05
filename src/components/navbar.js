@@ -83,10 +83,17 @@ class Navbar extends HTMLElement {
         });
         break;
 
-      //make profile pic fetch login page
-      profilePic
+        
+        
     }
     
+    //------------------------------------------//
+    //----------profile button------------------//
+    //------------------------------------------//
+    this.querySelector('#profilePic')?.addEventListener("click",()=>{
+      console.log('profile redirect to account page');
+      loadModal('account');
+    })
     
   }
 
@@ -103,6 +110,7 @@ class Navbar extends HTMLElement {
       link.remove();
       /* temp */console.log(`Unloaded CSS for modal: ${modalName}`);
     }
+    
 
   } 
 }
