@@ -94,7 +94,7 @@ async function loadModal(modalName,form=null) {
     //-------------append normal html-----------//
     let doc = new DOMParser().parseFromString(html, "text/html");
     console.log(doc);
-    modal.appendChild(doc.querySelector(".modal"));
+    if(doc.querySelector(".modal"))modal.appendChild(doc.querySelector(".modal"));
 
     //-------------append popup script--------------//
     let fetchScript = doc.querySelector("script");

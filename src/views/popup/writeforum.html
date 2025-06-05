@@ -16,10 +16,10 @@
 
         <div class="right-section">
           <div class="icon-container">
-            <button class="add-icon-button">Add icon</button>
+            <button class="add-icon-button" onclick="getIcon()">Add icon</button>
           </div>
           <div class="banner-container">
-            <button class="add-banner-button">Add banner</button>
+            <button class="add-banner-button" onclick="getBanner()">Add banner</button>
           </div>
         </div>
       </div>
@@ -34,9 +34,137 @@
           ></textarea>
         </form>
         <div class="post-btn-container">
-          <button class="post-btn">Post</button>
+          <button class="post-btn" onclick="insert_Forum()">Post</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  let inputIcon;
+  let inputBanner; 
+  async function getBanner() {
+    let fileshandler = await window.showOpenFilePicker({
+      types: [
+        {
+          description: "Images",
+          accept: {
+            "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    });
+
+    inputBanner = await fileshandler[0].getFile();
+
+  }
+  async function getIcon() {
+    let fileshandler = await window.showOpenFilePicker({
+      types: [
+        {
+          description: "Images",
+          accept: {
+            "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    });
+
+    inputIcon = await fileshandler[0].getFile();
+  }
+  async function insert_Forum(){ 
+    // $_POST['name'];
+    // $_FILES['banner']['tmp_name']);
+    // $_FILES['icon']['tmp_name']);
+    // $_POST['descriptions']; 
+    // $_SESSION['uid'];
+    let name = document.querySelector('.title-input').value;
+    let banner = inputIcon;
+    let icon = inputBanner;
+    let descriptions = document.querySelector('.post-desc').value;
+
+    if(name==='' ) {console.log('name'+' is unset'); return;}
+    if(typeof banner=== "undefined" ) {console.log('banner'+' is unset'); return;}
+    if(typeof icon=== "undefined" ) {console.log('icon'+' is unset'); return;}
+    if(descriptions==='' ) {console.log('descriptions'+' is unset'); return;}
+    
+
+    let form = new FormData();
+    form.append('insert_Forum',1);
+    form.append('name',name);
+    form.append('banner',banner);
+    form.append('icon',icon);
+    form.append('descriptions',descriptions);
+    
+
+    let response = await (await fetch('/module/SQL_on_PHP/CREATEFORUM_LISTENER.php',{
+        method:'POST',
+        body:form
+    })).text();
+    let code = new DOMParser().parseFromString(response,'text/html').body.style.getPropertyValue('--code');
+    console.log(code);
+    
+    switch(code){
+      case 'success':  
+        closeModal();  
+        break;
+      case '\'no user_id\'':
+        closeModal();    
+        loadModal('account');
+        break;
+      default:
+        console.log(code);
+        break;
+    }
+
+
+
+}  
+/* 
+  async function insert_Post(){
+      //assign by php
+      
+      //input
+      let post_title = document.querySelector(".title-input").value;
+      let post_contents = document.querySelector(".post-desc").value;
+      let postPicture_pictures = document.querySelector("#add-button").files;
+      let forum_id = $forum_id;
+      
+      
+      //create form body
+      let formbody = new FormData();
+      formbody.append('submit',1);
+      formbody.append('forum_id',forum_id);
+      formbody.append('post_title',post_title);
+      formbody.append('post_contents',post_contents);
+      for( let file of postPicture_pictures){
+          formbody.append('postPicture_picture[]',file);
+      }
+  
+      //send request
+      let response =  await (await fetch('/module/SQL_on_PHP/CREATEPOST_LISTENER.php',{
+          method:"POST",
+          body:formbody
+      })).text();
+  
+      //append new post 
+      let doc = new DOMParser().parseFromString(response,'text/html');
+      console.log(doc);
+      let code = doc.body.style.getPropertyValue('--code');
+      switch(doc.body.style.getPropertyValue('--code')){
+        case 'success':  
+          closeModal();  
+          break;
+        case '\'no user_id\'':
+          closeModal();    
+          loadModal('account');
+          break;
+      }
+
+  }
+   */
+  </script>
