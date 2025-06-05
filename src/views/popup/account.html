@@ -77,40 +77,17 @@
     }
   }
 
-  // async function logout() {
-  //   let signupBtn = document.querySelector("#signup-from-account");
-  //   let code = signupBtn.innerHTML;
-
-  //   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LOGOUT BUTTON HANDLER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  //   if (code == "logout") {
-  //     let form = new FormData();
-  //     form.append("logout", 1);
-  //     let msg = await (
-  //       await fetch("/module/SQL_on_PHP/ACCOUNTPOPUP_LISTENER.php", {
-  //         method: "POST",
-  //         body: form,
-  //       })
-  //     ).text();
-  //     console.log("clicked logout", msg);
-  //   }
-  //   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE PIC UNAPPEND ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  //   loadProfilePic();
-  //   closeModal();
-  //   loadModal("account");
-  // }
   async function logout() {
     let signupBtn = modal.querySelector("#signup-from-account");
     let code = signupBtn.innerHTML;
     console.log(`Signup button code: ${code}`);
 
     if (code == "sign-up") {
-      console.log('signup is clicked');
+      console.log("signup is clicked");
       closeModal();
       loadModal("signup");
-    
     } else if (code == "logout") {
-
-      //send logout to ACCOUNTPOPUP_LISTENER      
+      //send logout to ACCOUNTPOPUP_LISTENER
       let form = new FormData();
       form.append("logout", 1);
       let msg = await (
@@ -119,15 +96,14 @@
           body: form,
         })
       ).text();
-      
+
       console.log("clicked logout", msg);
-      
+
       loadProfilePic();
       closeModal();
       loadModal("account");
-
-    } else {console.log("no account-signin-error");}
-
-
+    } else {
+      console.log("no account-signin-error");
+    }
   }
 </script>
