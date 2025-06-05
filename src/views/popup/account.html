@@ -8,7 +8,7 @@
           <div class="profile-card">
             <img
               class="profile-img"
-              src="/src/assets/temp_img.jpg"
+              src="$user_profilePic"
               alt="Profile Picture"
             />
           </div>
@@ -17,12 +17,12 @@
               Add icon
             </button>
           </div>
-          <p>Email: $user_id</p>
-          <p>Joined:</p>
+          <p>Email: $user_email</p>
+          <p>Joined: $user_createdAt</p>
         </div>
 
         <div class="right-section">
-          <h2>Username</h2>
+          <h2>$user_username</h2>
         </div>
       </div>
 
@@ -74,6 +74,8 @@
 
     if (doc.body.style.getPropertyValue("--code") == "success") {
       headerProfilePic.src = doc.body.innerHTML;
+      modal.querySelector(".profile-img").src = doc.body.innerHTML;
+      // headerProfilePic.src = doc.body.innerHTML;
     }
   }
 
