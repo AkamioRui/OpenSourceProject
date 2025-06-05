@@ -14,6 +14,7 @@
 
         //variable for populating the page
 
+        public $forum_id;//for write post
         public $forum_name;
         public $forum_banner;
         public $forum_icon;
@@ -38,6 +39,7 @@
         public $forum_valid;
 
         function __construct($forum_id){
+            $this->forum_id = $forum_id;
             
             $this->dbh = getPDO();
 

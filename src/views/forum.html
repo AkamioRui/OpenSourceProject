@@ -48,5 +48,15 @@
     <div id="modal" class="modal hidden"></div>
 
     <script src="/src/components/modalLoader.js"></script>
+
+    <script>
+      async function footerFunction() {
+        let form = new FormData();
+        form.append("forumId", $forum_id);
+        loadModal('writepost',form);
+        // writepost
+      }
+      
+    </script>
   </body>
 </html>

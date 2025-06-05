@@ -120,18 +120,18 @@ async function loadModal(modalName,form=null) {
   }
 }
 
-document.addEventListener("click", (e) => {
-  const profileBtn = e.target.closest(".profile-btn");
-  const footerBtn = e.target.closest(".footer-button");
+// document.addEventListener("click", (e) => {
+//   const profileBtn = e.target.closest(".profile-btn");
+//   const footerBtn = e.target.closest(".footer-button");
 
-  if (profileBtn) {
-    const modalName = getNavbarModal();
-    loadModal(modalName);
-  }
+//   if (profileBtn) {
+//     const modalName = getNavbarModal();
+//     loadModal(modalName);
+//   }
 
-  if (footerBtn) {
-    const modalName = getFooterModal();
-    loadModal(modalName);
-  }
-});
+//   if (footerBtn) {
+//     const modalName = getFooterModal();
+//     loadModal(modalName);
+//   }
+// });
 

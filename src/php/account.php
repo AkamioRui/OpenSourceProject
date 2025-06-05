@@ -101,6 +101,15 @@
 
                 //for lauerl
 
+                //for change account button
+                if($_SESSION['uid'] == -1){
+                    $page = preg_replace(
+                        '/(<[^<>]*id="add-icon"[^<>]*>)([^<>]*)(<[^<>]*>)/',
+                        '' ,
+                        $page
+                    );
+                } 
+
                 //for login button
                 if($_SESSION['uid'] == -1){
                     $page = preg_replace(
