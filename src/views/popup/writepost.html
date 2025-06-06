@@ -17,8 +17,8 @@
         <div class="right-section">
           <div class="icon-container">
             
-            <!-- <input id="add-button" type="file" accept="image/*"> -->
-            <button id="add-button" onclick="getImage()">Add a picture</button>
+            <input id="add-button" type="file" accept="image/*">
+            <!-- <button id="add-button" onclick="getImage()">Add a picture</button> -->
             
           </div>
         </div>
@@ -40,34 +40,34 @@
   </div>
 </div>
 <script>
-  let inputfilehandler ;
-  async function getImage() {
-    let fileshandler = await window.showOpenFilePicker({
-      types: [
-        {
-          description: "Images",
-          accept: {
-            "image/*": [".png", ".gif", ".jpeg", ".jpg"],
-          },
-        },
-      ],
-      excludeAcceptAllOption: true,
-      multiple: false,//for now only 1 image
-    });
+  // let inputfilehandler ;
+  // async function getImage() {
+  //   let fileshandler = await window.showOpenFilePicker({
+  //     types: [
+  //       {
+  //         description: "Images",
+  //         accept: {
+  //           "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+  //         },
+  //       },
+  //     ],
+  //     excludeAcceptAllOption: true,
+  //     multiple: false,//for now only 1 image
+  //   });
 
-    inputfilehandler =await Promise.all(
-      fileshandler.map(async (fileHandle) => await fileHandle.getFile())
-    );
+  //   inputfilehandler =await Promise.all(
+  //     fileshandler.map(async (fileHandle) => await fileHandle.getFile())
+  //   );
     
     
-  }
+  // }
 async function insert_Post(){
     //assign by php
     
     //input
     let post_title = document.querySelector(".title-input").value;
     let post_contents = document.querySelector(".post-desc").value;
-    let postPicture_pictures = inputfilehandler;
+    let postPicture_pictures = document.querySelector("#add-button").files;
     let forum_id = $forum_id;
 
     if(post_title === ''){console.log('post_title'+' is empty');return;}
@@ -96,7 +96,7 @@ async function insert_Post(){
     console.log(doc);
     let code = doc.body.style.getPropertyValue('--code');
     switch(doc.body.style.getPropertyValue('--code')){
-      case 'success':  
+      case '\'success\'':  
         closeModal();  
         break;
       case '\'no user_id\'':

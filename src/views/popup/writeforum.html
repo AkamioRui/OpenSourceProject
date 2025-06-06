@@ -16,10 +16,13 @@
 
         <div class="right-section">
           <div class="icon-container">
-            <button class="add-icon-button" onclick="getIcon()">Add icon</button>
+            <!-- <button class="add-icon-button" onclick="getIcon()">Add icon</button> -->
+            <input class="add-icon-button" type="file" accept="image/*">
+            
           </div>
           <div class="banner-container">
-            <button class="add-banner-button" onclick="getBanner()">Add banner</button>
+            <!-- <button class="add-banner-button" onclick="getBanner()">Add banner</button> -->
+            <input class="add-banner-button" type="file" accept="image/*">
           </div>
         </div>
       </div>
@@ -83,8 +86,8 @@
     // $_POST['descriptions']; 
     // $_SESSION['uid'];
     let name = document.querySelector('.title-input').value;
-    let banner = inputIcon;
-    let icon = inputBanner;
+    let icon= document.querySelector('.add-icon-button').files;
+    let banner = document.querySelector('.add-banner-button').files;
     let descriptions = document.querySelector('.post-desc').value;
 
     if(name==='' ) {console.log('name'+' is unset'); return;}
@@ -96,8 +99,8 @@
     let form = new FormData();
     form.append('insert_Forum',1);
     form.append('name',name);
-    form.append('banner',banner);
-    form.append('icon',icon);
+    form.append('banner',banner[0]);
+    form.append('icon',icon[0]);
     form.append('descriptions',descriptions);
     
 

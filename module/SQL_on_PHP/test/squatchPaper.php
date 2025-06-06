@@ -1,5 +1,5 @@
 <?php
-
+//remote mariadb allow user = ruima, identified by ruima, ip = 192.168.43.%
 //js note
 /* 
     1. when after fetching a popup, make sure to disable the button to fetch this popup again before it's closed (for example hiding it)
