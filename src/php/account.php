@@ -57,7 +57,7 @@
 
 
             if(!$this->user_valid){
-                $data = json_decode(file_get_contents(__DIR__.'\..\..\databaseConfig.json'));
+                $data = json_decode(file_get_contents(__DIR__.'/../../databaseConfig.json'));
                 $this->user_createdAt = $data->defaultUser->createdAt;//already formated
                 $this->user_profilePic = file_get_contents(__DIR__.'/../../module/SQL_on_PHP/'.$data->defaultUser->profilePic);
                 $this->user_username = $data->defaultUser->username;
