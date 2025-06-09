@@ -9,16 +9,16 @@
     
 */
     $db = new INPUT();
-    $db->addUser(__DIR__.'\view.jpg','Lucky gunner','georgeygeorge@gmail.com','chickenwings', 1);
-    $db->addUser(__DIR__.'\elephant.jpeg','Mighty Walrus','savetheelephants@gmail.com','trunktrunk', 0);
-    $db->addUser(__DIR__.'\indonesia.png','Asep','asepjakarta@gmail.com','gadogado', 0);
-    // $db->addUser(__DIR__.'\user_profilePic3.jpg','John','user3@gmail.com','pass3', 0);
-    // $db->addUser(__DIR__.'\user_profilePic3.jpg','jacob','user123@gmail.com','pass123', 0);
+    $db->addUser(__DIR__.'/view.jpg','Lucky gunner','georgeygeorge@gmail.com','chickenwings', 1);
+    $db->addUser(__DIR__.'/elephant.jpeg','Mighty Walrus','savetheelephants@gmail.com','trunktrunk', 0);
+    $db->addUser(__DIR__.'/indonesia.png','Asep','asepjakarta@gmail.com','gadogado', 0);
+    // $db->addUser(__DIR__.'/user_profilePic3.jpg','John','user3@gmail.com','pass3', 0);
+    // $db->addUser(__DIR__.'/user_profilePic3.jpg','jacob','user123@gmail.com','pass123', 0);
 
-    $db->addForum('Cooking without fire', __DIR__.'\cooking.jpeg', __DIR__.'\gordon.jpg', 1, 'This forum has been created to talk about the modern art of cooking, as a wise man once said that the difference between cooking and being cooked is that one holds the pot while the other is in the pot.');
-    $db->addForum('Chocolate', __DIR__.'\chocolate.jpg', __DIR__.'\candy bar.jpg', 1, 'Welcome to the world of chocolate, where the sweetness is never ending and we arent talking about just chocolates.');
-    $db->addForum('Presidents around the world', __DIR__.'\united nations.png', __DIR__.'\obama.jpeg', 1, 'The global political scene is ever-changing and unpredictably dynamic, in this forum we will respect the right to freedom of speech and be a safe space for opinions.');
-    // $db->addForum('grape', __DIR__.'\forum_banner3.jpg', __DIR__.'\forum_icon3.jpg', 1, 'about grape');
+    $db->addForum('Cooking without fire', __DIR__.'/cooking.jpeg', __DIR__.'/gordon.jpg', 1, 'This forum has been created to talk about the modern art of cooking, as a wise man once said that the difference between cooking and being cooked is that one holds the pot while the other is in the pot.');
+    $db->addForum('Chocolate', __DIR__.'/chocolate.jpg', __DIR__.'/candy bar.jpg', 1, 'Welcome to the world of chocolate, where the sweetness is never ending and we arent talking about just chocolates.');
+    $db->addForum('Presidents around the world', __DIR__.'/united nations.png', __DIR__.'/obama.jpeg', 1, 'The global political scene is ever-changing and unpredictably dynamic, in this forum we will respect the right to freedom of speech and be a safe space for opinions.');
+    // $db->addForum('grape', __DIR__.'/forum_banner3.jpg', __DIR__.'/forum_icon3.jpg', 1, 'about grape');
 
     $db->addPost(1, 'Cooking', "I am honestly not that good at cooking but i am the first post here so there isn't much i can talk about", 3, 70);
     $db->addPost(1, 'I got a cookbook !', 'I recently got a cookbook published by Wong academy and i cannot wait to find out so much more about the art.', 3, 150);
@@ -31,10 +31,10 @@
     $db->addPost(3, 'Vatican', 'Just wondering, is the pope considered a president ?', 6, 500);
     // $db->addPost(1, 'sencond post about apple', 'a big round apple oooh ', 1, 0);
 
-    $db->addPostPicture(2, __DIR__.'\cookbook.jpeg');
-    $db->addPostPicture(9, __DIR__.'\papa leo.jpg');
-    $db->addPostPicture(6, __DIR__.'\darkchocolate.jpg');
-    // $db->addPostPicture(1, __DIR__.'\post1img3.webp');
+    $db->addPostPicture(2, __DIR__.'/cookbook.jpeg');
+    $db->addPostPicture(9, __DIR__.'/papa leo.jpg');
+    $db->addPostPicture(6, __DIR__.'/darkchocolate.jpg');
+    // $db->addPostPicture(1, __DIR__.'/post1img3.webp');
 
     $db->addComment(1, 1, NULL, 'Its kinda lonely being the first to post in a forum.', 52);
     $db->addComment(2, 1, 1, 'Hey there, I would not call myself an expert but would love to answer your questions if any about cooking', 20);
