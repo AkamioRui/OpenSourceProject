@@ -95,6 +95,7 @@ async function insert_Post(){
     let doc = new DOMParser().parseFromString(response,'text/html');
     console.log(doc);
     let code = doc.body.style.getPropertyValue('--code');
+    console.log('write post :'+code);
     switch(doc.body.style.getPropertyValue('--code')){
       case '\'success\'':  
         closeModal();  
@@ -102,6 +103,7 @@ async function insert_Post(){
       case '\'no user_id\'':
         closeModal();    
         loadModal('account');
+      default:
         break;
     }
     

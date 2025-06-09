@@ -50,7 +50,20 @@
     let code = new DOMParser()
       .parseFromString(response, "text/html")
       .body.style.getPropertyValue("--code");
-    console.log(code);
+    console.log('write comment :'+code);
+    switch(code){
+    case '\'success\'':  
+      closeModal();  
+      break;
+    case '\'no user_id\'':
+      closeModal();    
+      loadModal('account');
+      break;
+    default:
+      console.log(code);
+      break;
+    }
+      console.log(code);
 
     closeModal();
   }

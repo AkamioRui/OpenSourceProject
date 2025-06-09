@@ -109,7 +109,7 @@
         body:form
     })).text();
     let code = new DOMParser().parseFromString(response,'text/html').body.style.getPropertyValue('--code');
-    console.log(code);
+    console.log('write forum :'+code);
     
     switch(code){
       case 'success':  
