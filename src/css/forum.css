@@ -88,7 +88,7 @@ main {
 }
 
 .post-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #070053;
 }
@@ -123,6 +123,5 @@ main {
 
 .post-img {
   margin: 1rem;
-  height: 25vh;
-  width: 12vw;
+  height: 14rem;
 }

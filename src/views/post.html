@@ -16,7 +16,7 @@
   <body>
     <app-navbar data-page="post-nav"></app-navbar>
 
-    <main style="--forum_id:$forum_id;" >
+    <main style="--forum_id: $forum_id">
       <section class="post-card">
         <div class="top-card">
           <div class="left-section">
@@ -40,9 +40,9 @@
           <p class="post-date">$post_createdAt</p>
           <p class="post-desc">$post_contents</p>
         </div>
-        <!-- <div class="img-container"> -->
-        <img src="$postPicture_picture" alt="" class="post-img" />
-        <!-- </div> -->
+        <div class="img-container">
+          <img src="$postPicture_picture" alt="" class="post-img" />
+        </div>
       </section>
 
       <section class="comment-section">
@@ -62,51 +62,6 @@
                 alt=""
                 class="comment-avatar"
               />
-<<<<<<< Updated upstream
-              <div class="comment-content">
-                <h3 class="comment-author">Distinguished peasant</h3>
-                <div class="text-container">
-                  <p class="comment-text">
-                    Walls are walls are walls, I like walls icecream. Paddle pop
-                    wooooooo. Susu murni nasional wawawawawawawawawawawa akan
-                    kami genjot.
-                  </p>
-
-                  <div class="comment-like">
-                    <img src="/src/assets/heart.png" alt="like" />
-                    <span>20 Likes</span>
-                  </div>
-                </div>
-                <button class="comment-reply" onclick="fetch_CreateComment($post_id, $comment_id)">Reply</button>
-
-                <ul class="comment-replies">
-                  <li class="comment reply">
-                    <img
-                      src="/src/assets/profile.png"
-                      alt=""
-                      class="comment-avatar"
-                    />
-                    <div class="comment-content">
-                      <h3 class="comment-author">Lirili Larila</h3>
-                      <div class="text-container">
-                        <p class="comment-text">
-                          Walls are walls are walls, I like walls icecream.
-                          Paddle pop wooooooo. Susu murni nasional
-                          wawawawawawawawawawawa akan kami genjot.
-                        </p>
-
-                        <div class="comment-like">
-                          <img src="/src/assets/heart.png" alt="like" />
-                          <span>20 Likes</span>
-                        </div>
-                      </div>
-                      <button class="comment-reply">Reply</button>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-=======
->>>>>>> Stashed changes
             </li>
           </ul>
         </div>
@@ -123,13 +78,11 @@
         form.append("postId", postId);
         form.append("parentId", parentId);
 
-        
-        loadModal('commentbar',form);
+        loadModal("commentbar", form);
       }
       async function footerFunction() {
         fetch_CreateComment($post_id, 0);
       }
-      
     </script>
   </body>
 </html>
