@@ -18,35 +18,46 @@
     <main>
       <img class="banner" src="$forum_banner" alt="" srcset="" />
       <div class="forum-detail-card">
-        <img
-          src="$forum_icon"
-          
-          class="forum-avatar-floating"
-        />
+        <img src="$forum_icon" class="forum-avatar-floating" />
         <p class="forum-date">$forum_createdAt</p>
-
         <div class="forum-detail-card-header">
           <div class="title-container">
             <h2 class="forum-title">$forum_name</h2>
           </div>
-          <p class="forum-description">
-            $forum_descriptions
-          </p>
+          <p class="forum-description">$forum_descriptions</p>
         </div>
       </div>
 
-      <div class="post-card"  repeat>
-        <div class="top-card">
-          <h2 class="post-title">$post_title</h2>
-          <div class="right-section">
-            <h2 class="post-date">$post_createdAt</h2>
-            <p class="post-like">Liked by ! <span class="like">$post_like</span></p>
+      <div class="post-card" repeat>
+        <a href="/src/php/post.php?post_id=$post_id">
+          <div class="top-card">
+            <h2 class="post-title">$post_title</h2>
+            <div class="right-section">
+              <h2 class="post-date">$post_createdAt</h2>
+              <p class="post-like">
+                Liked by ! <span class="like">$post_like</span>
+              </p>
+            </div>
           </div>
-        </div>
-        <img src="$postPicture_pictures" alt="" class="post-img" />
+          <img src="$postPicture_pictures" alt="" class="post-img" />
+        </a>
       </div>
-
-      <app-footer data-page="forum-footer"></app-footer>
     </main>
+
+    <app-footer data-page="forum-footer"></app-footer>
+    <div id="modal" class="modal hidden"></div>
+
+    <script src="/src/components/modalLoader.js"></script>
+
+    <script>
+      async function footerFunction() {
+        let form = new FormData();
+        form.append("forum_id", $forum_id);
+        
+        loadModal('writepost',form);
+        // writepost
+      }
+      
+    </script>
   </body>
 </html>

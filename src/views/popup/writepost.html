@@ -1,0 +1,113 @@
+<div class="modal" id="popup-writepost">
+  <div class="modal-content">
+    <app-navbar data-page="write-post-nav" class="popup-navbar"></app-navbar>
+    <div class="wrapper">
+      <div class="container">
+        <div class="left-section">
+          <h3 class="title">Title</h3>
+          <form class="title-form">
+            <input
+              type="text"
+              class="title-input"
+              placeholder="Enter post title..."
+            />
+          </form>
+        </div>
+
+        <div class="right-section">
+          <div class="icon-container">
+            
+            <input id="add-button" type="file" accept="image/*">
+            <!-- <button id="add-button" onclick="getImage()">Add a picture</button> -->
+            
+          </div>
+        </div>
+      </div>
+      <div class="description-container">
+        <h3>Description</h3>
+        <form>
+          <textarea
+            class="post-desc"
+            type="text"
+            placeholder="Write a short description..."
+          ></textarea>
+        </form>
+        <div class="post-btn-container">
+          <button class="post-btn" onclick="insert_Post()">Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // let inputfilehandler ;
+  // async function getImage() {
+  //   let fileshandler = await window.showOpenFilePicker({
+  //     types: [
+  //       {
+  //         description: "Images",
+  //         accept: {
+  //           "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+  //         },
+  //       },
+  //     ],
+  //     excludeAcceptAllOption: true,
+  //     multiple: false,//for now only 1 image
+  //   });
+
+  //   inputfilehandler =await Promise.all(
+  //     fileshandler.map(async (fileHandle) => await fileHandle.getFile())
+  //   );
+    
+    
+  // }
+async function insert_Post(){
+    //assign by php
+    
+    //input
+    let post_title = document.querySelector(".title-input").value;
+    let post_contents = document.querySelector(".post-desc").value;
+    let postPicture_pictures = document.querySelector("#add-button").files;
+    let forum_id = $forum_id;
+
+    if(post_title === ''){console.log('post_title'+' is empty');return;}
+    if(post_contents=== ''){console.log('post_contents'+' is empty');return;}
+    if(typeof postPicture_pictures === 'undefined'){console.log('postPicture_pictures'+' is empty');return;}
+    
+    
+    //create form body
+    let formbody = new FormData();
+    formbody.append('submit',1);
+    formbody.append('forum_id',forum_id);
+    formbody.append('post_title',post_title);
+    formbody.append('post_contents',post_contents);
+    for( let file of postPicture_pictures){
+        formbody.append('postPicture_picture[]',file);
+    }
+
+    //send request
+    let response =  await (await fetch('/module/SQL_on_PHP/CREATEPOST_LISTENER.php',{
+        method:"POST",
+        body:formbody
+    })).text();
+
+    //append new post 
+    let doc = new DOMParser().parseFromString(response,'text/html');
+    console.log(doc);
+    let code = doc.body.style.getPropertyValue('--code');
+    switch(doc.body.style.getPropertyValue('--code')){
+      case '\'success\'':  
+        closeModal();  
+        break;
+      case '\'no user_id\'':
+        closeModal();    
+        loadModal('account');
+        break;
+    }
+    
+    
+
+      
+
+}
+</script>

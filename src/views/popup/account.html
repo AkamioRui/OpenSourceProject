@@ -1,0 +1,111 @@
+<div class="modal" id="popup-account-user">
+  <div class="modal-content">
+    <app-navbar data-page="account-nav"></app-navbar>
+
+    <div class="wrapper">
+      <div class="main-container">
+        <div class="left-section">
+          <div class="profile-card">
+            <img
+              class="profile-img"
+              src="$user_profilePic"
+              alt="Profile Picture"
+            />
+          </div>
+          <div class="profile-button">
+            <button id="add-icon" onclick="change_profilePic()">
+              Add icon
+            </button>
+          </div>
+          <p>Email: $user_email</p>
+          <p>Joined: $user_createdAt</p>
+        </div>
+
+        <div class="right-section">
+          <h2>$user_username</h2>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button id="signup-from-account" onclick="logout()">Sign up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function change_profilePic() {
+    // $_FILES['user_profilePic']
+    // if($_POST['change_profilePic'])
+
+    let filePicker = await window.showOpenFilePicker({
+      types: [
+        {
+          description: "Images",
+          accept: {
+            "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    });
+
+    files = await filePicker[0].getFile();
+    /* temp */ let file = files;
+    console.log("file", file);
+    /* temp */ let headerProfilePic = document.querySelector("#profilePic");
+    // let img = document.querySelector(".profile-btn");
+
+    let form = new FormData();
+    form.append("change_profilePic", 1);
+    form.append("user_profilePic", file);
+    let response = await (
+      await fetch("/module/SQL_on_PHP/ACCOUNTPOPUP_LISTENER.php", {
+        method: "POST",
+        body: form,
+      })
+    ).text();
+
+    let doc = new DOMParser().parseFromString(response, "text/html");
+    console.log(doc);
+    console.log(doc.body.style.getPropertyValue("--code"));
+    console.log(doc.body.innerHTML);
+
+    if (doc.body.style.getPropertyValue("--code") == "success") {
+      headerProfilePic.src = doc.body.innerHTML;
+      modal.querySelector(".profile-img").src = doc.body.innerHTML;
+      // headerProfilePic.src = doc.body.innerHTML;
+    }
+  }
+
+  async function logout() {
+    let signupBtn = modal.querySelector("#signup-from-account");
+    let code = signupBtn.innerHTML;
+    console.log(`Signup button code: ${code}`);
+
+    if (code == "sign-up") {
+      console.log("signup is clicked");
+      closeModal();
+      loadModal("signup");
+    } else if (code == "logout") {
+      //send logout to ACCOUNTPOPUP_LISTENER
+      let form = new FormData();
+      form.append("logout", 1);
+      let msg = await (
+        await fetch("/module/SQL_on_PHP/ACCOUNTPOPUP_LISTENER.php", {
+          method: "POST",
+          body: form,
+        })
+      ).text();
+
+      console.log("clicked logout", msg);
+
+      loadProfilePic();
+      closeModal();
+      loadModal("account");
+    } else {
+      console.log("no account-signin-error");
+    }
+  }
+</script>

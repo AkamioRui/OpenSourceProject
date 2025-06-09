@@ -1,0 +1,130 @@
+<div class="modal" id="popup-writeforum">
+  <div class="modal-content">
+    <app-navbar data-page="write-forum-nav" class="popup-navbar"></app-navbar>
+    <div class="wrapper">
+      <div class="container">
+        <div class="left-section">
+          <h3 class="title">Title</h3>
+          <form class="title-form">
+            <input
+              type="text"
+              class="title-input"
+              placeholder="Enter forum title..."
+            />
+          </form>
+        </div>
+
+        <div class="right-section">
+          <div class="icon-container">
+            <!-- <button class="add-icon-button" onclick="getIcon()">Add icon</button> -->
+            <input class="add-icon-button" type="file" accept="image/*">
+            
+          </div>
+          <div class="banner-container">
+            <!-- <button class="add-banner-button" onclick="getBanner()">Add banner</button> -->
+            <input class="add-banner-button" type="file" accept="image/*">
+          </div>
+        </div>
+      </div>
+
+      <div class="description-container">
+        <h3>Description</h3>
+        <form>
+          <textarea
+            class="post-desc"
+            type="text"
+            placeholder="Write a short description..."
+          ></textarea>
+        </form>
+        <div class="post-btn-container">
+          <button class="post-btn" onclick="insert_Forum()">Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  let inputIcon;
+  let inputBanner; 
+  async function getBanner() {
+    let fileshandler = await window.showOpenFilePicker({
+      types: [
+        {
+          description: "Images",
+          accept: {
+            "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    });
+
+    inputBanner = await fileshandler[0].getFile();
+
+  }
+  async function getIcon() {
+    let fileshandler = await window.showOpenFilePicker({
+      types: [
+        {
+          description: "Images",
+          accept: {
+            "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    });
+
+    inputIcon = await fileshandler[0].getFile();
+  }
+  async function insert_Forum(){ 
+    // $_POST['name'];
+    // $_FILES['banner']['tmp_name']);
+    // $_FILES['icon']['tmp_name']);
+    // $_POST['descriptions']; 
+    // $_SESSION['uid'];
+    let name = document.querySelector('.title-input').value;
+    let icon= document.querySelector('.add-icon-button').files;
+    let banner = document.querySelector('.add-banner-button').files;
+    let descriptions = document.querySelector('.post-desc').value;
+
+    if(name==='' ) {console.log('name'+' is unset'); return;}
+    if(typeof banner=== "undefined" ) {console.log('banner'+' is unset'); return;}
+    if(typeof icon=== "undefined" ) {console.log('icon'+' is unset'); return;}
+    if(descriptions==='' ) {console.log('descriptions'+' is unset'); return;}
+    
+
+    let form = new FormData();
+    form.append('insert_Forum',1);
+    form.append('name',name);
+    form.append('banner',banner[0]);
+    form.append('icon',icon[0]);
+    form.append('descriptions',descriptions);
+    
+
+    let response = await (await fetch('/module/SQL_on_PHP/CREATEFORUM_LISTENER.php',{
+        method:'POST',
+        body:form
+    })).text();
+    let code = new DOMParser().parseFromString(response,'text/html').body.style.getPropertyValue('--code');
+    console.log(code);
+    
+    switch(code){
+      case 'success':  
+        closeModal();  
+        break;
+      case '\'no user_id\'':
+        closeModal();    
+        loadModal('account');
+        break;
+      default:
+        console.log(code);
+        break;
+    }
+
+
+
+}  
+  </script>

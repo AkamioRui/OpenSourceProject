@@ -19,23 +19,19 @@
     );
 
 
-function insert_Comment(
-    $comment_postId,
-    $comment_parentId,
-    $comment_comment
-){  
+function insert_Comment($comment_postId, $comment_parentId, $comment_comment){  
     $insertComment = getPDO()->prepare('
         INSERT INTO `comment_t` (`creatorId`,`postId`,`parentId`,`comment`)
         VALUES(:creatorId,:postId,:parentId,:comment)
     ');      
     $insertComment->bindValue(':creatorId',$_SESSION['uid']);
     $insertComment->bindValue(':postId',$comment_postId);
-    $insertComment->bindValue(':parentId',$comment_parentId);
+    $insertComment->bindValue(':parentId',$comment_parentId?:NULL);
     $insertComment->bindValue(':comment',$comment_comment);
     
     try{
         $insertComment->execute();
-        echo '<body style="--code:success"></body>';
+        echo '<body style="--code:success'.$comment_parentId.'"></body>';
     } catch(PDOException $e){
         echo '<body style="--code:\''.$e->getMessage() .'\'"></body>';
         

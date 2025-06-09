@@ -1,8 +1,6 @@
 <?php
     include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
 
-    
-    ///* test */$_SESSION['uid'] = 1;
     $homepage = new HOMEPAGE();
     $homepage->generatePage(__DIR__.'/../views/homepage.html');
     
@@ -85,6 +83,7 @@
             $this->selectPost->bindParam(':forum_id', $this->forum_id);
             $this->selectPost->bindColumn('title', $this->post_title);
             $this->selectPost->bindColumn('contents', $this->post_contents);
+            $this->selectPost->bindColumn('post_creator', $this->post_creator);
             $this->selectPost->bindColumn('id', $this->post_id);
             $this->selectPost->execute();
             $this->post_valid = $this->selectPost->fetch()?true:false;

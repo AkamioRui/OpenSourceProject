@@ -1,0 +1,65 @@
+<div class="modal" id="popup-signup">
+  <div class="modal-content">
+    <app-navbar data-page="signup-nav"></app-navbar>
+    <div class="login-card">
+      <h2>Hi there!</h2>
+      
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required />
+
+        <label for="uname">Username</label>
+        <input id="uname" name="uname" type="text" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required />
+
+        <span class="alt-link">
+          <a href="#" id="login-from-signup" onclick="redirect_Login()">Already have an account?</a>
+        </span>
+      
+      <button id="button-signUp" onclick="insert_signup()">Sign up</button>
+    </div>
+  </div>
+</div>
+<script>
+  async function insert_signup() {
+  //$_POST['user_username'];
+  //$_POST['user_email'];
+  //$_POST['user_password'];
+
+  let user_username = document.querySelector("#uname").value;
+  let user_email = document.querySelector("#email").value;
+  let user_password = document.querySelector("#password").value;
+
+  let form = new FormData();
+  form.append("insert_signup", 1);
+  form.append("user_username", user_username);
+  form.append("user_email", user_email);
+  form.append("user_password", user_password);
+
+  let response = await (
+    await fetch("/module/SQL_on_PHP/SIGNUPPOPUP_LISTENER.php", {
+      method: "POST",
+      body: form,
+    })
+  ).text();
+  let code = new DOMParser()
+    .parseFromString(response, "text/html")
+    .body.style.getPropertyValue("--code");
+  if(code == 'success') console.log('login success');
+  if(code == 'duplicate') console.log('duplicate');
+  closeModal();
+  loadModal("login");
+
+
+
+
+}
+ function redirect_Login(){
+    closeModal();
+    loadModal("login");
+ }
+    
+
+
+</script>

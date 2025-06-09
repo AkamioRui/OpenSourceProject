@@ -1,75 +1,120 @@
-class Navbar extends HTMLElement {
-  connectedCallback() {
+class Navbar extends HTMLElement { 
+  async connectedCallback() {
+    const modal = document.getElementById("modal");
+
+    // Load the profile picture
+    let form = new FormData();
+    form.append("user_profilePic", 1);
+    let res = await fetch("/module/SQL_on_PHP/GENERAL_LISTENER.php", {
+      method: "POST",
+      body: form,
+    });
+    let imgSrc = await res.text();
+
+    //nav body building block
+    let navbarContent = '<h1>LetMeKnow</h1> ';
+    let backbutton = `
+      <button class="back-button">
+      <img id="back-btn" src="/src/assets/back.png" alt="Back"  />
+      </button>    
+    `;
+    let searchBar = `
+      <form>
+        <input class="search" type="text" placeholder="Search Forum..." />
+      </form>    
+    `;
+    let profilePic = `
+      <img  id="profilePic" src="` +
+      imgSrc +
+      `"  /> 
+      </button>  
+    `;
+
+    // -------------------------//
+    //-----create nav body------//
+    //--------------------------//
     const page = this.getAttribute("data-page");
     this.classList.add(`navbar-${page}`);
-    let navbarContent;
-    console.log(this.classList);
-
     switch (page) {
       case "forum-nav":
-        navbarContent = `
-        <nav >
-          <button  class="back-button ">
-          <img id="back-btn" src="/src/assets/back.png" alt="Back"  />
-          </button>  
-          <h1>LetMeKnow</h1>
-          <form>
-            <input class="search" type="text" placeholder="Search Forum..." />
-          </form>
-          <button class="profile-btn" data-modal-target=""> 
-          <img id="" src="/src/assets/circle.png" alt="Login/Signup" />
-          </button>
-        </nav>
-        <div id="authModal" class="modal hidden"></div>
-      `;
+        navbarContent = backbutton + navbarContent + searchBar + profilePic;
         break;
 
-      case "post-nav" || "login-nav" || "signup-nav":
-        navbarContent = `
-        <nav >
-          <button  class="back-button ">
-        <img id="back-btn" src="/src/assets/back.png" alt="Back"  />
-          </button>  
-          <h1>LetMeKnow</h1>
-          <form>
-            <input class="search" type="text" placeholder="Search Forum..." />
-          </form>
-          <button class="profile-btn" data-modal-target=""> 
-          <img  src="/src/assets/circle.png" alt="Login/Signup" />
-          </button>
-        </nav>
-        <div id="authModal" class="modal hidden"></div>
-      `;
-        break;
-
+      case "login-nav":
+      case "signup-nav":
       case "account-nav":
-        navbarContent = `
-        <nav >
-          <button  class="back-button ">
-        <img id="back-btn" src="/src/assets/back.png" alt="Back"  />
-          </button>  
-          <h1>LetMeKnow</h1>
-        </nav>
-      `;
+        navbarContent = backbutton + navbarContent ;
         break;
 
-      default:
-        navbarContent = `
-          <nav >
-        <h1>LetMeKnow</h1>
-        <form>
-          <input class="search" type="text" placeholder="Search..." />
-        </form>
-        <button class="profile-btn"  data-modal-target=""> 
-        <img  src="/src/assets/circle.png" alt="Login/Signup" />
-        </button>
-      </nav>
-      <div id="authModal" class="modal hidden"></div>
-        `;
+      case "post-nav":
+      case "write-post-nav":
+      case "write-forum-nav":
+      case "comment-bar-nav":
+        navbarContent = backbutton + navbarContent + profilePic;
         break;
+
+      default://homepage
+        navbarContent = navbarContent + searchBar + profilePic;
+        break;
+
     }
-    this.innerHTML = navbarContent;
+    this.innerHTML = `<nav>`+navbarContent +`</nav>`;
+
+    //---------------------------------//
+    //--------add back button----------//
+    //---------------------------------//
+    switch (page) {
+      case "forum-nav":// go to homepage
+        this.querySelector('.back-button')?.addEventListener('click',()=>{
+          window.location.href = "/src/php/homepage.php";
+        });
+        break;
+
+      case "post-nav"://go to forumned
+        this.querySelector('.back-button')?.addEventListener('click',()=>{
+          let forum_id = document.querySelector('main').style.getPropertyValue('--forum_id');
+          window.location.href = "/src/php/forum.php?forum_id="+forum_id;
+        });
+        break;
+
+      default://
+        this.querySelector('.back-button')?.addEventListener('click',()=>{
+          this.closePopup();
+        });
+        break;
+
+        
+        
+    }
+    
+    //------------------------------------------//
+    //----------profile button------------------//
+    //------------------------------------------//
+    this.querySelector('#profilePic')?.addEventListener("click",()=>{
+      console.log('profile redirect to account page');
+      closeModal();
+      loadModal('account');
+    })
+    
   }
+
+  closePopup(){
+    modal.classList.add("hidden");
+    modal.innerHTML = "";
+    
+    let modalName = this.getAttribute("data-page");
+    modalName = modalName.substring(0, modalName.length - 4);
+    const link = document.querySelector(
+      `link[data-modal-css="${modalName}"]`
+    );
+    if (link) {
+      link.remove();
+      /* temp */console.log(`Unloaded CSS for modal: ${modalName}`);
+    }
+    
+
+  } 
 }
 
+  
 customElements.define("app-navbar", Navbar);

@@ -1,0 +1,65 @@
+<div class="modal" id="popup-login">
+  <div class="modal-content">
+    <app-navbar data-page="login-nav"></app-navbar>
+
+    <span class="close-btn">&times;</span>
+
+    <div class="login-card">
+      <h2>WELCOME BACK!</h2>
+
+      <form method="POST">
+        <label for="email">Email / Username</label>
+        <input id="email" name="email" type="text" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required />
+
+        <span class="alt-link">
+          <a href="#" id="signup-from-login" onclick="redirect_SignUp()">Don't have an account?</a>
+        </span>
+      </form>
+      <button id="sign-in-button" onclick="login()">Log in</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function login() {
+    
+    let user_arg = document.querySelector("#email").value;
+    let user_password = document.querySelector("#password").value;
+    console.log(`User arg: ${user_arg}, Password: ${user_password}`);
+
+    //append query data to form
+    let form = new FormData();
+    form.append("query_Login", 1);
+    form.append("user_arg", user_arg);
+    form.append("user_password", user_password);
+
+    //send form and receive response
+    let response = await (
+      await fetch("/module/SQL_on_PHP/LOGINPOPUP_LISTENER.php", {
+        method: "POST",
+        body: form,
+      })
+    ).text();
+
+    let doc = new DOMParser().parseFromString(response,'text/html');
+    code = doc.body.style.getPropertyValue('--code');
+    /* temp */console.log('login code:'+code);
+    if(code == 'success'){
+      loadProfilePic();
+      closeModal();
+    }else if(code == 'fail'){
+      /* temp */
+    }else {
+
+    }
+  }
+  
+
+  function redirect_SignUp(){
+    closeModal();
+    loadModal("signup");
+ }
+</script>

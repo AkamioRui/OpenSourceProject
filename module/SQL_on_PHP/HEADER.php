@@ -27,7 +27,7 @@
     }
 
     function getProfilePic(){
-        $defaulProfilePicPath = __DIR__.'\\'.json_decode(file_get_contents(__DIR__.'/../../databaseConfig.json'))->defaultUser->profilePic;
+        $defaulProfilePicPath = __DIR__.'/'.json_decode(file_get_contents(__DIR__.'/../../databaseConfig.json'))->defaultUser->profilePic;
         $prefix = 'data:image/*;base64,';
         
         $dbh = getPDO();

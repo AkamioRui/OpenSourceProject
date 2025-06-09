@@ -1,0 +1,51 @@
+.wrapper {
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h3 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #070053;
+}
+p {
+  font-size: 1.25rem;
+  color: #120754;
+}
+
+.post-comment {
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 2rem;
+  border: 1px solid #333;
+  background-color: #f5dbbb;
+  resize: none;
+  vertical-align: top;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-button {
+  width: 100%;
+  margin: 1rem 1.5rem 0 0;
+  background: #ffb56b;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.75rem;
+  color: #070053;
+  cursor: pointer;
+  font-family: "Shrikhand", cursive;
+  border: 1px solid #000000;
+}

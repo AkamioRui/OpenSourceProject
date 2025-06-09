@@ -1,8 +1,10 @@
 <?php
     include_once __DIR__."/../../module/SQL_on_PHP/HEADER.php";
     
+    
+    if(!isset($_POST['forum_id'])) {echo '<body src="--code:undefined forumId"> </body>'; return;}
     $createpost = new CREATEPOST($_POST['forum_id']);
-    $createpost->generate_CREATEPOST();
+    $createpost->generatePage(__DIR__.'/../views/popup/writepost.html');
 
     class CREATEPOST{
         public $forum_id;
@@ -11,11 +13,12 @@
             $this->forum_id = $forum_id;
         }
 
-        function generate_CREATEPOST(){
-            /* temp */$page = file_get_contents(__DIR__.'\CREATEPOST_form.html');
+        function generatePage($htmlPath){
+            $page = file_get_contents($htmlPath);
             foreach(get_object_vars($this) as $var => $value){
                 $page = preg_replace('/\$'.$var.'/',$value,$page);
             }
+
             echo $page;        
         }
     }
