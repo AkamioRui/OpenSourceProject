@@ -20,15 +20,15 @@
     $db->addForum('Presidents around the world', __DIR__.'/united nations.png', __DIR__.'/obama.jpeg', 1, 'The global political scene is ever-changing and unpredictably dynamic, in this forum we will respect the right to freedom of speech and be a safe space for opinions.');
     // $db->addForum('grape', __DIR__.'/forum_banner3.jpg', __DIR__.'/forum_icon3.jpg', 1, 'about grape');
 
-    $db->addPost(1, 'Cooking', "I am honestly not that good at cooking but i am the first post here so there isn't much i can talk about", 3, 70);
-    $db->addPost(1, 'I got a cookbook !', 'I recently got a cookbook published by Wong academy and i cannot wait to find out so much more about the art.', 3, 150);
-    $db->addPost(2, 'Self-training', "I've always had a passion for cooking but not the finances to support it, that's why i decided to go to Wong academy to participate in their 3-month free cooking program.", 3, 20);
-    $db->addPost(3, 'Living with diabetes', 'I was recently diagnosed with diabetes at the age of 72, which might not seem like much of a big deal; but considering my love for chocolate i am devastated. Any suggestions on how I can still enjoy sweets while looking after my health ?', 4, 15);
-    $db->addPost(2, "Baking is expensive", "I'm a professional baker responsible for supplying over 10 bakeries with thier cakes, and I must say that running my business has only gotten tougher with the rising price of chocolates from all around the world.", 4, 300);
-    $db->addPost(3, 'Adapting', "As someone with diabetes who still craves sweets, I've been trying to learn to bake with less sugar and I'm wondering if dark chocolate is less sweet because it has less sugar", 4, 10);
-    $db->addPost(1, 'Trump', "I'm a non US citizen who is currently living in the states, just wondering how Americans feel about the current state of this country.", 6, 35);
-    $db->addPost(2, 'Prabowo of Indonesia', "Never been to Southeast Asia but just curious to see how the current Indonesian president will deal with the problems that will sooner or later arise concerning his plan to provide free lunches to every student in his country with over 80 million children.", 6, 200);
-    $db->addPost(3, 'Vatican', 'Just wondering, is the pope considered a president ?', 6, 500);
+    $db->addPost(1, 'Cooking', "I am honestly not that good at cooking but i am the first post here so there isn't much i can talk about", 1, 70);
+    $db->addPost(1, 'I got a cookbook !', 'I recently got a cookbook published by Wong academy and i cannot wait to find out so much more about the art.', 1, 150);
+    $db->addPost(2, 'Self-training', "I've always had a passion for cooking but not the finances to support it, that's why i decided to go to Wong academy to participate in their 3-month free cooking program.", 1, 20);
+    $db->addPost(3, 'Living with diabetes', 'I was recently diagnosed with diabetes at the age of 72, which might not seem like much of a big deal; but considering my love for chocolate i am devastated. Any suggestions on how I can still enjoy sweets while looking after my health ?', 2, 15);
+    $db->addPost(2, "Baking is expensive", "I'm a professional baker responsible for supplying over 10 bakeries with thier cakes, and I must say that running my business has only gotten tougher with the rising price of chocolates from all around the world.", 2, 300);
+    $db->addPost(3, 'Adapting', "As someone with diabetes who still craves sweets, I've been trying to learn to bake with less sugar and I'm wondering if dark chocolate is less sweet because it has less sugar", 2, 10);
+    $db->addPost(1, 'Trump', "I'm a non US citizen who is currently living in the states, just wondering how Americans feel about the current state of this country.", 3, 35);
+    $db->addPost(2, 'Prabowo of Indonesia', "Never been to Southeast Asia but just curious to see how the current Indonesian president will deal with the problems that will sooner or later arise concerning his plan to provide free lunches to every student in his country with over 80 million children.", 3, 200);
+    $db->addPost(3, 'Vatican', 'Just wondering, is the pope considered a president ?', 3, 500);
     // $db->addPost(1, 'sencond post about apple', 'a big round apple oooh ', 1, 0);
 
     $db->addPostPicture(2, __DIR__.'/cookbook.jpeg');
@@ -36,18 +36,18 @@
     $db->addPostPicture(6, __DIR__.'/darkchocolate.jpg');
     // $db->addPostPicture(1, __DIR__.'/post1img3.webp');
 
-    $db->addComment(1, 1, NULL, 'Its kinda lonely being the first to post in a forum.', 52);
-    $db->addComment(2, 1, 1, 'Hey there, I would not call myself an expert but would love to answer your questions if any about cooking', 20);
-    $db->addComment(3, 1, NULL, 'I cannot tell if this forum is about cooking or cooking.', 200);
-    $db->addComment(1, 1, NULL, 'So good to see so many comments under my post !', 17);
-    $db->addComment(1, 2, NULL, 'Wait a minute... this book is not actually about cooking as in making food.', 52);
-    $db->addComment(2, 2, 14, "Can't believe there are still people out there who do not know what cooking is about.", 2000);
-    $db->addComment(3, 2, NULL, 'I love cooking, it almost feels like roasting', 19);
-    $db->addComment(1, 2, NULL, 'Not gonna lie, this type of cooking is also fun.', 17);
-    $db->addComment(3, 3, NULL, 'I have always wanted to join that program, how did you apply ?', 70);
-    $db->addComment(2, 3, 6, 'I applied through the wong academy official website', 10);
-    $db->addComment(1, 3, NULL, 'Which edition of the cookbook did you get ?', 30);
-    $db->addComment(3, 3, NULL, "I still don't know what coooking is about to be honest", 70);
+    /* 1 */$db->addComment(1, 1, NULL, 'Its kinda lonely being the first to post in a forum.', 52);
+    /* 2*/$db->addComment(2, 1, 1, 'Hey there, I would not call myself an expert but would love to answer your questions if any about cooking', 20);
+    /* 3 */$db->addComment(3, 1, NULL, 'I cannot tell if this forum is about cooking or cooking.', 200);
+    /* 4 */$db->addComment(1, 1, NULL, 'So good to see so many comments under my post !', 17);
+    /* 5 */$db->addComment(1, 2, NULL, 'Wait a minute... this book is not actually about cooking as in making food.', 52);
+    /* 6 */$db->addComment(2, 2, 5, "Can't believe there are still people out there who do not know what cooking is about.", 2000);
+    /* 7 */$db->addComment(3, 2, NULL, 'I love cooking, it almost feels like roasting', 19);
+    /* 8 */$db->addComment(1, 2, NULL, 'Not gonna lie, this type of cooking is also fun.', 17);
+    /* 9 */$db->addComment(3, 3, NULL, 'I have always wanted to join that program, how did you apply ?', 70);
+    /* 10 */$db->addComment(2, 3, 9, 'I applied through the wong academy official website', 10);
+    /* 11*/$db->addComment(1, 3, NULL, 'Which edition of the cookbook did you get ?', 30);
+    /* 12 */$db->addComment(3, 3, NULL, "I still don't know what coooking is about to be honest", 70);
     // $db->addComment(2, 1, NULL, 'comment2', 0);
     // $db->addComment(2, 1, NULL, 'comment2', 0);
     // $db->addComment(2, 1, NULL, 'comment2', 0);
