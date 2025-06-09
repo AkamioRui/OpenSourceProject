@@ -9,7 +9,7 @@
         echo preg_replace('/<body.*>/','<body style="--code=\'no user_id\'">',$page);
         ob_end_flush();
         */
-        /* TEMP */echo '<body src="--code:\'no user_id\'"> </body>';
+        /* TEMP */echo '<body style="--code:\'no user_id\'"> </body>';
         return;
     }
     if(isset($_POST['insert_Comment'])) insert_Comment(
@@ -31,7 +31,7 @@ function insert_Comment($comment_postId, $comment_parentId, $comment_comment){
     
     try{
         $insertComment->execute();
-        echo '<body style="--code:success'.$comment_parentId.'"></body>';
+        echo '<body style="--code:\'success\''.$comment_parentId.'"></body>';
     } catch(PDOException $e){
         echo '<body style="--code:\''.$e->getMessage() .'\'"></body>';
         

@@ -40,7 +40,7 @@ function insert_Forum(
 
     try{
         $insertForum->execute();
-        echo '<body style="--code:success"></body>';
+        echo '<body style="--code:\'success\'"></body>';
     } catch(PDOException $e){
         echo '<body style="--code:\''.$e->getMessage() .'\'"></body>';
         
