@@ -9,6 +9,7 @@
     
 */
     $db = new INPUT();
+
     $db->addUser(__DIR__.'/user_profilePic1.jpg','testificate','user1@gmail.com','pass1', 1);
     $db->addUser(__DIR__.'/user_profilePic2.jpg','Jane','user2@gmail.com','pass2', 0);
     $db->addUser(__DIR__.'/user_profilePic3.jpg','John','user3@gmail.com','pass3', 0);
@@ -34,6 +35,7 @@
     $db->addComment(1, 1, 2, 'comment5', 0);
     $db->addComment(1, 1, 3, 'comment6', 0);
     $db->addComment(1, 1, 6, 'comment7', 0);
+
 
 
     
