@@ -6,14 +6,15 @@
 //include_once __DIR__."/../HEADER.php";
 
 
-preg_match(
-  '/(<[^<>]*id="sign-up"[^<>]*>)([^<>]*)(<[^<>]*>)/',
-  file_get_contents('D:\tugas\2_2\OpenSource\MessageBroardProject\src\views\account.html'),
-  $matches
-);
-var_dump($matches);
+// preg_match(
+//   '/(<[^<>]*id="sign-up"[^<>]*>)([^<>]*)(<[^<>]*>)/',
+//   file_get_contents(__DIR__.'\..\..\..\src\views\account.html'),
+//   $matches
+// );
+// var_dump($matches);
 
-
+include_once __DIR__."/../../../module/SQL_on_PHP/HEADER.php"; 
+getPDO();
 // extractfrom(file_get_contents(__DIR__.'\..\..\..\src\views\homepage.html'),'<[^>]*repeat[^>]*>','div');
 
 
@@ -218,7 +219,8 @@ var_dump($matches);
     //     var_dump($a);
     //     var_dump(isset($a));
     // }
-?>
 
+?>
+/home/dietpi/OpenSource/OpenSourceProject/module/SQL_on_PHP/test/test1.php
 
 
