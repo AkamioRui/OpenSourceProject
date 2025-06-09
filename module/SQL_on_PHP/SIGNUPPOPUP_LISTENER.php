@@ -9,7 +9,7 @@
 
 
 function insert_signup($user_username,$user_email,$user_password){
-    $user_profilePicPath = __DIR__.'\\'.json_decode(file_get_contents(__DIR__.'/../../databaseConfig.json'))->defaultUser->profilePic; 
+    $user_profilePicPath = __DIR__.'/'.json_decode(file_get_contents(__DIR__.'/../../databaseConfig.json'))->defaultUser->profilePic; 
     $insertUser = getPDO()->prepare('
         INSERT INTO `user_t`(`profilePic`, `username`, `email`, `password`) 
         VALUES (:profilePic, :username, :email, :password)
